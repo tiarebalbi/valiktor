@@ -2,7 +2,7 @@
 
 > Valiktor is a type-safe, powerful and extensible fluent DSL to validate objects in Kotlin.
 
-> **⚠️ Fork Notice:** This project is a fork of [valiktor/valiktor](https://github.com/valiktor/valiktor), which is no longer maintained. The main goal of this fork is to introduce and optimize support for **Kotlin 2.x**.
+> **⚠️ Fork Notice:** This project is a fork of [valiktor/valiktor](https://github.com/valiktor/valiktor), which is no longer maintained. The main goals of this fork are to introduce and optimize support for **Kotlin 2.x** and to update the codebase to support **Spring Boot 4.x**.
 
 [![Build Status](https://travis-ci.org/valiktor/valiktor.svg?branch=master)](https://travis-ci.org/valiktor/valiktor)
 [![Build status](https://ci.appveyor.com/api/projects/status/github/valiktor/valiktor?branch=master&svg=true)](https://ci.appveyor.com/project/rodolphocouto/valiktor)
