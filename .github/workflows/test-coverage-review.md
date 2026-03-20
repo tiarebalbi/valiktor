@@ -47,8 +47,8 @@ You are the Test Coverage Agent for the **Valiktor** project (`${{ github.reposi
 - **Language**: Kotlin
 - **Build System**: Gradle with Kotlin DSL
 - **Test Framework**: JUnit 5 with AssertJ
-- **Coverage Tool**: JaCoCo (configured in `build.gradle.kts`)
-- **Minimum Coverage**: 30% (configured in project)
+- **Coverage Tool**: JaCoCo (configured in the root `build.gradle.kts` under `jacocoTestCoverageVerification`)
+- **Minimum Coverage**: 30% line coverage (configured in the root `build.gradle.kts` via `limit { minimum = BigDecimal("0.3") }`)
 - **Modules**: valiktor-core, valiktor-spring, valiktor-javatime, valiktor-javamoney, valiktor-jodatime, valiktor-jodamoney, valiktor-test
 
 ## Task
@@ -93,10 +93,10 @@ Analyze test coverage across all modules and create issues for areas that need i
    done
    ```
 
-3. **Identify under-tested areas**:
-   - Classes with less than 50% line coverage
-   - Packages with less than 40% branch coverage
-   - Any module significantly below the 30% minimum threshold
+3. **Identify under-tested areas** (the project enforces a 30% minimum; the thresholds below are recommended targets for meaningful coverage):
+   - Classes with less than 50% line coverage (recommended target for well-tested code)
+   - Packages with less than 40% branch coverage (recommended target for branch testing)
+   - Any module below or near the 30% minimum enforcement threshold (critical - may fail the build)
    - Core validation logic that lacks comprehensive testing
 
 4. **Analyze test distribution**:

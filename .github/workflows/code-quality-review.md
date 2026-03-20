@@ -53,8 +53,9 @@ Perform a weekly code quality and architecture review focusing on Kotlin best pr
 
 2. **Review the Gradle build configuration**:
    - Check `build.gradle.kts` and `settings.gradle.kts` for best practices
-   - Verify plugin versions are up to date
-   - Check that dependency versions are consistent across modules
+   - Verify key plugin versions are current and not deprecated (Kotlin JVM plugin, JaCoCo, kotlinter, dokka, test-logger)
+   - Check the Gradle wrapper version in `gradle/wrapper/gradle-wrapper.properties`
+   - Check that dependency versions (JUnit, AssertJ, etc.) are consistent across modules
    - Look for deprecated Gradle APIs or configurations
 
 ### Phase 2: Kotlin-First Code Review
