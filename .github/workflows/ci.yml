@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - '**'
-    tags:
-      - 'v*'
   pull_request:
 
 jobs:
@@ -42,44 +40,3 @@ jobs:
       - name: Upload coverage to Codecov
         if: matrix.java == '8'
         uses: codecov/codecov-action@v4
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 8
-        uses: actions/setup-java@v4
-        with:
-          java-version: '8'
-          distribution: 'adopt'
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-
-
-      - name: Decrypt signing key
-        run: openssl aes-256-cbc -K ${{ secrets.SIGNING_KEY }} -iv ${{ secrets.SIGNING_IV }} -in private-key.gpg.enc -out private-key.gpg -d
-
-      - name: Publish
-        run: |
-          ./gradlew clean build dokka publish -x test -x check \
-            -Psigning.keyId="${{ secrets.SIGNING_KEYID }}" \
-            -Psigning.password="${{ secrets.SIGNING_PASSWORD }}" \
-            -Psigning.secretKeyRingFile="${{ github.workspace }}/private-key.gpg" \
-            -PossrhUsername="${{ secrets.OSSRH_USERNAME }}" \
-            -PossrhPassword="${{ secrets.OSSRH_PASSWORD }}" \
-            -Dorg.gradle.internal.http.socketTimeout=600000 \
-            -Dorg.gradle.internal.http.connectionTimeout=600000 \
-            -Dorg.gradle.internal.publish.checksums.insecure=true
