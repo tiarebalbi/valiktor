@@ -1,5 +1,5 @@
 dependencies {
-    implementation(project(":valiktor-core"))
+    api(project(":valiktor-core"))
 
     testImplementation(kotlin("reflect"))
 }
