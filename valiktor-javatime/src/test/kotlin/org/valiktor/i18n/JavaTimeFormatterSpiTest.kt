@@ -32,7 +32,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class JavaTimeFormatterSpiTest {
-
     @Test
     fun `should get JavaTimeFormatterSpi`() {
         assertEquals(Formatters[LocalDate::class], LocalDateFormatter)

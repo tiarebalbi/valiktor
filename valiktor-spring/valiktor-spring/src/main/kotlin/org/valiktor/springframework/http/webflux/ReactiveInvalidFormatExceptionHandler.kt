@@ -36,7 +36,6 @@ import reactor.core.publisher.Mono
  */
 @Order(-20)
 class ReactiveInvalidFormatExceptionHandler : WebExceptionHandler {
-
     /**
      * Handles [InvalidFormatException] and throws a [ConstraintViolationException]
      *
@@ -44,25 +43,33 @@ class ReactiveInvalidFormatExceptionHandler : WebExceptionHandler {
      * @param ex specifies the [InvalidFormatException]
      * @return the [Mono] with error of type [ConstraintViolationException]
      */
-    override fun handle(exchange: ServerWebExchange, ex: Throwable): Mono<Void> =
-        ex.handle(exchange) ?: Mono.error(ex)
+    override fun handle(
+        exchange: ServerWebExchange,
+        ex: Throwable,
+    ): Mono<Void> = ex.handle(exchange) ?: Mono.error(ex)
 
     private fun Throwable.handle(exchange: ServerWebExchange): Mono<Void>? =
         when (this) {
-            is InvalidFormatException ->
+            is InvalidFormatException -> {
                 Mono.error(
                     ConstraintViolationException(
-                        constraintViolations = setOf(
-                            DefaultConstraintViolation(
-                                property = this.path.fold("") { path, it ->
-                                    (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
-                                },
-                                constraint = if (this.targetType.isEnum) In(this.targetType.enumConstants.toSet()) else Valid,
-                                value = this.value
-                            )
-                        )
-                    )
+                        constraintViolations =
+                            setOf(
+                                DefaultConstraintViolation(
+                                    property =
+                                        this.path.fold("") { path, it ->
+                                            (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
+                                        },
+                                    constraint = if (this.targetType.isEnum) In(this.targetType.enumConstants.toSet()) else Valid,
+                                    value = this.value,
+                                ),
+                            ),
+                    ),
                 )
-            else -> this.cause?.handle(exchange)
+            }
+
+            else -> {
+                this.cause?.handle(exchange)
+            }
         }
 }

@@ -24,18 +24,16 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
 private object ConstraintFixture {
-
     object EmptyConstraint : Constraint
 
     data class CustomConstraint(
         override val name: String,
         override val messageKey: String,
-        override val messageParams: Map<String, *>
+        override val messageParams: Map<String, *>,
     ) : Constraint
 }
 
 class ConstraintTest {
-
     @Test
     fun `should create Constraint with default properties`() {
         val constraint = EmptyConstraint
@@ -47,11 +45,12 @@ class ConstraintTest {
 
     @Test
     fun `should create Constraint with custom properties`() {
-        val constraint = CustomConstraint(
-            name = "TestTestConstraint",
-            messageKey = "org.valiktor.test.constraints.TestConstraint.message",
-            messageParams = mapOf("value" to 1)
-        )
+        val constraint =
+            CustomConstraint(
+                name = "TestTestConstraint",
+                messageKey = "org.valiktor.test.constraints.TestConstraint.message",
+                messageParams = mapOf("value" to 1),
+            )
 
         assertEquals(constraint.name, "TestTestConstraint")
         assertEquals(constraint.messageKey, "org.valiktor.test.constraints.TestConstraint.message")

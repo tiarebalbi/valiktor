@@ -29,11 +29,13 @@ import java.time.format.FormatStyle
  * @since 0.1.0
  */
 object LocalDateFormatter : Formatter<LocalDate> {
-
-    override fun format(value: LocalDate, messageBundle: MessageBundle): String =
+    override fun format(
+        value: LocalDate,
+        messageBundle: MessageBundle,
+    ): String =
         value.format(
             DateTimeFormatter
                 .ofLocalizedDate(FormatStyle.MEDIUM)
-                .withLocale(messageBundle.locale)
+                .withLocale(messageBundle.locale),
         )
 }

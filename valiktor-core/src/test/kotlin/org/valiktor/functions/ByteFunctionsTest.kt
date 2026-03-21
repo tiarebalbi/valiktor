@@ -38,12 +38,12 @@ import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 private object ByteFunctionsFixture {
-
-    data class Employee(val id: Byte? = null)
+    data class Employee(
+        val id: Byte? = null,
+    )
 }
 
 class ByteFunctionsTest {
-
     @Test
     fun `isNull with null value should be valid`() {
         validate(Employee()) {
@@ -53,13 +53,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNull with not null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = Null)
+            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = Null),
         )
     }
 
@@ -72,13 +73,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotNull with null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee()) {
-                validate(Employee::id).isNotNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee()) {
+                    validate(Employee::id).isNotNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", constraint = NotNull)
+            DefaultConstraintViolation(property = "id", constraint = NotNull),
         )
     }
 
@@ -98,13 +100,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isEqualTo with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 2)) {
-                validate(Employee::id).isEqualTo(1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 2)) {
+                    validate(Employee::id).isEqualTo(1)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 2.toByte(), constraint = Equals<Byte>(1))
+            DefaultConstraintViolation(property = "id", value = 2.toByte(), constraint = Equals<Byte>(1)),
         )
     }
 
@@ -124,13 +127,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotEqualTo with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotEqualTo(1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotEqualTo(1)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = NotEquals<Byte>(1))
+            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = NotEquals<Byte>(1)),
         )
     }
 
@@ -150,13 +154,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isIn vararg with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isIn(0, 2, 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isIn(0, 2, 3)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = In(setOf<Byte>(0, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = In(setOf<Byte>(0, 2, 3))),
         )
     }
 
@@ -176,13 +181,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isIn iterable with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isIn(listOf<Byte>(0, 2, 3))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isIn(listOf<Byte>(0, 2, 3))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = In(listOf<Byte>(0, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = In(listOf<Byte>(0, 2, 3))),
         )
     }
 
@@ -202,13 +208,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotIn vararg with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotIn(1, 2, 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotIn(1, 2, 3)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = NotIn(setOf<Byte>(1, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = NotIn(setOf<Byte>(1, 2, 3))),
         )
     }
 
@@ -228,13 +235,14 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotIn iterable with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotIn(listOf<Byte>(1, 2, 3))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotIn(listOf<Byte>(1, 2, 3))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = NotIn(listOf<Byte>(1, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toByte(), constraint = NotIn(listOf<Byte>(1, 2, 3))),
         )
     }
 
@@ -254,18 +262,19 @@ class ByteFunctionsTest {
 
     @Test
     fun `isZero with one should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toByte(),
-                constraint = Equals<Byte>(0)
-            )
+                constraint = Equals<Byte>(0),
+            ),
         )
     }
 
@@ -285,18 +294,19 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotZero with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isNotZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isNotZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = NotEquals<Byte>(0)
-            )
+                constraint = NotEquals<Byte>(0),
+            ),
         )
     }
 
@@ -316,18 +326,19 @@ class ByteFunctionsTest {
 
     @Test
     fun `isOne with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = Equals<Byte>(1)
-            )
+                constraint = Equals<Byte>(1),
+            ),
         )
     }
 
@@ -347,18 +358,19 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotOne with one should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toByte(),
-                constraint = NotEquals<Byte>(1)
-            )
+                constraint = NotEquals<Byte>(1),
+            ),
         )
     }
 
@@ -378,35 +390,37 @@ class ByteFunctionsTest {
 
     @Test
     fun `isPositive with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isPositive()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isPositive()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = Greater<Byte>(0)
-            )
+                constraint = Greater<Byte>(0),
+            ),
         )
     }
 
     @Test
     fun `isPositive with negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -98)) {
-                validate(Employee::id).isPositive()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -98)) {
+                    validate(Employee::id).isPositive()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 98.unaryMinus().toByte(),
-                constraint = Greater<Byte>(0)
-            )
+                constraint = Greater<Byte>(0),
+            ),
         )
     }
 
@@ -433,18 +447,19 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNegativeOrZero with positive value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNegativeOrZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNegativeOrZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toByte(),
-                constraint = LessOrEqual<Byte>(0)
-            )
+                constraint = LessOrEqual<Byte>(0),
+            ),
         )
     }
 
@@ -464,35 +479,37 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNegative with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isNegative()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isNegative()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = Less<Byte>(0)
-            )
+                constraint = Less<Byte>(0),
+            ),
         )
     }
 
     @Test
     fun `isNegative with positive value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNegative()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNegative()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toByte(),
-                constraint = Less<Byte>(0)
-            )
+                constraint = Less<Byte>(0),
+            ),
         )
     }
 
@@ -519,18 +536,19 @@ class ByteFunctionsTest {
 
     @Test
     fun `isPositiveOrZero with negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -98)) {
-                validate(Employee::id).isPositiveOrZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -98)) {
+                    validate(Employee::id).isPositiveOrZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 98.unaryMinus().toByte(),
-                constraint = GreaterOrEqual<Byte>(0)
-            )
+                constraint = GreaterOrEqual<Byte>(0),
+            ),
         )
     }
 
@@ -557,52 +575,55 @@ class ByteFunctionsTest {
 
     @Test
     fun `isLessThan with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 50)) {
-                validate(Employee::id).isLessThan(49.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 50)) {
+                    validate(Employee::id).isLessThan(49.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 50.toByte(),
-                constraint = Less<Byte>(49)
-            )
+                constraint = Less<Byte>(49),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -50)) {
-                validate(Employee::id).isLessThan(51.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -50)) {
+                    validate(Employee::id).isLessThan(51.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 50.unaryMinus().toByte(),
-                constraint = Less<Byte>(-51)
-            )
+                constraint = Less<Byte>(-51),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isLessThan(0.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isLessThan(0.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = Less<Byte>(0)
-            )
+                constraint = Less<Byte>(0),
+            ),
         )
     }
 
@@ -636,35 +657,37 @@ class ByteFunctionsTest {
 
     @Test
     fun `isLessThanOrEqualTo with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 58)) {
-                validate(Employee::id).isLessThanOrEqualTo(57.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 58)) {
+                    validate(Employee::id).isLessThanOrEqualTo(57.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 58.toByte(),
-                constraint = LessOrEqual<Byte>(57)
-            )
+                constraint = LessOrEqual<Byte>(57),
+            ),
         )
     }
 
     @Test
     fun `isLessThanOrEqualTo with negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -96)) {
-                validate(Employee::id).isLessThanOrEqualTo(97.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -96)) {
+                    validate(Employee::id).isLessThanOrEqualTo(97.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 96.unaryMinus().toByte(),
-                constraint = LessOrEqual<Byte>(-97)
-            )
+                constraint = LessOrEqual<Byte>(-97),
+            ),
         )
     }
 
@@ -691,52 +714,55 @@ class ByteFunctionsTest {
 
     @Test
     fun `isGreaterThan with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 10)) {
-                validate(Employee::id).isGreaterThan(11.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 10)) {
+                    validate(Employee::id).isGreaterThan(11.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 10.toByte(),
-                constraint = Greater<Byte>(11)
-            )
+                constraint = Greater<Byte>(11),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with negative less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -19)) {
-                validate(Employee::id).isGreaterThan(18.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -19)) {
+                    validate(Employee::id).isGreaterThan(18.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 19.unaryMinus().toByte(),
-                constraint = Greater<Byte>(-18)
-            )
+                constraint = Greater<Byte>(-18),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isGreaterThan(0.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isGreaterThan(0.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = Greater<Byte>(0)
-            )
+                constraint = Greater<Byte>(0),
+            ),
         )
     }
 
@@ -770,35 +796,37 @@ class ByteFunctionsTest {
 
     @Test
     fun `isGreaterThanOrEqualTo with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 57)) {
-                validate(Employee::id).isGreaterThanOrEqualTo(58.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 57)) {
+                    validate(Employee::id).isGreaterThanOrEqualTo(58.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 57.toByte(),
-                constraint = GreaterOrEqual<Byte>(58)
-            )
+                constraint = GreaterOrEqual<Byte>(58),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThanOrEqualTo with negative less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -97)) {
-                validate(Employee::id).isGreaterThanOrEqualTo(96.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -97)) {
+                    validate(Employee::id).isGreaterThanOrEqualTo(96.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 97.unaryMinus().toByte(),
-                constraint = GreaterOrEqual<Byte>(-96)
-            )
+                constraint = GreaterOrEqual<Byte>(-96),
+            ),
         )
     }
 
@@ -853,69 +881,73 @@ class ByteFunctionsTest {
 
     @Test
     fun `isBetween with less start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 10)) {
-                validate(Employee::id).isBetween(start = 11.toByte(), end = 12.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 10)) {
+                    validate(Employee::id).isBetween(start = 11.toByte(), end = 12.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 10.toByte(),
-                constraint = Between<Byte>(start = 11, end = 12)
-            )
+                constraint = Between<Byte>(start = 11, end = 12),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 12)) {
-                validate(Employee::id).isBetween(start = 10.toByte(), end = 11.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 12)) {
+                    validate(Employee::id).isBetween(start = 10.toByte(), end = 11.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 12.toByte(),
-                constraint = Between<Byte>(start = 10, end = 11)
-            )
+                constraint = Between<Byte>(start = 10, end = 11),
+            ),
         )
     }
 
     @Test
     fun `isBetween with less negative start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -10)) {
-                validate(Employee::id).isBetween(start = 9.unaryMinus().toByte(), end = 8.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -10)) {
+                    validate(Employee::id).isBetween(start = 9.unaryMinus().toByte(), end = 8.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 10.unaryMinus().toByte(),
-                constraint = Between<Byte>(start = -9, end = -8)
-            )
+                constraint = Between<Byte>(start = -9, end = -8),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater negative end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -12)) {
-                validate(Employee::id).isBetween(start = 14.unaryMinus().toByte(), end = 13.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -12)) {
+                    validate(Employee::id).isBetween(start = 14.unaryMinus().toByte(), end = 13.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 12.unaryMinus().toByte(),
-                constraint = Between<Byte>(start = -14, end = -13)
-            )
+                constraint = Between<Byte>(start = -14, end = -13),
+            ),
         )
     }
 
@@ -956,103 +988,109 @@ class ByteFunctionsTest {
 
     @Test
     fun `isNotBetween with equal start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isNotBetween(start = 0.toByte(), end = 1.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isNotBetween(start = 0.toByte(), end = 1.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toByte(),
-                constraint = NotBetween<Byte>(start = 0, end = 1)
-            )
+                constraint = NotBetween<Byte>(start = 0, end = 1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotBetween(start = 0.toByte(), end = 1.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotBetween(start = 0.toByte(), end = 1.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toByte(),
-                constraint = NotBetween<Byte>(start = 0, end = 1)
-            )
+                constraint = NotBetween<Byte>(start = 0, end = 1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal negative start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -2)) {
-                validate(Employee::id).isNotBetween(start = 2.unaryMinus().toByte(), end = 1.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -2)) {
+                    validate(Employee::id).isNotBetween(start = 2.unaryMinus().toByte(), end = 1.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 2.unaryMinus().toByte(),
-                constraint = NotBetween<Byte>(start = -2, end = -1)
-            )
+                constraint = NotBetween<Byte>(start = -2, end = -1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal negative end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -1)) {
-                validate(Employee::id).isNotBetween(start = 2.unaryMinus().toByte(), end = 1.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -1)) {
+                    validate(Employee::id).isNotBetween(start = 2.unaryMinus().toByte(), end = 1.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.unaryMinus().toByte(),
-                constraint = NotBetween<Byte>(start = -2, end = -1)
-            )
+                constraint = NotBetween<Byte>(start = -2, end = -1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 5)) {
-                validate(Employee::id).isNotBetween(start = 0.toByte(), end = 10.toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 5)) {
+                    validate(Employee::id).isNotBetween(start = 0.toByte(), end = 10.toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 5.toByte(),
-                constraint = NotBetween<Byte>(start = 0, end = 10)
-            )
+                constraint = NotBetween<Byte>(start = 0, end = 10),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -15)) {
-                validate(Employee::id).isNotBetween(start = 20.unaryMinus().toByte(), end = 10.unaryMinus().toByte())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -15)) {
+                    validate(Employee::id).isNotBetween(start = 20.unaryMinus().toByte(), end = 10.unaryMinus().toByte())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 15.unaryMinus().toByte(),
-                constraint = NotBetween<Byte>(start = -20, end = -10)
-            )
+                constraint = NotBetween<Byte>(start = -20, end = -10),
+            ),
         )
     }
 
@@ -1114,103 +1152,109 @@ class ByteFunctionsTest {
 
     @Test
     fun `hasDigits with less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 74)) {
-                validate(Employee::id).hasDigits(min = 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 74)) {
+                    validate(Employee::id).hasDigits(min = 3)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 74.toByte(),
-                constraint = IntegerDigits(min = 3)
-            )
+                constraint = IntegerDigits(min = 3),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 74)) {
-                validate(Employee::id).hasDigits(max = 1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 74)) {
+                    validate(Employee::id).hasDigits(max = 1)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 74.toByte(),
-                constraint = IntegerDigits(max = 1)
-            )
+                constraint = IntegerDigits(max = 1),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with less value and greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 74)) {
-                validate(Employee::id).hasDigits(min = 3, max = 1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 74)) {
+                    validate(Employee::id).hasDigits(min = 3, max = 1)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 74.toByte(),
-                constraint = IntegerDigits(min = 3, max = 1)
-            )
+                constraint = IntegerDigits(min = 3, max = 1),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with negative less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -74)) {
-                validate(Employee::id).hasDigits(min = 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -74)) {
+                    validate(Employee::id).hasDigits(min = 3)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 74.unaryMinus().toByte(),
-                constraint = IntegerDigits(min = 3)
-            )
+                constraint = IntegerDigits(min = 3),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with negative greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -74)) {
-                validate(Employee::id).hasDigits(max = 1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -74)) {
+                    validate(Employee::id).hasDigits(max = 1)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 74.unaryMinus().toByte(),
-                constraint = IntegerDigits(max = 1)
-            )
+                constraint = IntegerDigits(max = 1),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with negative less value and negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -74)) {
-                validate(Employee::id).hasDigits(min = 3, max = 1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -74)) {
+                    validate(Employee::id).hasDigits(min = 3, max = 1)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 74.unaryMinus().toByte(),
-                constraint = IntegerDigits(min = 3, max = 1)
-            )
+                constraint = IntegerDigits(min = 3, max = 1),
+            ),
         )
     }
 }

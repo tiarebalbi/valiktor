@@ -24,9 +24,8 @@ import org.zalando.jackson.datatype.money.MoneyModule
 
 @SpringBootApplication
 class SampleApplication {
-
     @Bean
-    fun kotlinModule() = KotlinModule()
+    fun kotlinModule() = KotlinModule.Builder().build()
 
     @Bean
     fun moneyModule() = MoneyModule()

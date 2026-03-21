@@ -25,11 +25,14 @@ import java.util.Locale
 
 object Document : Constraint
 
-fun Validator<Employee>.Property<String?>.isDocumentNumber() = this.validate(Document) {
-    it == null || it.matches(Regex("^\\d{3}.\\d{3}.\\d{3}-\\d{2}\$"))
-}
+fun Validator<Employee>.Property<String?>.isDocumentNumber() =
+    this.validate(Document) {
+        it == null || it.matches(Regex("^\\d{3}.\\d{3}.\\d{3}-\\d{2}\$"))
+    }
 
-data class Employee(val documentNumber: String) {
+data class Employee(
+    val documentNumber: String,
+) {
     init {
         validate(this) {
             validate(Employee::documentNumber).isDocumentNumber()

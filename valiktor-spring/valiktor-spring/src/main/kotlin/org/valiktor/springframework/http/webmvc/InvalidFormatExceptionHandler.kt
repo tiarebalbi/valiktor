@@ -39,9 +39,8 @@ import java.util.Locale
  */
 @RestControllerAdvice
 class InvalidFormatExceptionHandler(
-    private val constraintViolationExceptionHandler: ConstraintViolationExceptionHandler
+    private val constraintViolationExceptionHandler: ConstraintViolationExceptionHandler,
 ) {
-
     /**
      * Handles [InvalidFormatException] and delegates the response to [constraintViolationExceptionHandler].
      *
@@ -50,19 +49,25 @@ class InvalidFormatExceptionHandler(
      * @return the ResponseEntity with status code, headers and body
      */
     @ExceptionHandler(InvalidFormatException::class)
-    fun handleInvalidFormatException(ex: InvalidFormatException, locale: Locale?): ResponseEntity<*> =
+    fun handleInvalidFormatException(
+        ex: InvalidFormatException,
+        locale: Locale?,
+    ): ResponseEntity<*> =
         constraintViolationExceptionHandler.handleConstraintViolationException(
-            ex = ConstraintViolationException(
-                constraintViolations = setOf(
-                    DefaultConstraintViolation(
-                        property = ex.path.fold("") { path, it ->
-                            (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
-                        },
-                        constraint = if (ex.targetType.isEnum) In(ex.targetType.enumConstants.toSet()) else Valid,
-                        value = ex.value
-                    )
-                )
-            ),
-            locale = locale
+            ex =
+                ConstraintViolationException(
+                    constraintViolations =
+                        setOf(
+                            DefaultConstraintViolation(
+                                property =
+                                    ex.path.fold("") { path, it ->
+                                        (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
+                                    },
+                                constraint = if (ex.targetType.isEnum) In(ex.targetType.enumConstants.toSet()) else Valid,
+                                value = ex.value,
+                            ),
+                        ),
+                ),
+            locale = locale,
         )
 }

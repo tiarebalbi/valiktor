@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.valiktor.springframework.config.ValiktorConfiguration
 
 /**
@@ -33,11 +33,12 @@ import org.valiktor.springframework.config.ValiktorConfiguration
  * @see ValiktorProperties
  * @since 0.1.0
  */
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = ["org.valiktor.springframework.config.ValiktorConfiguration"])
 @EnableConfigurationProperties(ValiktorProperties::class)
-class ValiktorAutoConfiguration(private val properties: ValiktorProperties) {
-
+class ValiktorAutoConfiguration(
+    private val properties: ValiktorProperties,
+) {
     /**
      * Creates a [ValiktorConfiguration] based on the properties
      *

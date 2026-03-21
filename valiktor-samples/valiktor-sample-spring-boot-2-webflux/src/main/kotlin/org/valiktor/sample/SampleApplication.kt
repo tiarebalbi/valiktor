@@ -23,7 +23,6 @@ import org.zalando.jackson.datatype.money.MoneyModule
 
 @SpringBootApplication
 class SampleApplication {
-
     @Bean
     fun moneyModule() = MoneyModule()
 }

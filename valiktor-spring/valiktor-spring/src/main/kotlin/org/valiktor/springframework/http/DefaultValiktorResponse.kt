@@ -33,7 +33,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 data class UnprocessableEntity(
     @JacksonXmlProperty(localName = "error")
     @JacksonXmlElementWrapper(localName = "errors")
-    val errors: List<ValidationError>
+    val errors: List<ValidationError>,
 )
 
 /**
@@ -52,7 +52,7 @@ data class ValidationError(
     val property: String,
     val value: Any?,
     val message: String,
-    val constraint: ValidationConstraint
+    val constraint: ValidationConstraint,
 )
 
 /**
@@ -69,7 +69,7 @@ data class ValidationConstraint(
     val name: String,
     @JacksonXmlProperty(localName = "param")
     @JacksonXmlElementWrapper(localName = "params")
-    val params: List<ValidationParam>
+    val params: List<ValidationParam>,
 )
 
 /**
@@ -83,5 +83,5 @@ data class ValidationConstraint(
  */
 data class ValidationParam(
     val name: String,
-    val value: Any?
+    val value: Any?,
 )

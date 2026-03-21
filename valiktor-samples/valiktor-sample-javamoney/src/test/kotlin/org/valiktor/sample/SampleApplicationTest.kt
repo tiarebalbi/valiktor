@@ -23,17 +23,42 @@ import javax.money.Monetary
 import kotlin.test.Test
 
 class SampleApplicationTest {
-
     @Test
     fun `should validate employee`() {
         shouldFailValidation<Employee> {
             Employee(
-                grossSalary = Monetary.getDefaultAmountFactory().setNumber(1000).setCurrency(Monetary.getCurrency("EUR")).create(),
-                netSalary = Monetary.getDefaultAmountFactory().setNumber(999.999).setCurrency(Monetary.getCurrency("EUR")).create()
+                grossSalary =
+                    Monetary
+                        .getDefaultAmountFactory()
+                        .setNumber(1000)
+                        .setCurrency(Monetary.getCurrency("EUR"))
+                        .create(),
+                netSalary =
+                    Monetary
+                        .getDefaultAmountFactory()
+                        .setNumber(999.999)
+                        .setCurrency(Monetary.getCurrency("EUR"))
+                        .create(),
             )
         }.verify {
-            expect(Employee::grossSalary, Monetary.getDefaultAmountFactory().setNumber(1000).setCurrency(Monetary.getCurrency("EUR")).create(), CurrencyIn(SUPPORTED_CURRENCIES))
-            expect(Employee::netSalary, Monetary.getDefaultAmountFactory().setNumber(999.999).setCurrency(Monetary.getCurrency("EUR")).create(), DecimalDigits(max = 2))
+            expect(
+                Employee::grossSalary,
+                Monetary
+                    .getDefaultAmountFactory()
+                    .setNumber(1000)
+                    .setCurrency(Monetary.getCurrency("EUR"))
+                    .create(),
+                CurrencyIn(SUPPORTED_CURRENCIES),
+            )
+            expect(
+                Employee::netSalary,
+                Monetary
+                    .getDefaultAmountFactory()
+                    .setNumber(999.999)
+                    .setCurrency(Monetary.getCurrency("EUR"))
+                    .create(),
+                DecimalDigits(max = 2),
+            )
         }
     }
 }

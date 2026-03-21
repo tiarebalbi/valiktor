@@ -29,7 +29,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class InvalidFormatExceptionHandlerJsonTest {
-
     private val mockMvc = ExceptionHandlerFixture.mockMvc
     private val json = ExceptionHandlerFixture.JSON
 
@@ -45,9 +44,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                 post("/employees")
                     .accept(APPLICATION_JSON)
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeValid())
-            )
-            .andExpect(status().isCreated)
+                    .content(json.payloadEmployeeValid()),
+            ).andExpect(status().isCreated)
             .andExpect(header().string(LOCATION, "http://localhost/employees/1"))
             .andExpect(content().bytes(ByteArray(0)))
             .andDo(log())
@@ -60,9 +58,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                 post("/employees")
                     .accept(APPLICATION_JSON)
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeInvalidStatus())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(json.payloadEmployeeInvalidStatus()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
             .andExpect(content().json(json.payload422InvalidStatus(Locale.ENGLISH)))
             .andDo(log())
@@ -76,9 +73,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                     .accept(APPLICATION_JSON)
                     .header(ACCEPT_LANGUAGE, "en")
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeInvalidStatus())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(json.payloadEmployeeInvalidStatus()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
             .andExpect(content().json(json.payload422InvalidStatus(Locale.ENGLISH)))
             .andDo(log())
@@ -92,9 +88,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                     .accept(APPLICATION_JSON)
                     .header(ACCEPT_LANGUAGE, "pt-BR")
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeInvalidStatus())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(json.payloadEmployeeInvalidStatus()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
             .andExpect(content().json(json.payload422InvalidStatus(Locale("pt", "BR"))))
             .andDo(log())
@@ -107,9 +102,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                 post("/employees")
                     .accept(APPLICATION_JSON)
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeInvalidSalary())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(json.payloadEmployeeInvalidSalary()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
             .andExpect(content().json(json.payload422InvalidSalary(Locale.ENGLISH)))
             .andDo(log())
@@ -123,9 +117,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                     .accept(APPLICATION_JSON)
                     .header(ACCEPT_LANGUAGE, "en")
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeInvalidSalary())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(json.payloadEmployeeInvalidSalary()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
             .andExpect(content().json(json.payload422InvalidSalary(Locale.ENGLISH)))
             .andDo(log())
@@ -139,9 +132,8 @@ class InvalidFormatExceptionHandlerJsonTest {
                     .accept(APPLICATION_JSON)
                     .header(ACCEPT_LANGUAGE, "pt-BR")
                     .contentType(APPLICATION_JSON)
-                    .content(json.payloadEmployeeInvalidSalary())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(json.payloadEmployeeInvalidSalary()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
             .andExpect(content().json(json.payload422InvalidSalary(Locale("pt", "BR"))))
             .andDo(log())

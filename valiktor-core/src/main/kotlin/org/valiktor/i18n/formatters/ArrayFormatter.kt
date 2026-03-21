@@ -27,7 +27,8 @@ import org.valiktor.i18n.MessageBundle
  * @since 0.1.0
  */
 object ArrayFormatter : Formatter<Array<Any>> {
-
-    override fun format(value: Array<Any>, messageBundle: MessageBundle): String =
-        value.joinToString { Formatters[it.javaClass.kotlin].format(it, messageBundle) }
+    override fun format(
+        value: Array<Any>,
+        messageBundle: MessageBundle,
+    ): String = value.joinToString { Formatters[it.javaClass.kotlin].format(it, messageBundle) }
 }

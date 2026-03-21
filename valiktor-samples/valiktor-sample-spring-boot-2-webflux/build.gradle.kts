@@ -1,6 +1,6 @@
 plugins {
-    kotlin("plugin.spring") version "1.4.10"
-    id("org.springframework.boot") version "2.3.4.RELEASE"
+    kotlin("plugin.spring") version "2.2.21"
+    id("org.springframework.boot") version "3.4.3"
 }
 
 val jacksonMoneyVersion = "1.2.0"
@@ -8,23 +8,23 @@ val moneyVersion = "1.1"
 val monetaVersion = "1.4.2"
 
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:2.3.4.RELEASE"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.4.3"))
 
-    compile(kotlin("stdlib"))
-    compile(kotlin("reflect"))
-    compile(project(":valiktor-javamoney"))
-    compile(project(":valiktor-javatime"))
-    compile(project(":valiktor-spring:valiktor-spring-boot-starter"))
-    compile("org.springframework.boot:spring-boot-starter-webflux")
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
-    compile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
-    compile("org.zalando:jackson-datatype-money:$jacksonMoneyVersion")
-    compile("javax.money:money-api:$moneyVersion")
-    runtime("org.javamoney:moneta:$monetaVersion")
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
+    implementation(project(":valiktor-javamoney"))
+    implementation(project(":valiktor-javatime"))
+    implementation(project(":valiktor-spring:valiktor-spring-boot-starter"))
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+    implementation("org.zalando:jackson-datatype-money:$jacksonMoneyVersion")
+    implementation("javax.money:money-api:$moneyVersion")
+    runtimeOnly("org.javamoney:moneta:$monetaVersion")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("org.jetbrains.kotlinx:kotlinx-coroutines-test")
-    testCompile("org.jetbrains.kotlinx:kotlinx-coroutines-debug")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-debug")
 }

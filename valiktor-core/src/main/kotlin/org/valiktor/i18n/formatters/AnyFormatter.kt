@@ -26,6 +26,8 @@ import org.valiktor.i18n.MessageBundle
  * @since 0.1.0
  */
 object AnyFormatter : Formatter<Any> {
-
-    override fun format(value: Any, messageBundle: MessageBundle): String = value.toString()
+    override fun format(
+        value: Any,
+        messageBundle: MessageBundle,
+    ): String = value.toString()
 }

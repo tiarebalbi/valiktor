@@ -32,9 +32,8 @@ import java.util.Locale
  */
 @Component
 class DefaultValiktorExceptionHandler(
-    private val config: ValiktorConfiguration
+    private val config: ValiktorConfiguration,
 ) : ValiktorExceptionHandler<UnprocessableEntity> {
-
     /**
      * Handles [ConstraintViolationException] and returns a [ValiktorResponse] with status code 422 (Unprocessable Entity)
      * and [UnprocessableEntity] as response body.
@@ -43,27 +42,33 @@ class DefaultValiktorExceptionHandler(
      * @param locale specifies the [Locale] extracted from request
      * @return a [ValiktorResponse] with status code, headers and body
      */
-    override fun handle(exception: ConstraintViolationException, locale: Locale) =
-        ValiktorResponse(
-            body = UnprocessableEntity(
-                errors = exception.constraintViolations
-                    .mapToMessage(baseName = config.baseBundleName, locale = locale)
-                    .map { constraintViolation ->
-                        ValidationError(
-                            property = constraintViolation.property,
-                            value = constraintViolation.value,
-                            message = constraintViolation.message,
-                            constraint = ValidationConstraint(
-                                name = constraintViolation.constraint.name,
-                                params = constraintViolation.constraint.messageParams.map { param ->
-                                    ValidationParam(
-                                        name = param.key,
-                                        value = param.value
-                                    )
-                                }
+    override fun handle(
+        exception: ConstraintViolationException,
+        locale: Locale,
+    ) = ValiktorResponse(
+        body =
+            UnprocessableEntity(
+                errors =
+                    exception.constraintViolations
+                        .mapToMessage(baseName = config.baseBundleName, locale = locale)
+                        .map { constraintViolation ->
+                            ValidationError(
+                                property = constraintViolation.property,
+                                value = constraintViolation.value,
+                                message = constraintViolation.message,
+                                constraint =
+                                    ValidationConstraint(
+                                        name = constraintViolation.constraint.name,
+                                        params =
+                                            constraintViolation.constraint.messageParams.map { param ->
+                                                ValidationParam(
+                                                    name = param.key,
+                                                    value = param.value,
+                                                )
+                                            },
+                                    ),
                             )
-                        )
-                    }
-            )
-        )
+                        },
+            ),
+    )
 }

@@ -25,7 +25,6 @@ import org.valiktor.i18n.formatAllSupportedLocales
 import kotlin.test.Test
 
 class LocalTimeFormatterTest {
-
     @Test
     fun `should format time`() {
         assertThat(Formatters[LocalTime::class].formatAllSupportedLocales(LocalTime(23, 58, 59))).contains(
@@ -33,7 +32,7 @@ class LocalTimeFormatterTest {
             entry(SupportedLocales.DE, "23:58:59"),
             entry(SupportedLocales.EN, "11:58:59 PM"),
             entry(SupportedLocales.JA, "23:58:59"),
-            entry(SupportedLocales.PT_BR, "23:58:59")
+            entry(SupportedLocales.PT_BR, "23:58:59"),
         )
     }
 }

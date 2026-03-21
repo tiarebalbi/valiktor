@@ -46,8 +46,9 @@ inline fun <E> shouldFailValidation(block: () -> Unit): TestValidator<E> {
  * @see ConstraintViolation
  * @since 0.8.0
  */
-class TestValidator<E>(val constraintViolations: Set<ConstraintViolation>) {
-
+class TestValidator<E>(
+    val constraintViolations: Set<ConstraintViolation>,
+) {
     /**
      * Verify expected constraint violations using [TestValidatorVerifier] DSL
      *
@@ -55,9 +56,10 @@ class TestValidator<E>(val constraintViolations: Set<ConstraintViolation>) {
      */
     inline fun verify(block: TestValidatorVerifier<E>.() -> Unit) {
         val expectedConstraintViolations = TestValidatorVerifier<E>().apply(block).expectedConstraintViolations
-        val constraintViolations = constraintViolations
-            .map { TestConstraintViolation(it.property, it.value, it.constraint) }
-            .toSet()
+        val constraintViolations =
+            constraintViolations
+                .map { TestConstraintViolation(it.property, it.value, it.constraint) }
+                .toSet()
 
         assertTrue(message(expectedConstraintViolations, constraintViolations)) {
             expectedConstraintViolations == constraintViolations

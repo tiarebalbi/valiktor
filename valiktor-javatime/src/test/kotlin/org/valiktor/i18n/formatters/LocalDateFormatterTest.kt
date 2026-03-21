@@ -26,7 +26,6 @@ import java.time.Month
 import kotlin.test.Test
 
 class LocalDateFormatterTest {
-
     @Test
     fun `should format date`() {
         assertThat(Formatters[LocalDate::class].formatAllSupportedLocales(LocalDate.of(2018, Month.DECEMBER, 31))).contains(
@@ -34,7 +33,7 @@ class LocalDateFormatterTest {
             entry(SupportedLocales.DE, "31.12.2018"),
             entry(SupportedLocales.EN, "Dec 31, 2018"),
             entry(SupportedLocales.JA, "2018/12/31"),
-            entry(SupportedLocales.PT_BR, "31/12/2018")
+            entry(SupportedLocales.PT_BR, "31/12/2018"),
         )
     }
 }

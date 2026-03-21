@@ -31,6 +31,5 @@ import org.valiktor.springframework.config.ValiktorConfiguration
  */
 @ConfigurationProperties(prefix = "valiktor", ignoreUnknownFields = true)
 class ValiktorProperties {
-
     var baseBundleName: String? = null
 }

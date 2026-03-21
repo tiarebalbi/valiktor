@@ -2,10 +2,10 @@ val moneyVersion = "1.0.4"
 val monetaVersion = "1.4.1"
 
 dependencies {
-    compile(project(":valiktor-core"))
+    implementation(project(":valiktor-core"))
     compileOnly("javax.money:money-api-bp:$moneyVersion")
 
-    testCompile(kotlin("reflect"))
-    testCompile("javax.money:money-api-bp:$moneyVersion")
-    testRuntime("org.javamoney:moneta-bp:$monetaVersion")
+    testImplementation(kotlin("reflect"))
+    testImplementation("javax.money:money-api-bp:$moneyVersion")
+    testRuntimeOnly("org.javamoney:moneta-bp:$monetaVersion")
 }

@@ -28,7 +28,7 @@ import java.util.Locale
 data class Employee(
     val dateOfBirth: LocalDate,
     val workStartTime: LocalTime,
-    val workEndTime: LocalTime
+    val workEndTime: LocalTime,
 ) {
     init {
         validate(this) {
@@ -44,7 +44,7 @@ fun main() {
         Employee(
             dateOfBirth = LocalDate.now(),
             workStartTime = LocalTime.of(7, 0, 0),
-            workEndTime = LocalTime.of(21, 0, 0)
+            workEndTime = LocalTime.of(21, 0, 0),
         )
     } catch (ex: ConstraintViolationException) {
         ex.constraintViolations

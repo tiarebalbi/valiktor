@@ -43,12 +43,12 @@ import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 private object OffsetDateTimeFunctionsFixture {
-
-    data class Employee(val dateOfBirth: DateTime? = null)
+    data class Employee(
+        val dateOfBirth: DateTime? = null,
+    )
 }
 
 class OffsetDateTimeFunctionsTest {
-
     private val dateTime = DateTime(2018, 1, 1, 13, 25, 57, DateTimeZone.getDefault())
 
     @Test
@@ -60,13 +60,14 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNull with not null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = Null)
+            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = Null),
         )
     }
 
@@ -79,13 +80,14 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNotNull with null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee()) {
-                validate(Employee::dateOfBirth).isNotNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee()) {
+                    validate(Employee::dateOfBirth).isNotNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", constraint = NotNull)
+            DefaultConstraintViolation(property = "dateOfBirth", constraint = NotNull),
         )
     }
 
@@ -105,13 +107,14 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isEqualTo with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isEqualTo(dateTime.minusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isEqualTo(dateTime.minusSeconds(1))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = Equals(dateTime.minusSeconds(1)))
+            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = Equals(dateTime.minusSeconds(1))),
         )
     }
 
@@ -131,13 +134,14 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNotEqualTo with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isNotEqualTo(dateTime)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isNotEqualTo(dateTime)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = NotEquals(dateTime))
+            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = NotEquals(dateTime)),
         )
     }
 
@@ -157,13 +161,18 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isIn vararg with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isIn(dateTime.minusSeconds(1), dateTime.minusSeconds(2))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isIn(dateTime.minusSeconds(1), dateTime.minusSeconds(2))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = In(setOf(dateTime.minusSeconds(1), dateTime.minusSeconds(2))))
+            DefaultConstraintViolation(
+                property = "dateOfBirth",
+                value = dateTime,
+                constraint = In(setOf(dateTime.minusSeconds(1), dateTime.minusSeconds(2))),
+            ),
         )
     }
 
@@ -183,13 +192,18 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isIn iterable with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isIn(listOf(dateTime.minusSeconds(1), dateTime.minusSeconds(2)))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isIn(listOf(dateTime.minusSeconds(1), dateTime.minusSeconds(2)))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = In(listOf(dateTime.minusSeconds(1), dateTime.minusSeconds(2))))
+            DefaultConstraintViolation(
+                property = "dateOfBirth",
+                value = dateTime,
+                constraint = In(listOf(dateTime.minusSeconds(1), dateTime.minusSeconds(2))),
+            ),
         )
     }
 
@@ -209,13 +223,18 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNotIn vararg with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isNotIn(dateTime, dateTime.plusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isNotIn(dateTime, dateTime.plusSeconds(1))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = NotIn(setOf(dateTime, dateTime.plusSeconds(1))))
+            DefaultConstraintViolation(
+                property = "dateOfBirth",
+                value = dateTime,
+                constraint = NotIn(setOf(dateTime, dateTime.plusSeconds(1))),
+            ),
         )
     }
 
@@ -235,13 +254,18 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNotIn iterable with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isNotIn(listOf(dateTime, dateTime.plusSeconds(1)))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isNotIn(listOf(dateTime, dateTime.plusSeconds(1)))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime, constraint = NotIn(listOf(dateTime, dateTime.plusSeconds(1))))
+            DefaultConstraintViolation(
+                property = "dateOfBirth",
+                value = dateTime,
+                constraint = NotIn(listOf(dateTime, dateTime.plusSeconds(1))),
+            ),
         )
     }
 
@@ -277,13 +301,14 @@ class OffsetDateTimeFunctionsTest {
     fun `isToday with yesterday value should be invalid`() {
         val dateTime = DateTime.now(DateTimeZone.getDefault())
 
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime.minusDays(1))) {
-                validate(Employee::dateOfBirth).isToday()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime.minusDays(1))) {
+                    validate(Employee::dateOfBirth).isToday()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime.minusDays(1), constraint = Today)
+            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime.minusDays(1), constraint = Today),
         )
     }
 
@@ -291,13 +316,14 @@ class OffsetDateTimeFunctionsTest {
     fun `isToday with tomorrow value should be invalid`() {
         val dateTime = DateTime.now(DateTimeZone.getDefault())
 
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime.plusDays(1))) {
-                validate(Employee::dateOfBirth).isToday()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime.plusDays(1))) {
+                    validate(Employee::dateOfBirth).isToday()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime.plusDays(1), constraint = Today)
+            DefaultConstraintViolation(property = "dateOfBirth", value = dateTime.plusDays(1), constraint = Today),
         )
     }
 
@@ -310,25 +336,35 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNotToday with 00h00m00 should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = LocalDate.now(DateTimeZone.getDefault()).toDateTimeAtStartOfDay())) {
-                validate(Employee::dateOfBirth).isNotToday()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = LocalDate.now(DateTimeZone.getDefault()).toDateTimeAtStartOfDay())) {
+                    validate(Employee::dateOfBirth).isNotToday()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = LocalDate.now(DateTimeZone.getDefault()).toDateTimeAtStartOfDay(), constraint = NotToday)
+            DefaultConstraintViolation(
+                property = "dateOfBirth",
+                value = LocalDate.now(DateTimeZone.getDefault()).toDateTimeAtStartOfDay(),
+                constraint = NotToday,
+            ),
         )
     }
 
     @Test
     fun `isNotToday with 23h59m59 should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = LocalDate.now(DateTimeZone.getDefault()).toDateTime(LocalTime(23, 59, 59)))) {
-                validate(Employee::dateOfBirth).isNotToday()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = LocalDate.now(DateTimeZone.getDefault()).toDateTime(LocalTime(23, 59, 59)))) {
+                    validate(Employee::dateOfBirth).isNotToday()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = LocalDate.now(DateTimeZone.getDefault()).toDateTime(LocalTime(23, 59, 59)), constraint = NotToday)
+            DefaultConstraintViolation(
+                property = "dateOfBirth",
+                value = LocalDate.now(DateTimeZone.getDefault()).toDateTime(LocalTime(23, 59, 59)),
+                constraint = NotToday,
+            ),
         )
     }
 
@@ -336,13 +372,14 @@ class OffsetDateTimeFunctionsTest {
     fun `isNotToday with now should be invalid`() {
         val now = DateTime.now(DateTimeZone.getDefault())
 
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = now)) {
-                validate(Employee::dateOfBirth).isNotToday()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = now)) {
+                    validate(Employee::dateOfBirth).isNotToday()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "dateOfBirth", value = now, constraint = NotToday)
+            DefaultConstraintViolation(property = "dateOfBirth", value = now, constraint = NotToday),
         )
     }
 
@@ -376,35 +413,37 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isLessThan with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isLessThan(dateTime.minusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isLessThan(dateTime.minusSeconds(1))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = Less(dateTime.minusSeconds(1))
-            )
+                constraint = Less(dateTime.minusSeconds(1)),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isLessThan(dateTime)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isLessThan(dateTime)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = Less(dateTime)
-            )
+                constraint = Less(dateTime),
+            ),
         )
     }
 
@@ -431,18 +470,19 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isLessThanOrEqualTo with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isLessThanOrEqualTo(dateTime.minusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isLessThanOrEqualTo(dateTime.minusSeconds(1))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = LessOrEqual(dateTime.minusSeconds(1))
-            )
+                constraint = LessOrEqual(dateTime.minusSeconds(1)),
+            ),
         )
     }
 
@@ -462,35 +502,37 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isGreaterThan with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isGreaterThan(dateTime.plusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isGreaterThan(dateTime.plusSeconds(1))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = Greater(dateTime.plusSeconds(1))
-            )
+                constraint = Greater(dateTime.plusSeconds(1)),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isGreaterThan(dateTime)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isGreaterThan(dateTime)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = Greater(dateTime)
-            )
+                constraint = Greater(dateTime),
+            ),
         )
     }
 
@@ -517,18 +559,19 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isGreaterThanOrEqualTo with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isGreaterThanOrEqualTo(dateTime.plusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isGreaterThanOrEqualTo(dateTime.plusSeconds(1))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = GreaterOrEqual(dateTime.plusSeconds(1))
-            )
+                constraint = GreaterOrEqual(dateTime.plusSeconds(1)),
+            ),
         )
     }
 
@@ -562,35 +605,37 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isBetween with less start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isBetween(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isBetween(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = Between(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3))
-            )
+                constraint = Between(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3)),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime.plusSeconds(4))) {
-                validate(Employee::dateOfBirth).isBetween(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime.plusSeconds(4))) {
+                    validate(Employee::dateOfBirth).isBetween(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime.plusSeconds(4),
-                constraint = Between(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3))
-            )
+                constraint = Between(start = dateTime.plusSeconds(1), end = dateTime.plusSeconds(3)),
+            ),
         )
     }
 
@@ -617,52 +662,55 @@ class OffsetDateTimeFunctionsTest {
 
     @Test
     fun `isNotBetween with equal start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime)) {
-                validate(Employee::dateOfBirth).isNotBetween(start = dateTime, end = dateTime.plusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime)) {
+                    validate(Employee::dateOfBirth).isNotBetween(start = dateTime, end = dateTime.plusSeconds(1))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime,
-                constraint = NotBetween(start = dateTime, end = dateTime.plusSeconds(1))
-            )
+                constraint = NotBetween(start = dateTime, end = dateTime.plusSeconds(1)),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime.plusSeconds(1))) {
-                validate(Employee::dateOfBirth).isNotBetween(start = dateTime, end = dateTime.plusSeconds(1))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime.plusSeconds(1))) {
+                    validate(Employee::dateOfBirth).isNotBetween(start = dateTime, end = dateTime.plusSeconds(1))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime.plusSeconds(1),
-                constraint = NotBetween(start = dateTime, end = dateTime.plusSeconds(1))
-            )
+                constraint = NotBetween(start = dateTime, end = dateTime.plusSeconds(1)),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(dateOfBirth = dateTime.plusSeconds(1))) {
-                validate(Employee::dateOfBirth).isNotBetween(start = dateTime, end = dateTime.plusSeconds(2))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(dateOfBirth = dateTime.plusSeconds(1))) {
+                    validate(Employee::dateOfBirth).isNotBetween(start = dateTime, end = dateTime.plusSeconds(2))
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "dateOfBirth",
                 value = dateTime.plusSeconds(1),
-                constraint = NotBetween(start = dateTime, end = dateTime.plusSeconds(2))
-            )
+                constraint = NotBetween(start = dateTime, end = dateTime.plusSeconds(2)),
+            ),
         )
     }
 }

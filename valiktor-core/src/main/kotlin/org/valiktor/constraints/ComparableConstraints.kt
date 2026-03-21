@@ -27,7 +27,9 @@ import org.valiktor.Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Less<T>(val value: T) : Constraint
+data class Less<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is less than or equal to another value
@@ -38,7 +40,9 @@ data class Less<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class LessOrEqual<T>(val value: T) : Constraint
+data class LessOrEqual<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is greater than another value
@@ -49,7 +53,9 @@ data class LessOrEqual<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Greater<T>(val value: T) : Constraint
+data class Greater<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is greater than or equal to another value
@@ -60,7 +66,9 @@ data class Greater<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class GreaterOrEqual<T>(val value: T) : Constraint
+data class GreaterOrEqual<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is between two values
@@ -72,7 +80,10 @@ data class GreaterOrEqual<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Between<T>(val start: T, val end: T) : Constraint
+data class Between<T>(
+    val start: T,
+    val end: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value isn't between two values
@@ -84,4 +95,7 @@ data class Between<T>(val start: T, val end: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotBetween<T>(val start: T, val end: T) : Constraint
+data class NotBetween<T>(
+    val start: T,
+    val end: T,
+) : Constraint

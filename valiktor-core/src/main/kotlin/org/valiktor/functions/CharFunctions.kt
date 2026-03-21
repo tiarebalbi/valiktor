@@ -38,8 +38,7 @@ import org.valiktor.constraints.UpperCase
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Char?>.isWhitespace(): Validator<E>.Property<Char?> =
-    this.validate(Blank) { it == null || it.isWhitespace() }
+fun <E> Validator<E>.Property<Char?>.isWhitespace(): Validator<E>.Property<Char?> = this.validate(Blank) { it == null || it.isWhitespace() }
 
 /**
  * Validates if the [Char] property is not a whitespace
@@ -56,8 +55,7 @@ fun <E> Validator<E>.Property<Char?>.isNotWhitespace(): Validator<E>.Property<Ch
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Char?>.isLetter(): Validator<E>.Property<Char?> =
-    this.validate(Letter) { it == null || it.isLetter() }
+fun <E> Validator<E>.Property<Char?>.isLetter(): Validator<E>.Property<Char?> = this.validate(Letter) { it == null || it.isLetter() }
 
 /**
  * Validates if the [Char] property is not a letter
@@ -65,8 +63,7 @@ fun <E> Validator<E>.Property<Char?>.isLetter(): Validator<E>.Property<Char?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Char?>.isNotLetter(): Validator<E>.Property<Char?> =
-    this.validate(NotLetter) { it == null || !it.isLetter() }
+fun <E> Validator<E>.Property<Char?>.isNotLetter(): Validator<E>.Property<Char?> = this.validate(NotLetter) { it == null || !it.isLetter() }
 
 /**
  * Validates if the [Char] property is a digit
@@ -74,8 +71,7 @@ fun <E> Validator<E>.Property<Char?>.isNotLetter(): Validator<E>.Property<Char?>
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Char?>.isDigit(): Validator<E>.Property<Char?> =
-    this.validate(Digit) { it == null || it.isDigit() }
+fun <E> Validator<E>.Property<Char?>.isDigit(): Validator<E>.Property<Char?> = this.validate(Digit) { it == null || it.isDigit() }
 
 /**
  * Validates if the [Char] property is not a digit
@@ -83,8 +79,7 @@ fun <E> Validator<E>.Property<Char?>.isDigit(): Validator<E>.Property<Char?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Char?>.isNotDigit(): Validator<E>.Property<Char?> =
-    this.validate(NotDigit) { it == null || !it.isDigit() }
+fun <E> Validator<E>.Property<Char?>.isNotDigit(): Validator<E>.Property<Char?> = this.validate(NotDigit) { it == null || !it.isDigit() }
 
 /**
  * Validates if the [Char] property is a letter or a digit

@@ -34,8 +34,9 @@ import java.util.Locale
  * @since 0.1.0
  */
 @RestControllerAdvice
-class ConstraintViolationExceptionHandler(private val handler: ValiktorExceptionHandler<*>) {
-
+class ConstraintViolationExceptionHandler(
+    private val handler: ValiktorExceptionHandler<*>,
+) {
     /**
      * Handles [ConstraintViolationException] and returns and delegates the response to [handler].
      *
@@ -44,11 +45,15 @@ class ConstraintViolationExceptionHandler(private val handler: ValiktorException
      * @return the ResponseEntity with status code, headers and body
      */
     @ExceptionHandler(ConstraintViolationException::class)
-    fun handleConstraintViolationException(ex: ConstraintViolationException, locale: Locale?): ResponseEntity<*> {
-        val (statusCode, headers, body) = handler.handle(
-            exception = ex,
-            locale = locale ?: Locale.getDefault()
-        )
+    fun handleConstraintViolationException(
+        ex: ConstraintViolationException,
+        locale: Locale?,
+    ): ResponseEntity<*> {
+        val (statusCode, headers, body) =
+            handler.handle(
+                exception = ex,
+                locale = locale ?: Locale.getDefault(),
+            )
 
         return ResponseEntity.status(statusCode).headers(headers).body(body)
     }

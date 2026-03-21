@@ -26,14 +26,15 @@ import java.util.Locale
 import javax.money.Monetary
 import javax.money.MonetaryAmount
 
-val SUPPORTED_CURRENCIES = setOf(
-    Monetary.getCurrency("USD"),
-    Monetary.getCurrency("BRL")
-)
+val SUPPORTED_CURRENCIES =
+    setOf(
+        Monetary.getCurrency("USD"),
+        Monetary.getCurrency("BRL"),
+    )
 
 data class Employee(
     val grossSalary: MonetaryAmount,
-    val netSalary: MonetaryAmount
+    val netSalary: MonetaryAmount,
 ) {
     init {
         validate(this) { employee ->
@@ -46,8 +47,18 @@ data class Employee(
 fun main() {
     try {
         Employee(
-            grossSalary = Monetary.getDefaultAmountFactory().setNumber(1000).setCurrency(Monetary.getCurrency("EUR")).create(),
-            netSalary = Monetary.getDefaultAmountFactory().setNumber(999.999).setCurrency(Monetary.getCurrency("EUR")).create()
+            grossSalary =
+                Monetary
+                    .getDefaultAmountFactory()
+                    .setNumber(1000)
+                    .setCurrency(Monetary.getCurrency("EUR"))
+                    .create(),
+            netSalary =
+                Monetary
+                    .getDefaultAmountFactory()
+                    .setNumber(999.999)
+                    .setCurrency(Monetary.getCurrency("EUR"))
+                    .create(),
         )
     } catch (ex: ConstraintViolationException) {
         ex.constraintViolations

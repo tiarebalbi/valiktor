@@ -1,31 +1,15 @@
 allprojects {
     tasks {
-        dokka {
+        withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
             enabled = false
         }
 
-        publishMavenJavaPublicationToMavenLocal {
+        named("publishMavenJavaPublicationToMavenLocal") {
             enabled = false
         }
 
-        publishMavenJavaPublicationToMavenRepository {
+        named("publishMavenJavaPublicationToMavenRepository") {
             enabled = false
-        }
-    }
-}
-
-subprojects {
-    tasks {
-        compileKotlin {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-
-        compileTestKotlin {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
         }
     }
 }

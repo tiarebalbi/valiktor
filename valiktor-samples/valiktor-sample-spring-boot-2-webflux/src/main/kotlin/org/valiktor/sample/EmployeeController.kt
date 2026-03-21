@@ -28,10 +28,14 @@ import org.springframework.web.util.UriComponentsBuilder.fromHttpRequest
 
 @RestController
 @RequestMapping("/employees")
-class EmployeeController(private val service: EmployeeService) {
-
+class EmployeeController(
+    private val service: EmployeeService,
+) {
     @PostMapping(consumes = [APPLICATION_JSON_VALUE])
-    suspend fun create(req: ServerHttpRequest, @RequestBody employee: Employee): ResponseEntity<Void> {
+    suspend fun create(
+        req: ServerHttpRequest,
+        @RequestBody employee: Employee,
+    ): ResponseEntity<Void> {
         service.create(employee)
         return created(fromHttpRequest(req).path("/{id}").build(employee.documentNumber)).build()
     }

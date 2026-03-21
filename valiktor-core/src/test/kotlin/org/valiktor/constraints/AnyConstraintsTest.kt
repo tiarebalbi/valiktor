@@ -23,7 +23,6 @@ import org.valiktor.i18n.interpolatedMessages
 import kotlin.test.Test
 
 class NullTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Null.interpolatedMessages()).containsExactly(
@@ -33,13 +32,12 @@ class NullTest {
             entry(SupportedLocales.EN, "Must be null"),
             entry(SupportedLocales.ES, "Tiene que ser nulo"),
             entry(SupportedLocales.JA, "null である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser nulo")
+            entry(SupportedLocales.PT_BR, "Deve ser nulo"),
         )
     }
 }
 
 class NotNullTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotNull.interpolatedMessages()).containsExactly(
@@ -49,13 +47,12 @@ class NotNullTest {
             entry(SupportedLocales.EN, "Must not be null"),
             entry(SupportedLocales.ES, "No puede ser nulo"),
             entry(SupportedLocales.JA, "null 以外である必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser nulo")
+            entry(SupportedLocales.PT_BR, "Não deve ser nulo"),
         )
     }
 }
 
 class EqualsTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Equals(1).interpolatedMessages()).containsExactly(
@@ -65,13 +62,12 @@ class EqualsTest {
             entry(SupportedLocales.EN, "Must be equal to 1"),
             entry(SupportedLocales.ES, "Tiene que ser igual a 1"),
             entry(SupportedLocales.JA, "1 と同じ値である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser igual a 1")
+            entry(SupportedLocales.PT_BR, "Deve ser igual a 1"),
         )
     }
 }
 
 class NotEqualsTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotEquals(1).interpolatedMessages()).containsExactly(
@@ -81,13 +77,12 @@ class NotEqualsTest {
             entry(SupportedLocales.EN, "Must not be equal to 1"),
             entry(SupportedLocales.ES, "No puede ser igual a 1"),
             entry(SupportedLocales.JA, "1 以外の値である必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser igual a 1")
+            entry(SupportedLocales.PT_BR, "Não deve ser igual a 1"),
         )
     }
 }
 
 class InTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(In(setOf(1, 2, 3)).interpolatedMessages()).containsExactly(
@@ -97,13 +92,12 @@ class InTest {
             entry(SupportedLocales.EN, "Must be in 1, 2, 3"),
             entry(SupportedLocales.ES, "Tiene que ser uno de eses: 1, 2, 3"),
             entry(SupportedLocales.JA, "1, 2, 3 に含まれている必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser um desses: 1, 2, 3")
+            entry(SupportedLocales.PT_BR, "Deve ser um desses: 1, 2, 3"),
         )
     }
 }
 
 class NotInTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotIn(setOf(1, 2, 3)).interpolatedMessages()).containsExactly(
@@ -113,13 +107,12 @@ class NotInTest {
             entry(SupportedLocales.EN, "Must not be in 1, 2, 3"),
             entry(SupportedLocales.ES, "No puede ser uno de eses: 1, 2, 3"),
             entry(SupportedLocales.JA, "1, 2, 3 以外である必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser um desses: 1, 2, 3")
+            entry(SupportedLocales.PT_BR, "Não deve ser um desses: 1, 2, 3"),
         )
     }
 }
 
 class ValidTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Valid.interpolatedMessages()).containsExactly(
@@ -129,7 +122,7 @@ class ValidTest {
             entry(SupportedLocales.EN, "Must be valid"),
             entry(SupportedLocales.ES, "Tiene que ser válido"),
             entry(SupportedLocales.JA, "有効である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser válido")
+            entry(SupportedLocales.PT_BR, "Deve ser válido"),
         )
     }
 }

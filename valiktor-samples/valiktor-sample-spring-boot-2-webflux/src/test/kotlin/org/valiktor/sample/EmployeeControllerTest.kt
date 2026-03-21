@@ -35,7 +35,6 @@ import kotlin.test.Test
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class EmployeeControllerTest {
-
     @Autowired
     private lateinit var env: Environment
 
@@ -55,12 +54,14 @@ class EmployeeControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(EmployeeControllerTestFixture.validEmployee)
             .exchange()
-            .expectStatus().isCreated
-            .expectHeader().valueEquals(
+            .expectStatus()
+            .isCreated
+            .expectHeader()
+            .valueEquals(
                 HttpHeaders.LOCATION,
-                "http://localhost:${env.getProperty("local.server.port")}/employees/111.111.111-11"
-            )
-            .expectBody().isEmpty
+                "http://localhost:${env.getProperty("local.server.port")}/employees/111.111.111-11",
+            ).expectBody()
+            .isEmpty
     }
 
     @Test
@@ -74,7 +75,8 @@ class EmployeeControllerTest {
             .exchange()
             .expectStatus()
             .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
             .expectBody<UnprocessableEntity>()
             .isEqualTo(EmployeeControllerTestFixture.unprocessableEntity.getValue(Locale.ENGLISH))
     }
@@ -91,7 +93,8 @@ class EmployeeControllerTest {
             .exchange()
             .expectStatus()
             .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
             .expectBody<UnprocessableEntity>()
             .isEqualTo(EmployeeControllerTestFixture.unprocessableEntity.getValue(Locale.ENGLISH))
     }
@@ -108,7 +111,8 @@ class EmployeeControllerTest {
             .exchange()
             .expectStatus()
             .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
             .expectBody<UnprocessableEntity>()
             .isEqualTo(EmployeeControllerTestFixture.unprocessableEntity.getValue(Locale("pt", "BR")))
     }

@@ -43,12 +43,12 @@ import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 private object BigDecimalFunctionsFixture {
-
-    data class Employee(val salary: BigDecimal? = null)
+    data class Employee(
+        val salary: BigDecimal? = null,
+    )
 }
 
 class BigDecimalFunctionsTest {
-
     @Test
     fun `isNull with null value should be valid`() {
         validate(Employee()) {
@@ -58,13 +58,14 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNull with not null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ZERO, constraint = Null)
+            DefaultConstraintViolation(property = "salary", value = ZERO, constraint = Null),
         )
     }
 
@@ -77,13 +78,14 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotNull with null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee()) {
-                validate(Employee::salary).isNotNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee()) {
+                    validate(Employee::salary).isNotNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", constraint = NotNull)
+            DefaultConstraintViolation(property = "salary", constraint = NotNull),
         )
     }
 
@@ -110,13 +112,14 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isEqualTo with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isEqualTo(ONE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isEqualTo(ONE)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ZERO, constraint = Equals(ONE))
+            DefaultConstraintViolation(property = "salary", value = ZERO, constraint = Equals(ONE)),
         )
     }
 
@@ -136,25 +139,27 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotEqualTo with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotEqualTo(ONE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotEqualTo(ONE)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotEquals(ONE))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotEquals(ONE)),
         )
     }
 
     @Test
     fun `isNotEqualTo with same value and 2 decimal digits should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotEqualTo(1.00.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotEqualTo(1.00.toBigDecimal())
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotEquals(1.00.toBigDecimal()))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotEquals(1.00.toBigDecimal())),
         )
     }
 
@@ -181,13 +186,14 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isIn vararg with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isIn(ZERO, TEN)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isIn(ZERO, TEN)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = In(setOf(ZERO, TEN)))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = In(setOf(ZERO, TEN))),
         )
     }
 
@@ -214,13 +220,14 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isIn iterable with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isIn(listOf(ZERO, TEN))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isIn(listOf(ZERO, TEN))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = In(listOf(ZERO, TEN)))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = In(listOf(ZERO, TEN))),
         )
     }
 
@@ -240,25 +247,27 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotIn vararg with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotIn(ZERO, ONE, TEN)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotIn(ZERO, ONE, TEN)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(setOf(ZERO, ONE, TEN)))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(setOf(ZERO, ONE, TEN))),
         )
     }
 
     @Test
     fun `isNotIn vararg with same value and 2 decimal digits should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotIn(ZERO, 1.00.toBigDecimal(), TEN)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotIn(ZERO, 1.00.toBigDecimal(), TEN)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(setOf(ZERO, 1.00.toBigDecimal(), TEN)))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(setOf(ZERO, 1.00.toBigDecimal(), TEN))),
         )
     }
 
@@ -278,25 +287,27 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotIn iterable with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotIn(listOf(ZERO, ONE, TEN))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotIn(listOf(ZERO, ONE, TEN))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(listOf(ZERO, ONE, TEN)))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(listOf(ZERO, ONE, TEN))),
         )
     }
 
     @Test
     fun `isNotIn iterable with same value and 2 decimal digits should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotIn(listOf(ZERO, 1.00.toBigDecimal(), TEN))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotIn(listOf(ZERO, 1.00.toBigDecimal(), TEN))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(listOf(ZERO, 1.00.toBigDecimal(), TEN)))
+            DefaultConstraintViolation(property = "salary", value = ONE, constraint = NotIn(listOf(ZERO, 1.00.toBigDecimal(), TEN))),
         )
     }
 
@@ -323,18 +334,19 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isZero with one should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ONE,
-                constraint = Equals(ZERO)
-            )
+                constraint = Equals(ZERO),
+            ),
         )
     }
 
@@ -354,35 +366,37 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotZero with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isNotZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isNotZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = NotEquals(ZERO)
-            )
+                constraint = NotEquals(ZERO),
+            ),
         )
     }
 
     @Test
     fun `isNotZero with zero and 2 decimal digits should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 0.00.toBigDecimal())) {
-                validate(Employee::salary).isNotZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 0.00.toBigDecimal())) {
+                    validate(Employee::salary).isNotZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 0.00.toBigDecimal(),
-                constraint = NotEquals(ZERO)
-            )
+                constraint = NotEquals(ZERO),
+            ),
         )
     }
 
@@ -409,18 +423,19 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isOne with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = Equals(ONE)
-            )
+                constraint = Equals(ONE),
+            ),
         )
     }
 
@@ -440,35 +455,37 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotOne with one should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ONE,
-                constraint = NotEquals(ONE)
-            )
+                constraint = NotEquals(ONE),
+            ),
         )
     }
 
     @Test
     fun `isNotOne with one and 2 decimal digits should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 1.00.toBigDecimal())) {
-                validate(Employee::salary).isNotOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 1.00.toBigDecimal())) {
+                    validate(Employee::salary).isNotOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 1.00.toBigDecimal(),
-                constraint = NotEquals(ONE)
-            )
+                constraint = NotEquals(ONE),
+            ),
         )
     }
 
@@ -488,35 +505,37 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isPositive with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isPositive()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isPositive()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = Greater(ZERO)
-            )
+                constraint = Greater(ZERO),
+            ),
         )
     }
 
     @Test
     fun `isPositive with negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 98765.432.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isPositive()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 98765.432.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isPositive()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 98765.432.unaryMinus().toBigDecimal(),
-                constraint = Greater(ZERO)
-            )
+                constraint = Greater(ZERO),
+            ),
         )
     }
 
@@ -543,18 +562,19 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNegativeOrZero with positive value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNegativeOrZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNegativeOrZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ONE,
-                constraint = LessOrEqual(ZERO)
-            )
+                constraint = LessOrEqual(ZERO),
+            ),
         )
     }
 
@@ -574,35 +594,37 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNegative with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isNegative()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isNegative()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = Less(ZERO)
-            )
+                constraint = Less(ZERO),
+            ),
         )
     }
 
     @Test
     fun `isNegative with positive value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNegative()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNegative()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ONE,
-                constraint = Less(ZERO)
-            )
+                constraint = Less(ZERO),
+            ),
         )
     }
 
@@ -629,18 +651,19 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isPositiveOrZero with negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 98765.432.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isPositiveOrZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 98765.432.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isPositiveOrZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 98765.432.unaryMinus().toBigDecimal(),
-                constraint = GreaterOrEqual(ZERO)
-            )
+                constraint = GreaterOrEqual(ZERO),
+            ),
         )
     }
 
@@ -667,52 +690,55 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isLessThan with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 50.0.toBigDecimal())) {
-                validate(Employee::salary).isLessThan(49.9.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 50.0.toBigDecimal())) {
+                    validate(Employee::salary).isLessThan(49.9.toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 50.0.toBigDecimal(),
-                constraint = Less(49.9.toBigDecimal())
-            )
+                constraint = Less(49.9.toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 50.9.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isLessThan(51.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 50.9.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isLessThan(51.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 50.9.unaryMinus().toBigDecimal(),
-                constraint = Less(51.0.unaryMinus().toBigDecimal())
-            )
+                constraint = Less(51.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isLessThan(ZERO)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isLessThan(ZERO)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = Less(ZERO)
-            )
+                constraint = Less(ZERO),
+            ),
         )
     }
 
@@ -746,35 +772,37 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isLessThanOrEqualTo with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 56789.19.toBigDecimal())) {
-                validate(Employee::salary).isLessThanOrEqualTo(57.0.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 56789.19.toBigDecimal())) {
+                    validate(Employee::salary).isLessThanOrEqualTo(57.0.toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 56789.19.toBigDecimal(),
-                constraint = LessOrEqual(57.0.toBigDecimal())
-            )
+                constraint = LessOrEqual(57.0.toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isLessThanOrEqualTo with negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 96.0.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isLessThanOrEqualTo(97.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 96.0.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isLessThanOrEqualTo(97.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 96.0.unaryMinus().toBigDecimal(),
-                constraint = LessOrEqual(97.0.unaryMinus().toBigDecimal())
-            )
+                constraint = LessOrEqual(97.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
@@ -801,52 +829,55 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isGreaterThan with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 10.0.toBigDecimal())) {
-                validate(Employee::salary).isGreaterThan(11.0.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 10.0.toBigDecimal())) {
+                    validate(Employee::salary).isGreaterThan(11.0.toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 10.0.toBigDecimal(),
-                constraint = Greater(11.0.toBigDecimal())
-            )
+                constraint = Greater(11.0.toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with negative less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 189.20.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isGreaterThan(180.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 189.20.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isGreaterThan(180.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 189.20.unaryMinus().toBigDecimal(),
-                constraint = Greater(180.0.unaryMinus().toBigDecimal())
-            )
+                constraint = Greater(180.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isGreaterThan(ZERO)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isGreaterThan(ZERO)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = Greater(ZERO)
-            )
+                constraint = Greater(ZERO),
+            ),
         )
     }
 
@@ -880,35 +911,37 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isGreaterThanOrEqualTo with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 57.0.toBigDecimal())) {
-                validate(Employee::salary).isGreaterThanOrEqualTo(56789.19.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 57.0.toBigDecimal())) {
+                    validate(Employee::salary).isGreaterThanOrEqualTo(56789.19.toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 57.0.toBigDecimal(),
-                constraint = GreaterOrEqual(56789.19.toBigDecimal())
-            )
+                constraint = GreaterOrEqual(56789.19.toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThanOrEqualTo with negative less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 97.0.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isGreaterThanOrEqualTo(96.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 97.0.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isGreaterThanOrEqualTo(96.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 97.0.unaryMinus().toBigDecimal(),
-                constraint = GreaterOrEqual(96.0.unaryMinus().toBigDecimal())
-            )
+                constraint = GreaterOrEqual(96.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
@@ -963,69 +996,73 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isBetween with less start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 10.0.toBigDecimal())) {
-                validate(Employee::salary).isBetween(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 10.0.toBigDecimal())) {
+                    validate(Employee::salary).isBetween(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 10.0.toBigDecimal(),
-                constraint = Between(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal())
-            )
+                constraint = Between(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 12.0.toBigDecimal())) {
-                validate(Employee::salary).isBetween(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 12.0.toBigDecimal())) {
+                    validate(Employee::salary).isBetween(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 12.0.toBigDecimal(),
-                constraint = Between(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal())
-            )
+                constraint = Between(start = 10.1.toBigDecimal(), end = 11.0.toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isBetween with less negative start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 10.0.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isBetween(start = 9.9.unaryMinus().toBigDecimal(), end = 8.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 10.0.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isBetween(start = 9.9.unaryMinus().toBigDecimal(), end = 8.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 10.0.unaryMinus().toBigDecimal(),
-                constraint = Between(start = 9.9.unaryMinus().toBigDecimal(), end = 8.0.unaryMinus().toBigDecimal())
-            )
+                constraint = Between(start = 9.9.unaryMinus().toBigDecimal(), end = 8.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater negative end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 12.0.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isBetween(start = 13.0.unaryMinus().toBigDecimal(), end = 12.9.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 12.0.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isBetween(start = 13.0.unaryMinus().toBigDecimal(), end = 12.9.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 12.0.unaryMinus().toBigDecimal(),
-                constraint = Between(start = 13.0.unaryMinus().toBigDecimal(), end = 12.9.unaryMinus().toBigDecimal())
-            )
+                constraint = Between(start = 13.0.unaryMinus().toBigDecimal(), end = 12.9.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
@@ -1066,103 +1103,109 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `isNotBetween with equal start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ZERO)) {
-                validate(Employee::salary).isNotBetween(start = ZERO, end = ONE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ZERO)) {
+                    validate(Employee::salary).isNotBetween(start = ZERO, end = ONE)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ZERO,
-                constraint = NotBetween(start = ZERO, end = ONE)
-            )
+                constraint = NotBetween(start = ZERO, end = ONE),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = ONE)) {
-                validate(Employee::salary).isNotBetween(start = ZERO, end = ONE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = ONE)) {
+                    validate(Employee::salary).isNotBetween(start = ZERO, end = ONE)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = ONE,
-                constraint = NotBetween(start = ZERO, end = ONE)
-            )
+                constraint = NotBetween(start = ZERO, end = ONE),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal negative start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 2.0.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isNotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 2.0.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isNotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 2.0.unaryMinus().toBigDecimal(),
-                constraint = NotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
-            )
+                constraint = NotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal negative end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 1.0.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isNotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 1.0.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isNotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 1.0.unaryMinus().toBigDecimal(),
-                constraint = NotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
-            )
+                constraint = NotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 0.5.toBigDecimal())) {
-                validate(Employee::salary).isNotBetween(start = ZERO, end = ONE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 0.5.toBigDecimal())) {
+                    validate(Employee::salary).isNotBetween(start = ZERO, end = ONE)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 0.5.toBigDecimal(),
-                constraint = NotBetween(start = ZERO, end = ONE)
-            )
+                constraint = NotBetween(start = ZERO, end = ONE),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 1.5.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).isNotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 1.5.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).isNotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 1.5.unaryMinus().toBigDecimal(),
-                constraint = NotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal())
-            )
+                constraint = NotBetween(start = 2.0.unaryMinus().toBigDecimal(), end = 1.0.unaryMinus().toBigDecimal()),
+            ),
         )
     }
 
@@ -1224,103 +1267,109 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `hasIntegerDigits with less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 748536.78.toBigDecimal())) {
-                validate(Employee::salary).hasIntegerDigits(min = 7)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 748536.78.toBigDecimal())) {
+                    validate(Employee::salary).hasIntegerDigits(min = 7)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 748536.78.toBigDecimal(),
-                constraint = IntegerDigits(min = 7)
-            )
+                constraint = IntegerDigits(min = 7),
+            ),
         )
     }
 
     @Test
     fun `hasIntegerDigits with greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 748536.78.toBigDecimal())) {
-                validate(Employee::salary).hasIntegerDigits(max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 748536.78.toBigDecimal())) {
+                    validate(Employee::salary).hasIntegerDigits(max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 748536.78.toBigDecimal(),
-                constraint = IntegerDigits(max = 5)
-            )
+                constraint = IntegerDigits(max = 5),
+            ),
         )
     }
 
     @Test
     fun `hasIntegerDigits with less value and greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 748536.78.toBigDecimal())) {
-                validate(Employee::salary).hasIntegerDigits(min = 7, max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 748536.78.toBigDecimal())) {
+                    validate(Employee::salary).hasIntegerDigits(min = 7, max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 748536.78.toBigDecimal(),
-                constraint = IntegerDigits(min = 7, max = 5)
-            )
+                constraint = IntegerDigits(min = 7, max = 5),
+            ),
         )
     }
 
     @Test
     fun `hasIntegerDigits with negative less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 748536.78.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).hasIntegerDigits(min = 7)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 748536.78.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).hasIntegerDigits(min = 7)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 748536.78.unaryMinus().toBigDecimal(),
-                constraint = IntegerDigits(min = 7)
-            )
+                constraint = IntegerDigits(min = 7),
+            ),
         )
     }
 
     @Test
     fun `hasIntegerDigits with negative greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 748536.78.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).hasIntegerDigits(max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 748536.78.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).hasIntegerDigits(max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 748536.78.unaryMinus().toBigDecimal(),
-                constraint = IntegerDigits(max = 5)
-            )
+                constraint = IntegerDigits(max = 5),
+            ),
         )
     }
 
     @Test
     fun `hasIntegerDigits with negative less value and negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 748536.78.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).hasIntegerDigits(min = 7, max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 748536.78.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).hasIntegerDigits(min = 7, max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 748536.78.unaryMinus().toBigDecimal(),
-                constraint = IntegerDigits(min = 7, max = 5)
-            )
+                constraint = IntegerDigits(min = 7, max = 5),
+            ),
         )
     }
 
@@ -1382,103 +1431,109 @@ class BigDecimalFunctionsTest {
 
     @Test
     fun `hasDecimalDigits with less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 78.748536.toBigDecimal())) {
-                validate(Employee::salary).hasDecimalDigits(min = 7)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 78.748536.toBigDecimal())) {
+                    validate(Employee::salary).hasDecimalDigits(min = 7)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 78.748536.toBigDecimal(),
-                constraint = DecimalDigits(min = 7)
-            )
+                constraint = DecimalDigits(min = 7),
+            ),
         )
     }
 
     @Test
     fun `hasDecimalDigits with greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 78.748536.toBigDecimal())) {
-                validate(Employee::salary).hasDecimalDigits(max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 78.748536.toBigDecimal())) {
+                    validate(Employee::salary).hasDecimalDigits(max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 78.748536.toBigDecimal(),
-                constraint = DecimalDigits(max = 5)
-            )
+                constraint = DecimalDigits(max = 5),
+            ),
         )
     }
 
     @Test
     fun `hasDecimalDigits with less value and greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 78.748536.toBigDecimal())) {
-                validate(Employee::salary).hasDecimalDigits(min = 7, max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 78.748536.toBigDecimal())) {
+                    validate(Employee::salary).hasDecimalDigits(min = 7, max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 78.748536.toBigDecimal(),
-                constraint = DecimalDigits(min = 7, max = 5)
-            )
+                constraint = DecimalDigits(min = 7, max = 5),
+            ),
         )
     }
 
     @Test
     fun `hasDecimalDigits with negative less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 78.748536.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).hasDecimalDigits(min = 7)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 78.748536.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).hasDecimalDigits(min = 7)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 78.748536.unaryMinus().toBigDecimal(),
-                constraint = DecimalDigits(min = 7)
-            )
+                constraint = DecimalDigits(min = 7),
+            ),
         )
     }
 
     @Test
     fun `hasDecimalDigits with negative greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 78.748536.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).hasDecimalDigits(max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 78.748536.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).hasDecimalDigits(max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 78.748536.unaryMinus().toBigDecimal(),
-                constraint = DecimalDigits(max = 5)
-            )
+                constraint = DecimalDigits(max = 5),
+            ),
         )
     }
 
     @Test
     fun `hasDecimalDigits with negative less value and negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(salary = 78.748536.unaryMinus().toBigDecimal())) {
-                validate(Employee::salary).hasDecimalDigits(min = 7, max = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(salary = 78.748536.unaryMinus().toBigDecimal())) {
+                    validate(Employee::salary).hasDecimalDigits(min = 7, max = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "salary",
                 value = 78.748536.unaryMinus().toBigDecimal(),
-                constraint = DecimalDigits(min = 7, max = 5)
-            )
+                constraint = DecimalDigits(min = 7, max = 5),
+            ),
         )
     }
 }

@@ -38,13 +38,13 @@ import java.time.ZonedDateTime
  * @since 0.1.0
  */
 class JavaTimeFormatterSpi : FormatterSpi {
-
-    override val formatters = setOf(
-        LocalDate::class to LocalDateFormatter,
-        LocalDateTime::class to LocalDateTimeFormatter,
-        LocalTime::class to LocalTimeFormatter,
-        OffsetDateTime::class to OffsetDateTimeFormatter,
-        OffsetTime::class to OffsetTimeFormatter,
-        ZonedDateTime::class to ZonedDateTimeFormatter
-    )
+    override val formatters =
+        setOf(
+            LocalDate::class to LocalDateFormatter,
+            LocalDateTime::class to LocalDateTimeFormatter,
+            LocalTime::class to LocalTimeFormatter,
+            OffsetDateTime::class to OffsetDateTimeFormatter,
+            OffsetTime::class to OffsetTimeFormatter,
+            ZonedDateTime::class to ZonedDateTimeFormatter,
+        )
 }

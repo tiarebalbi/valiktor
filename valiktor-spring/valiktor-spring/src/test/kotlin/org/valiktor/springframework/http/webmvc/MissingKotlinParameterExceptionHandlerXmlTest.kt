@@ -29,7 +29,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class MissingKotlinParameterExceptionHandlerXmlTest {
-
     private val mockMvc = ExceptionHandlerFixture.mockMvc
     private val xml = ExceptionHandlerFixture.XML
 
@@ -45,9 +44,8 @@ class MissingKotlinParameterExceptionHandlerXmlTest {
                 post("/employees")
                     .accept(APPLICATION_XML)
                     .contentType(APPLICATION_XML)
-                    .content(xml.payloadEmployeeValid())
-            )
-            .andExpect(status().isCreated)
+                    .content(xml.payloadEmployeeValid()),
+            ).andExpect(status().isCreated)
             .andExpect(header().string(LOCATION, "http://localhost/employees/1"))
             .andExpect(content().bytes(ByteArray(0)))
             .andDo(log())
@@ -60,9 +58,8 @@ class MissingKotlinParameterExceptionHandlerXmlTest {
                 post("/employees")
                     .accept(APPLICATION_XML)
                     .contentType(APPLICATION_XML)
-                    .content(xml.payloadEmployeeNullName())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(xml.payloadEmployeeNullName()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_XML))
             .andExpect(content().xml(xml.payload422NullName(Locale.ENGLISH)))
             .andDo(log())
@@ -76,9 +73,8 @@ class MissingKotlinParameterExceptionHandlerXmlTest {
                     .accept(APPLICATION_XML)
                     .header(ACCEPT_LANGUAGE, "en")
                     .contentType(APPLICATION_XML)
-                    .content(xml.payloadEmployeeNullName())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(xml.payloadEmployeeNullName()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_XML))
             .andExpect(content().xml(xml.payload422NullName(Locale.ENGLISH)))
             .andDo(log())
@@ -92,9 +88,8 @@ class MissingKotlinParameterExceptionHandlerXmlTest {
                     .accept(APPLICATION_XML)
                     .header(ACCEPT_LANGUAGE, "pt-BR")
                     .contentType(APPLICATION_XML)
-                    .content(xml.payloadEmployeeNullName())
-            )
-            .andExpect(status().isUnprocessableEntity)
+                    .content(xml.payloadEmployeeNullName()),
+            ).andExpect(status().isUnprocessableEntity)
             .andExpect(content().contentTypeCompatibleWith(APPLICATION_XML))
             .andExpect(content().xml(xml.payload422NullName(Locale("pt", "BR"))))
             .andDo(log())

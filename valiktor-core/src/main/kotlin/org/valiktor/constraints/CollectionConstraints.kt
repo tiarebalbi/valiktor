@@ -45,7 +45,9 @@ object NotEmpty : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Contains<T>(val value: T) : Constraint
+data class Contains<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value contains all values
@@ -56,7 +58,9 @@ data class Contains<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class ContainsAll<T>(val values: Iterable<T>) : Constraint
+data class ContainsAll<T>(
+    val values: Iterable<T>,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value contains any value
@@ -67,7 +71,9 @@ data class ContainsAll<T>(val values: Iterable<T>) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class ContainsAny<T>(val values: Iterable<T>) : Constraint
+data class ContainsAny<T>(
+    val values: Iterable<T>,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value doesn't contain another value
@@ -78,7 +84,9 @@ data class ContainsAny<T>(val values: Iterable<T>) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotContain<T>(val value: T) : Constraint
+data class NotContain<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value doesn't contain all values
@@ -89,7 +97,9 @@ data class NotContain<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotContainAll<T>(val values: Iterable<T>) : Constraint
+data class NotContainAll<T>(
+    val values: Iterable<T>,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value doesn't contain any value
@@ -100,7 +110,9 @@ data class NotContainAll<T>(val values: Iterable<T>) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotContainAny<T>(val values: Iterable<T>) : Constraint
+data class NotContainAny<T>(
+    val values: Iterable<T>,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value size is within the limits (min and max)
@@ -112,20 +124,30 @@ data class NotContainAny<T>(val values: Iterable<T>) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Size(val min: Int = Int.MIN_VALUE, val max: Int = Int.MAX_VALUE) : Constraint {
+data class Size(
+    val min: Int = Int.MIN_VALUE,
+    val max: Int = Int.MAX_VALUE,
+) : Constraint {
     override val messageKey: String =
-        if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) super.messageKey
-        else if (min != Int.MIN_VALUE) "${this.javaClass.name}.min.message"
-        else if (max != Int.MAX_VALUE) "${this.javaClass.name}.max.message"
-        else super.messageKey
+        if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) {
+            super.messageKey
+        } else if (min != Int.MIN_VALUE) {
+            "${this.javaClass.name}.min.message"
+        } else if (max != Int.MAX_VALUE) {
+            "${this.javaClass.name}.max.message"
+        } else {
+            super.messageKey
+        }
 
     override val messageParams: Map<String, *>
-        get() = if (min != Int.MIN_VALUE && max != Int.MAX_VALUE)
-            mapOf(this::min.name to this.min, this::max.name to this.max)
-        else if (min != Int.MIN_VALUE)
-            mapOf(this::min.name to this.min)
-        else if (max != Int.MAX_VALUE)
-            mapOf(this::max.name to this.max)
-        else
-            mapOf(this::min.name to this.min, this::max.name to this.max)
+        get() =
+            if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) {
+                mapOf(this::min.name to this.min, this::max.name to this.max)
+            } else if (min != Int.MIN_VALUE) {
+                mapOf(this::min.name to this.min)
+            } else if (max != Int.MAX_VALUE) {
+                mapOf(this::max.name to this.max)
+            } else {
+                mapOf(this::min.name to this.min, this::max.name to this.max)
+            }
 }

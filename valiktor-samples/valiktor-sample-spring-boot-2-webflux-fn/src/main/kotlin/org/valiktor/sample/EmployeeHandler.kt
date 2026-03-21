@@ -24,8 +24,9 @@ import org.springframework.web.reactive.function.server.awaitBody
 import org.springframework.web.reactive.function.server.buildAndAwait
 
 @Component
-class EmployeeHandler(private val service: EmployeeService) {
-
+class EmployeeHandler(
+    private val service: EmployeeService,
+) {
     suspend fun create(req: ServerRequest): ServerResponse {
         val employee = req.awaitBody<Employee>()
         service.create(employee)

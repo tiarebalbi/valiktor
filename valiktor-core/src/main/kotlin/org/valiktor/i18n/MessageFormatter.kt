@@ -37,7 +37,6 @@ import kotlin.reflect.full.superclasses
  * @since 0.1.0
  */
 interface Formatter<in T : Any> {
-
     /**
      * Format the value
      *
@@ -45,7 +44,10 @@ interface Formatter<in T : Any> {
      * @param messageBundle specifies the loaded resource bundle with the messages
      * @return the formatted value
      */
-    fun format(value: T, messageBundle: MessageBundle): String
+    fun format(
+        value: T,
+        messageBundle: MessageBundle,
+    ): String
 }
 
 /**
@@ -59,7 +61,6 @@ interface Formatter<in T : Any> {
  * @since 0.1.0
  */
 interface FormatterSpi {
-
     val formatters: Set<Pair<KClass<*>, Formatter<*>>>
 }
 
@@ -70,18 +71,18 @@ interface FormatterSpi {
  * @since 0.1.0
  */
 object Formatters {
-
     /**
      * Map containing the classes and their respective formatters
      */
-    private var formatters: Map<KClass<*>, Formatter<*>> = mapOf(
-        Any::class to AnyFormatter,
-        Number::class to NumberFormatter,
-        Date::class to DateFormatter,
-        Calendar::class to CalendarFormatter,
-        Iterable::class to IterableFormatter,
-        Array<Any>::class to ArrayFormatter
-    ) + ServiceLoader.load(FormatterSpi::class.java).flatMap { it.formatters }
+    private var formatters: Map<KClass<*>, Formatter<*>> =
+        mapOf(
+            Any::class to AnyFormatter,
+            Number::class to NumberFormatter,
+            Date::class to DateFormatter,
+            Calendar::class to CalendarFormatter,
+            Iterable::class to IterableFormatter,
+            Array<Any>::class to ArrayFormatter,
+        ) + ServiceLoader.load(FormatterSpi::class.java).flatMap { it.formatters }
 
     /**
      * Returns the formatter of this class recursively
@@ -113,7 +114,10 @@ object Formatters {
      * @param type specifies the class
      * @param formatter specifies the respective formatter
      */
-    operator fun <T : Any> set(type: KClass<T>, formatter: Formatter<T>) {
+    operator fun <T : Any> set(
+        type: KClass<T>,
+        formatter: Formatter<T>,
+    ) {
         formatters += Pair(type, formatter)
     }
 

@@ -38,12 +38,12 @@ import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 private object ShortFunctionsFixture {
-
-    data class Employee(val id: Short? = null)
+    data class Employee(
+        val id: Short? = null,
+    )
 }
 
 class ShortFunctionsTest {
-
     @Test
     fun `isNull with null value should be valid`() {
         validate(Employee()) {
@@ -53,13 +53,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNull with not null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = Null)
+            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = Null),
         )
     }
 
@@ -72,13 +73,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotNull with null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee()) {
-                validate(Employee::id).isNotNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee()) {
+                    validate(Employee::id).isNotNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", constraint = NotNull)
+            DefaultConstraintViolation(property = "id", constraint = NotNull),
         )
     }
 
@@ -98,13 +100,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isEqualTo with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 2)) {
-                validate(Employee::id).isEqualTo(1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 2)) {
+                    validate(Employee::id).isEqualTo(1)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 2.toShort(), constraint = Equals<Short>(1))
+            DefaultConstraintViolation(property = "id", value = 2.toShort(), constraint = Equals<Short>(1)),
         )
     }
 
@@ -124,13 +127,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotEqualTo with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotEqualTo(1)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotEqualTo(1)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = NotEquals<Short>(1))
+            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = NotEquals<Short>(1)),
         )
     }
 
@@ -150,13 +154,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isIn vararg with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isIn(0, 2, 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isIn(0, 2, 3)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = In(setOf<Short>(0, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = In(setOf<Short>(0, 2, 3))),
         )
     }
 
@@ -176,13 +181,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isIn iterable with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isIn(listOf<Short>(0, 2, 3))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isIn(listOf<Short>(0, 2, 3))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = In(listOf<Short>(0, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = In(listOf<Short>(0, 2, 3))),
         )
     }
 
@@ -202,13 +208,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotIn vararg with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotIn(1, 2, 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotIn(1, 2, 3)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = NotIn(setOf<Short>(1, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = NotIn(setOf<Short>(1, 2, 3))),
         )
     }
 
@@ -228,13 +235,14 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotIn iterable with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotIn(listOf<Short>(1, 2, 3))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotIn(listOf<Short>(1, 2, 3))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = NotIn(listOf<Short>(1, 2, 3)))
+            DefaultConstraintViolation(property = "id", value = 1.toShort(), constraint = NotIn(listOf<Short>(1, 2, 3))),
         )
     }
 
@@ -254,18 +262,19 @@ class ShortFunctionsTest {
 
     @Test
     fun `isZero with one should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toShort(),
-                constraint = Equals<Short>(0)
-            )
+                constraint = Equals<Short>(0),
+            ),
         )
     }
 
@@ -285,18 +294,19 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotZero with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isNotZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isNotZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = NotEquals<Short>(0)
-            )
+                constraint = NotEquals<Short>(0),
+            ),
         )
     }
 
@@ -316,18 +326,19 @@ class ShortFunctionsTest {
 
     @Test
     fun `isOne with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = Equals<Short>(1)
-            )
+                constraint = Equals<Short>(1),
+            ),
         )
     }
 
@@ -347,18 +358,19 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotOne with one should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotOne()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotOne()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toShort(),
-                constraint = NotEquals<Short>(1)
-            )
+                constraint = NotEquals<Short>(1),
+            ),
         )
     }
 
@@ -378,35 +390,37 @@ class ShortFunctionsTest {
 
     @Test
     fun `isPositive with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isPositive()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isPositive()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = Greater<Short>(0)
-            )
+                constraint = Greater<Short>(0),
+            ),
         )
     }
 
     @Test
     fun `isPositive with negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -9876)) {
-                validate(Employee::id).isPositive()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -9876)) {
+                    validate(Employee::id).isPositive()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 9876.unaryMinus().toShort(),
-                constraint = Greater<Short>(0)
-            )
+                constraint = Greater<Short>(0),
+            ),
         )
     }
 
@@ -433,18 +447,19 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNegativeOrZero with positive value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNegativeOrZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNegativeOrZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toShort(),
-                constraint = LessOrEqual<Short>(0)
-            )
+                constraint = LessOrEqual<Short>(0),
+            ),
         )
     }
 
@@ -464,35 +479,37 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNegative with zero should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isNegative()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isNegative()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = Less<Short>(0)
-            )
+                constraint = Less<Short>(0),
+            ),
         )
     }
 
     @Test
     fun `isNegative with positive value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNegative()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNegative()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toShort(),
-                constraint = Less<Short>(0)
-            )
+                constraint = Less<Short>(0),
+            ),
         )
     }
 
@@ -519,18 +536,19 @@ class ShortFunctionsTest {
 
     @Test
     fun `isPositiveOrZero with negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -9876)) {
-                validate(Employee::id).isPositiveOrZero()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -9876)) {
+                    validate(Employee::id).isPositiveOrZero()
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 9876.unaryMinus().toShort(),
-                constraint = GreaterOrEqual<Short>(0)
-            )
+                constraint = GreaterOrEqual<Short>(0),
+            ),
         )
     }
 
@@ -557,52 +575,55 @@ class ShortFunctionsTest {
 
     @Test
     fun `isLessThan with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 50)) {
-                validate(Employee::id).isLessThan(49.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 50)) {
+                    validate(Employee::id).isLessThan(49.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 50.toShort(),
-                constraint = Less<Short>(49)
-            )
+                constraint = Less<Short>(49),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -50)) {
-                validate(Employee::id).isLessThan(51.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -50)) {
+                    validate(Employee::id).isLessThan(51.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 50.unaryMinus().toShort(),
-                constraint = Less<Short>(-51)
-            )
+                constraint = Less<Short>(-51),
+            ),
         )
     }
 
     @Test
     fun `isLessThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isLessThan(0.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isLessThan(0.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = Less<Short>(0)
-            )
+                constraint = Less<Short>(0),
+            ),
         )
     }
 
@@ -636,35 +657,37 @@ class ShortFunctionsTest {
 
     @Test
     fun `isLessThanOrEqualTo with greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 5678)) {
-                validate(Employee::id).isLessThanOrEqualTo(57.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 5678)) {
+                    validate(Employee::id).isLessThanOrEqualTo(57.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 5678.toShort(),
-                constraint = LessOrEqual<Short>(57)
-            )
+                constraint = LessOrEqual<Short>(57),
+            ),
         )
     }
 
     @Test
     fun `isLessThanOrEqualTo with negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -96)) {
-                validate(Employee::id).isLessThanOrEqualTo(97.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -96)) {
+                    validate(Employee::id).isLessThanOrEqualTo(97.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 96.unaryMinus().toShort(),
-                constraint = LessOrEqual<Short>(-97)
-            )
+                constraint = LessOrEqual<Short>(-97),
+            ),
         )
     }
 
@@ -691,52 +714,55 @@ class ShortFunctionsTest {
 
     @Test
     fun `isGreaterThan with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 10)) {
-                validate(Employee::id).isGreaterThan(11.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 10)) {
+                    validate(Employee::id).isGreaterThan(11.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 10.toShort(),
-                constraint = Greater<Short>(11)
-            )
+                constraint = Greater<Short>(11),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with negative less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -189)) {
-                validate(Employee::id).isGreaterThan(180.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -189)) {
+                    validate(Employee::id).isGreaterThan(180.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 189.unaryMinus().toShort(),
-                constraint = Greater<Short>(-180)
-            )
+                constraint = Greater<Short>(-180),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThan with equal value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isGreaterThan(0.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isGreaterThan(0.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = Greater<Short>(0)
-            )
+                constraint = Greater<Short>(0),
+            ),
         )
     }
 
@@ -770,35 +796,37 @@ class ShortFunctionsTest {
 
     @Test
     fun `isGreaterThanOrEqualTo with less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 57)) {
-                validate(Employee::id).isGreaterThanOrEqualTo(5678.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 57)) {
+                    validate(Employee::id).isGreaterThanOrEqualTo(5678.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 57.toShort(),
-                constraint = GreaterOrEqual<Short>(5678)
-            )
+                constraint = GreaterOrEqual<Short>(5678),
+            ),
         )
     }
 
     @Test
     fun `isGreaterThanOrEqualTo with negative less value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -97)) {
-                validate(Employee::id).isGreaterThanOrEqualTo(96.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -97)) {
+                    validate(Employee::id).isGreaterThanOrEqualTo(96.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 97.unaryMinus().toShort(),
-                constraint = GreaterOrEqual<Short>(-96)
-            )
+                constraint = GreaterOrEqual<Short>(-96),
+            ),
         )
     }
 
@@ -853,69 +881,73 @@ class ShortFunctionsTest {
 
     @Test
     fun `isBetween with less start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 10)) {
-                validate(Employee::id).isBetween(start = 11.toShort(), end = 12.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 10)) {
+                    validate(Employee::id).isBetween(start = 11.toShort(), end = 12.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 10.toShort(),
-                constraint = Between<Short>(start = 11, end = 12)
-            )
+                constraint = Between<Short>(start = 11, end = 12),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 12)) {
-                validate(Employee::id).isBetween(start = 10.toShort(), end = 11.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 12)) {
+                    validate(Employee::id).isBetween(start = 10.toShort(), end = 11.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 12.toShort(),
-                constraint = Between<Short>(start = 10, end = 11)
-            )
+                constraint = Between<Short>(start = 10, end = 11),
+            ),
         )
     }
 
     @Test
     fun `isBetween with less negative start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -10)) {
-                validate(Employee::id).isBetween(start = 9.unaryMinus().toShort(), end = 8.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -10)) {
+                    validate(Employee::id).isBetween(start = 9.unaryMinus().toShort(), end = 8.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 10.unaryMinus().toShort(),
-                constraint = Between<Short>(start = -9, end = -8)
-            )
+                constraint = Between<Short>(start = -9, end = -8),
+            ),
         )
     }
 
     @Test
     fun `isBetween with greater negative end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -12)) {
-                validate(Employee::id).isBetween(start = 14.unaryMinus().toShort(), end = 13.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -12)) {
+                    validate(Employee::id).isBetween(start = 14.unaryMinus().toShort(), end = 13.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 12.unaryMinus().toShort(),
-                constraint = Between<Short>(start = -14, end = -13)
-            )
+                constraint = Between<Short>(start = -14, end = -13),
+            ),
         )
     }
 
@@ -956,103 +988,109 @@ class ShortFunctionsTest {
 
     @Test
     fun `isNotBetween with equal start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 0)) {
-                validate(Employee::id).isNotBetween(start = 0.toShort(), end = 1.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 0)) {
+                    validate(Employee::id).isNotBetween(start = 0.toShort(), end = 1.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 0.toShort(),
-                constraint = NotBetween<Short>(start = 0, end = 1)
-            )
+                constraint = NotBetween<Short>(start = 0, end = 1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 1)) {
-                validate(Employee::id).isNotBetween(start = 0.toShort(), end = 1.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 1)) {
+                    validate(Employee::id).isNotBetween(start = 0.toShort(), end = 1.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.toShort(),
-                constraint = NotBetween<Short>(start = 0, end = 1)
-            )
+                constraint = NotBetween<Short>(start = 0, end = 1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal negative start value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -2)) {
-                validate(Employee::id).isNotBetween(start = 2.unaryMinus().toShort(), end = 1.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -2)) {
+                    validate(Employee::id).isNotBetween(start = 2.unaryMinus().toShort(), end = 1.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 2.unaryMinus().toShort(),
-                constraint = NotBetween<Short>(start = -2, end = -1)
-            )
+                constraint = NotBetween<Short>(start = -2, end = -1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with equal negative end value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -1)) {
-                validate(Employee::id).isNotBetween(start = 2.unaryMinus().toShort(), end = 1.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -1)) {
+                    validate(Employee::id).isNotBetween(start = 2.unaryMinus().toShort(), end = 1.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 1.unaryMinus().toShort(),
-                constraint = NotBetween<Short>(start = -2, end = -1)
-            )
+                constraint = NotBetween<Short>(start = -2, end = -1),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 5)) {
-                validate(Employee::id).isNotBetween(start = 0.toShort(), end = 10.toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 5)) {
+                    validate(Employee::id).isNotBetween(start = 0.toShort(), end = 10.toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 5.toShort(),
-                constraint = NotBetween<Short>(start = 0, end = 10)
-            )
+                constraint = NotBetween<Short>(start = 0, end = 10),
+            ),
         )
     }
 
     @Test
     fun `isNotBetween with within negative value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -15)) {
-                validate(Employee::id).isNotBetween(start = 20.unaryMinus().toShort(), end = 10.unaryMinus().toShort())
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -15)) {
+                    validate(Employee::id).isNotBetween(start = 20.unaryMinus().toShort(), end = 10.unaryMinus().toShort())
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 15.unaryMinus().toShort(),
-                constraint = NotBetween<Short>(start = -20, end = -10)
-            )
+                constraint = NotBetween<Short>(start = -20, end = -10),
+            ),
         )
     }
 
@@ -1114,103 +1152,109 @@ class ShortFunctionsTest {
 
     @Test
     fun `hasDigits with less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 7485)) {
-                validate(Employee::id).hasDigits(min = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 7485)) {
+                    validate(Employee::id).hasDigits(min = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 7485.toShort(),
-                constraint = IntegerDigits(min = 5)
-            )
+                constraint = IntegerDigits(min = 5),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 7485)) {
-                validate(Employee::id).hasDigits(max = 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 7485)) {
+                    validate(Employee::id).hasDigits(max = 3)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 7485.toShort(),
-                constraint = IntegerDigits(max = 3)
-            )
+                constraint = IntegerDigits(max = 3),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with less value and greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = 7485)) {
-                validate(Employee::id).hasDigits(min = 5, max = 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = 7485)) {
+                    validate(Employee::id).hasDigits(min = 5, max = 3)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 7485.toShort(),
-                constraint = IntegerDigits(min = 5, max = 3)
-            )
+                constraint = IntegerDigits(min = 5, max = 3),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with negative less min value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -7485)) {
-                validate(Employee::id).hasDigits(min = 5)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -7485)) {
+                    validate(Employee::id).hasDigits(min = 5)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 7485.unaryMinus().toShort(),
-                constraint = IntegerDigits(min = 5)
-            )
+                constraint = IntegerDigits(min = 5),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with negative greater max value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -7485)) {
-                validate(Employee::id).hasDigits(max = 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -7485)) {
+                    validate(Employee::id).hasDigits(max = 3)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 7485.unaryMinus().toShort(),
-                constraint = IntegerDigits(max = 3)
-            )
+                constraint = IntegerDigits(max = 3),
+            ),
         )
     }
 
     @Test
     fun `hasDigits with negative less value and negative greater value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(id = -7485)) {
-                validate(Employee::id).hasDigits(min = 5, max = 3)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(id = -7485)) {
+                    validate(Employee::id).hasDigits(min = 5, max = 3)
+                }
             }
-        }
 
         assertThat(exception.constraintViolations).containsExactly(
             DefaultConstraintViolation(
                 property = "id",
                 value = 7485.unaryMinus().toShort(),
-                constraint = IntegerDigits(min = 5, max = 3)
-            )
+                constraint = IntegerDigits(min = 5, max = 3),
+            ),
         )
     }
 }

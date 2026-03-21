@@ -117,7 +117,9 @@ object LowerCase : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Matches(val pattern: String) : Constraint {
+data class Matches(
+    val pattern: String,
+) : Constraint {
     constructor(regex: Regex) : this(regex.pattern)
 }
 
@@ -130,7 +132,9 @@ data class Matches(val pattern: String) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class NotMatch(val pattern: String) : Constraint {
+data class NotMatch(
+    val pattern: String,
+) : Constraint {
     constructor(regex: Regex) : this(regex.pattern)
 }
 
@@ -143,7 +147,9 @@ data class NotMatch(val pattern: String) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class ContainsRegex(val pattern: String) : Constraint {
+data class ContainsRegex(
+    val pattern: String,
+) : Constraint {
     constructor(regex: Regex) : this(regex.pattern)
 }
 
@@ -156,7 +162,9 @@ data class ContainsRegex(val pattern: String) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class NotContainRegex(val pattern: String) : Constraint {
+data class NotContainRegex(
+    val pattern: String,
+) : Constraint {
     constructor(regex: Regex) : this(regex.pattern)
 }
 
@@ -169,7 +177,9 @@ data class NotContainRegex(val pattern: String) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class StartsWith(val prefix: String) : Constraint
+data class StartsWith(
+    val prefix: String,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value doesn't start with another value
@@ -180,7 +190,9 @@ data class StartsWith(val prefix: String) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotStartWith(val prefix: String) : Constraint
+data class NotStartWith(
+    val prefix: String,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value ends with another value
@@ -191,7 +203,9 @@ data class NotStartWith(val prefix: String) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class EndsWith(val suffix: String) : Constraint
+data class EndsWith(
+    val suffix: String,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value doesn't end with another value
@@ -202,7 +216,9 @@ data class EndsWith(val suffix: String) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotEndWith(val suffix: String) : Constraint
+data class NotEndWith(
+    val suffix: String,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is a valid e-mail

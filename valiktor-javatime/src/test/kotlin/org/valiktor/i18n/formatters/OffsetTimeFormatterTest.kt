@@ -27,15 +27,16 @@ import java.time.ZoneOffset
 import kotlin.test.Test
 
 class OffsetTimeFormatterTest {
-
     @Test
     fun `should format time`() {
-        assertThat(Formatters[OffsetTime::class].formatAllSupportedLocales(OffsetTime.of(LocalTime.of(23, 58, 59), ZoneOffset.UTC))).contains(
+        assertThat(
+            Formatters[OffsetTime::class].formatAllSupportedLocales(OffsetTime.of(LocalTime.of(23, 58, 59), ZoneOffset.UTC)),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "11:58:59 PM"),
             entry(SupportedLocales.DE, "23:58:59"),
             entry(SupportedLocales.EN, "11:58:59 PM"),
             entry(SupportedLocales.JA, "23:58:59"),
-            entry(SupportedLocales.PT_BR, "23:58:59")
+            entry(SupportedLocales.PT_BR, "23:58:59"),
         )
     }
 }

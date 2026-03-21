@@ -34,11 +34,11 @@ import org.valiktor.i18n.formatters.LocalTimeFormatter
  * @since 0.6.0
  */
 class JodaTimeFormatterSpi : FormatterSpi {
-
-    override val formatters = setOf(
-        DateTime::class to DateTimeFormatter,
-        LocalDate::class to LocalDateFormatter,
-        LocalDateTime::class to LocalDateTimeFormatter,
-        LocalTime::class to LocalTimeFormatter
-    )
+    override val formatters =
+        setOf(
+            DateTime::class to DateTimeFormatter,
+            LocalDate::class to LocalDateFormatter,
+            LocalDateTime::class to LocalDateTimeFormatter,
+            LocalTime::class to LocalTimeFormatter,
+        )
 }

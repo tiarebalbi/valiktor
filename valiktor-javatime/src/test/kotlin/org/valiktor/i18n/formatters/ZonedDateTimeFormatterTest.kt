@@ -28,15 +28,18 @@ import java.time.ZonedDateTime
 import kotlin.test.Test
 
 class ZonedDateTimeFormatterTest {
-
     @Test
     fun `should format dateTime`() {
-        assertThat(Formatters[ZonedDateTime::class].formatAllSupportedLocales(ZonedDateTime.of(LocalDateTime.of(2018, Month.DECEMBER, 31, 23, 58, 59), ZoneOffset.UTC))).contains(
+        assertThat(
+            Formatters[ZonedDateTime::class].formatAllSupportedLocales(
+                ZonedDateTime.of(LocalDateTime.of(2018, Month.DECEMBER, 31, 23, 58, 59), ZoneOffset.UTC),
+            ),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "Dec 31, 2018 11:58:59 PM"),
             entry(SupportedLocales.DE, "31.12.2018 23:58:59"),
             entry(SupportedLocales.EN, "Dec 31, 2018 11:58:59 PM"),
             entry(SupportedLocales.JA, "2018/12/31 23:58:59"),
-            entry(SupportedLocales.PT_BR, "31/12/2018 23:58:59")
+            entry(SupportedLocales.PT_BR, "31/12/2018 23:58:59"),
         )
     }
 }

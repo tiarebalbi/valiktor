@@ -1,11 +1,11 @@
 plugins {
-    kotlin("plugin.spring") version "1.4.10"
+    kotlin("plugin.spring") version "2.2.21"
 }
 
-val springBootVersion = "2.2.6.RELEASE"
+val springBootVersion = "3.4.3"
 
 dependencies {
-    compile(project(":valiktor-spring:valiktor-spring"))
-    compile(project(":valiktor-spring:valiktor-spring-boot-autoconfigure"))
-    compile("org.springframework.boot:spring-boot-starter:$springBootVersion")
+    api(project(":valiktor-spring:valiktor-spring"))
+    api(project(":valiktor-spring:valiktor-spring-boot-autoconfigure"))
+    api("org.springframework.boot:spring-boot-starter:$springBootVersion")
 }

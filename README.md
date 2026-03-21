@@ -2,15 +2,22 @@
 
 > Valiktor is a type-safe, powerful and extensible fluent DSL to validate objects in Kotlin.
 
-> **⚠️ Fork Notice:** This project is a fork of [valiktor/valiktor](https://github.com/valiktor/valiktor), which is no longer maintained. The main goals of this fork are to introduce and optimize support for **Kotlin 2.x** and to update the codebase to support **Spring Boot 4.x**.
+> **⚠️ Fork Notice:** This project is a fork of [valiktor/valiktor](https://github.com/valiktor/valiktor), which is no longer maintained. The main goals of this fork are to introduce and optimize support for **Kotlin 2.x** and to update the codebase to support **Spring Boot 3.x**.
 
-[![Build Status](https://travis-ci.org/valiktor/valiktor.svg?branch=master)](https://travis-ci.org/valiktor/valiktor)
-[![Build status](https://ci.appveyor.com/api/projects/status/github/valiktor/valiktor?branch=master&svg=true)](https://ci.appveyor.com/project/rodolphocouto/valiktor)
-[![Coverage Status](https://codecov.io/gh/valiktor/valiktor/branch/master/graph/badge.svg)](https://codecov.io/gh/valiktor/valiktor)
-[![Quality Status](https://api.codacy.com/project/badge/Grade/1826622893374838856952b9c013793a)](https://www.codacy.com/app/rodolphocouto/valiktor?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=valiktor/valiktor&amp;utm_campaign=Badge_Grade)
 [![Code Style](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io)
 [![Maven Central](https://img.shields.io/maven-central/v/org.valiktor/valiktor-core.svg)](https://search.maven.org/search?q=g:org.valiktor)
 [![Apache License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](LICENSE)
+
+## Requirements
+
+| Requirement       | Minimum Version |
+|-------------------|-----------------|
+| Java              | 17              |
+| Kotlin            | 2.2.21          |
+| Spring Boot       | 3.4.x           |
+| Spring Framework  | 6.2.x           |
+
+> **Note:** The project targets Java 17+ and is compatible with Java 24. It is built with Kotlin 2.2.21 and Gradle 8.14.
 
 ## Installation
 
@@ -578,7 +585,6 @@ Response:
 
 Samples: 
 
-* [valiktor-sample-spring-boot-1-webmvc](valiktor-samples/valiktor-sample-spring-boot-1-webmvc)
 * [valiktor-sample-spring-boot-2-webmvc](valiktor-samples/valiktor-sample-spring-boot-2-webmvc)
 
 #### Spring WebFlux example
@@ -587,20 +593,15 @@ Consider this router using [Kotlin DSL](https://spring.io/blog/2017/08/01/spring
 
 ```kotlin
 @Bean
-fun router() = router {
+fun router() = coRouter {
     accept(MediaType.APPLICATION_JSON).nest {
-        "/employees".nest {
-            POST("/") { req ->
-                req.bodyToMono(Employee::class.java)
-                    .map {
-                        validate(it) {
-                            validate(Employee::id).isPositive()
-                            validate(Employee::name).isNotEmpty()
-                        }
-                    }
-                    .flatMap {
-                        ServerResponse.created(...).build()
-                    }
+        POST("/employees") { req ->
+            req.awaitBody<Employee>().let { employee ->
+                validate(employee) {
+                    validate(Employee::id).isPositive()
+                    validate(Employee::name).isNotEmpty()
+                }
+                ServerResponse.created(URI("...")).buildAndAwait()
             }
         }
     }
@@ -720,9 +721,9 @@ class ValidationExceptionHandler(
             },
             body = ValidationError(
                 errors = exception.constraintViolations
+                    .toList()
                     .mapToMessage(baseName = config.baseBundleName, locale = locale)
-                    .map { it.property to it.message }
-                    .toMap()
+                    .associate { it.property to it.message }
             )
         )
 }
@@ -914,10 +915,9 @@ This module provides fluent assertions for validation tests
 * [valiktor-sample-jodatime](valiktor-samples/valiktor-sample-jodatime)
 * [valiktor-sample-custom-constraint](valiktor-samples/valiktor-sample-custom-constraint)
 * [valiktor-sample-custom-formatter](valiktor-samples/valiktor-sample-custom-formatter)
-* [valiktor-sample-spring-boot-1-webmvc](valiktor-samples/valiktor-sample-spring-boot-1-webmvc)
-* [valiktor-sample-spring-boot-2-webmvc](valiktor-samples/valiktor-sample-spring-boot-2-webmvc)
-* [valiktor-sample-spring-boot-2-webflux](valiktor-samples/valiktor-sample-spring-boot-2-webflux)
-* [valiktor-sample-spring-boot-2-webflux-fn](valiktor-samples/valiktor-sample-spring-boot-2-webflux-fn)
+* [valiktor-sample-spring-boot-2-webmvc](valiktor-samples/valiktor-sample-spring-boot-2-webmvc) *(Spring Boot 3.x + WebMVC)*
+* [valiktor-sample-spring-boot-2-webflux](valiktor-samples/valiktor-sample-spring-boot-2-webflux) *(Spring Boot 3.x + WebFlux)*
+* [valiktor-sample-spring-boot-2-webflux-fn](valiktor-samples/valiktor-sample-spring-boot-2-webflux-fn) *(Spring Boot 3.x + WebFlux Functional)*
 
 ## Changelog
 

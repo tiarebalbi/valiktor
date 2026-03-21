@@ -25,7 +25,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class ReactiveMissingKotlinParameterExceptionHandlerJsonTest {
-
     private val json = ReactiveExceptionHandlerFixture.JSON
     private val webClient = ReactiveExceptionHandlerFixture.webClient
 
@@ -43,9 +42,12 @@ class ReactiveMissingKotlinParameterExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeValid())
             .exchange()
-            .expectStatus().isCreated
-            .expectHeader().valueEquals(LOCATION, "/employees/1")
-            .expectBody().isEmpty
+            .expectStatus()
+            .isCreated
+            .expectHeader()
+            .valueEquals(LOCATION, "/employees/1")
+            .expectBody()
+            .isEmpty
     }
 
     @Test
@@ -57,9 +59,12 @@ class ReactiveMissingKotlinParameterExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeNullName())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422NullName(Locale.ENGLISH))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422NullName(Locale.ENGLISH))
     }
 
     @Test
@@ -72,9 +77,12 @@ class ReactiveMissingKotlinParameterExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeNullName())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422NullName(Locale.ENGLISH))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422NullName(Locale.ENGLISH))
     }
 
     @Test
@@ -87,8 +95,11 @@ class ReactiveMissingKotlinParameterExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeNullName())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422NullName(Locale("pt", "BR")))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422NullName(Locale("pt", "BR")))
     }
 }

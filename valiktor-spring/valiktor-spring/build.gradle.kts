@@ -1,27 +1,27 @@
 plugins {
-    kotlin("plugin.spring") version "1.4.10"
+    kotlin("plugin.spring") version "2.2.21"
 }
 
-val springVersion = "5.2.9.RELEASE"
-val jacksonVersion = "2.11.2"
-val servletVersion = "4.0.1"
+val springVersion = "6.2.6"
+val jacksonVersion = "2.19.4"
+val servletVersion = "6.0.0"
 val jsonAssertVersion = "1.5.0"
-val xmlUnitVersion = "2.7.0"
+val xmlUnitVersion = "2.10.0"
 
 dependencies {
-    compile(project(":valiktor-core"))
+    api(project(":valiktor-core"))
     compileOnly("org.springframework:spring-webmvc:$springVersion")
     compileOnly("org.springframework:spring-webflux:$springVersion")
     compileOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     compileOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
 
-    testCompile("org.springframework:spring-webmvc:$springVersion")
-    testCompile("org.springframework:spring-webflux:$springVersion")
-    testCompile("org.springframework:spring-test:$springVersion")
-    testCompile("javax.servlet:javax.servlet-api:$servletVersion")
-    testCompile("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    testCompile("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    testCompile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
-    testRuntime("org.skyscreamer:jsonassert:$jsonAssertVersion")
-    testRuntime("org.xmlunit:xmlunit-core:$xmlUnitVersion")
+    testImplementation("org.springframework:spring-webmvc:$springVersion")
+    testImplementation("org.springframework:spring-webflux:$springVersion")
+    testImplementation("org.springframework:spring-test:$springVersion")
+    testImplementation("jakarta.servlet:jakarta.servlet-api:$servletVersion")
+    testImplementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    testImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
+    testRuntimeOnly("org.skyscreamer:jsonassert:$jsonAssertVersion")
+    testRuntimeOnly("org.xmlunit:xmlunit-core:$xmlUnitVersion")
 }

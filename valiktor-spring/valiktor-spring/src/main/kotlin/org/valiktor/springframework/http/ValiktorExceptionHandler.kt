@@ -27,7 +27,6 @@ import java.util.Locale
  * @since 0.11.0
  */
 interface ValiktorExceptionHandler<T : Any> {
-
     /**
      * Handles [ConstraintViolationException] and returns a [ValiktorResponse] with status code, headers and body.
      *
@@ -35,5 +34,8 @@ interface ValiktorExceptionHandler<T : Any> {
      * @param locale specifies the [Locale] extracted from request
      * @return a [ValiktorResponse] with status code, headers and body
      */
-    fun handle(exception: ConstraintViolationException, locale: Locale): ValiktorResponse<T>
+    fun handle(
+        exception: ConstraintViolationException,
+        locale: Locale,
+    ): ValiktorResponse<T>
 }

@@ -23,9 +23,13 @@ import org.valiktor.i18n.toMessage
 import org.valiktor.validate
 import java.util.Locale
 
-data class Dependent(val name: String)
+data class Dependent(
+    val name: String,
+)
 
-data class Employee(val dependents: List<Dependent>) {
+data class Employee(
+    val dependents: List<Dependent>,
+) {
     init {
         validate(this) {
             validate(Employee::dependents).validateForEach {
@@ -38,11 +42,12 @@ data class Employee(val dependents: List<Dependent>) {
 fun main() {
     try {
         Employee(
-            dependents = listOf(
-                Dependent(name = ""),
-                Dependent(name = " "),
-                Dependent(name = "  ")
-            )
+            dependents =
+                listOf(
+                    Dependent(name = ""),
+                    Dependent(name = " "),
+                    Dependent(name = "  "),
+                ),
         )
     } catch (ex: ConstraintViolationException) {
         ex.constraintViolations

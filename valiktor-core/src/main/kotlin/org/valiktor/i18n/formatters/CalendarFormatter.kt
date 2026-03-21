@@ -28,15 +28,17 @@ import java.util.Calendar
  * @since 0.1.0
  */
 object CalendarFormatter : Formatter<Calendar> {
-
-    override fun format(value: Calendar, messageBundle: MessageBundle): String =
+    override fun format(
+        value: Calendar,
+        messageBundle: MessageBundle,
+    ): String =
         (
-            if (value.hasTime())
+            if (value.hasTime()) {
                 DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, messageBundle.locale)
-            else
+            } else {
                 DateFormat.getDateInstance(DateFormat.MEDIUM, messageBundle.locale)
-            )
-            .format(value.time)
+            }
+        ).format(value.time)
 
     private fun Calendar.hasTime(): Boolean {
         val hours = this.get(Calendar.HOUR_OF_DAY)

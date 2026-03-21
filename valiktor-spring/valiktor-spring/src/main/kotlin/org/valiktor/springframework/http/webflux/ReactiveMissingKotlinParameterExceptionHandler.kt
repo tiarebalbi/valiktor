@@ -35,7 +35,6 @@ import reactor.core.publisher.Mono
  */
 @Order(-30)
 class ReactiveMissingKotlinParameterExceptionHandler : WebExceptionHandler {
-
     /**
      * Handles [MissingKotlinParameterException] and throws a [ConstraintViolationException]
      *
@@ -43,24 +42,32 @@ class ReactiveMissingKotlinParameterExceptionHandler : WebExceptionHandler {
      * @param ex specifies the [MissingKotlinParameterException]
      * @return the [Mono] with error of type [ConstraintViolationException]
      */
-    override fun handle(exchange: ServerWebExchange, ex: Throwable): Mono<Void> =
-        ex.handle(exchange) ?: Mono.error(ex)
+    override fun handle(
+        exchange: ServerWebExchange,
+        ex: Throwable,
+    ): Mono<Void> = ex.handle(exchange) ?: Mono.error(ex)
 
     private fun Throwable.handle(exchange: ServerWebExchange): Mono<Void>? =
         when (this) {
-            is MissingKotlinParameterException ->
+            is MissingKotlinParameterException -> {
                 Mono.error(
                     ConstraintViolationException(
-                        constraintViolations = setOf(
-                            DefaultConstraintViolation(
-                                property = this.path.fold("") { path, it ->
-                                    (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
-                                },
-                                constraint = NotNull
-                            )
-                        )
-                    )
+                        constraintViolations =
+                            setOf(
+                                DefaultConstraintViolation(
+                                    property =
+                                        this.path.fold("") { path, it ->
+                                            (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
+                                        },
+                                    constraint = NotNull,
+                                ),
+                            ),
+                    ),
                 )
-            else -> this.cause?.handle(exchange)
+            }
+
+            else -> {
+                this.cause?.handle(exchange)
+            }
         }
 }
