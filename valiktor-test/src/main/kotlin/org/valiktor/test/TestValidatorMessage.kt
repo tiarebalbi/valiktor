@@ -20,9 +20,11 @@ import org.valiktor.Constraint
 import org.valiktor.ConstraintViolation
 import java.lang.System.lineSeparator
 
-fun message(expectedConstraintViolations: Set<ConstraintViolation>, constraintViolations: Set<ConstraintViolation>) =
-    "Expected:${lineSeparator()}${lineSeparator()}${expectedConstraintViolations.toTestString()}${lineSeparator()}${lineSeparator()}" +
-        "but was:${lineSeparator()}${lineSeparator()}${constraintViolations.toTestString()}${lineSeparator()}"
+fun message(
+    expectedConstraintViolations: Set<ConstraintViolation>,
+    constraintViolations: Set<ConstraintViolation>,
+) = "Expected:${lineSeparator()}${lineSeparator()}${expectedConstraintViolations.toTestString()}${lineSeparator()}${lineSeparator()}" +
+    "but was:${lineSeparator()}${lineSeparator()}${constraintViolations.toTestString()}${lineSeparator()}"
 
 private fun Set<ConstraintViolation>.toTestString() =
     this.joinToString(separator = lineSeparator()) { constraintViolation ->
@@ -31,9 +33,17 @@ private fun Set<ConstraintViolation>.toTestString() =
             constraintViolation.constraint.toTestString()
     }
 
-private fun ConstraintViolation.toTestString(constraintViolations: Set<ConstraintViolation>, f: (ConstraintViolation) -> String) =
-    f(this) + (0 until (constraintViolations.maxBy { f(it).length }?.let(f) ?: "").length.minus(f(this).length))
+private fun ConstraintViolation.toTestString(
+    constraintViolations: Set<ConstraintViolation>,
+    f: (ConstraintViolation) -> String,
+) = f(this) +
+    (0 until (constraintViolations.maxBy { f(it).length }?.let(f) ?: "").length.minus(f(this).length))
         .joinToString(separator = "") { " " }
 
-private fun Constraint.toTestString() = this.name + if (this.messageParams.isEmpty()) "" else
-    "(${this.messageParams.toList().joinToString { "${it.first} = ${it.second}" }})"
+private fun Constraint.toTestString() =
+    this.name +
+        if (this.messageParams.isEmpty()) {
+            ""
+        } else {
+            "(${this.messageParams.toList().joinToString { "${it.first} = ${it.second}" }})"
+        }

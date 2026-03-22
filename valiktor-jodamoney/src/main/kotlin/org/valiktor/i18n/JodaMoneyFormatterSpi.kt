@@ -30,9 +30,9 @@ import org.valiktor.i18n.formatters.MoneyFormatter
  * @since 0.6.0
  */
 class JodaMoneyFormatterSpi : FormatterSpi {
-
-    override val formatters = setOf(
-        BigMoney::class to BigMoneyFormatter,
-        Money::class to MoneyFormatter
-    )
+    override val formatters =
+        setOf(
+            BigMoney::class to BigMoneyFormatter,
+            Money::class to MoneyFormatter,
+        )
 }

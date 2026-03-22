@@ -1,0 +1,4 @@
+org.valiktor.springframework.boot.autoconfigure.ValiktorAutoConfiguration
+org.valiktor.springframework.boot.autoconfigure.ValiktorExceptionHandlerAutoConfiguration
+org.valiktor.springframework.boot.autoconfigure.ValiktorWebMvcAutoConfiguration
+org.valiktor.springframework.boot.autoconfigure.ValiktorWebFluxAutoConfiguration

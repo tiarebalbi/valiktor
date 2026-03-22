@@ -41,44 +41,68 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 private object FormattersFixture {
-
     interface TestParentParentParent
+
     interface TestParentParentL : TestParentParentParent
+
     interface TestParentParentR : TestParentParentParent
-    interface TestParentL : TestParentParentL, TestParentParentR
-    interface TestParentR : TestParentParentL, TestParentParentR
+
+    interface TestParentL :
+        TestParentParentL,
+        TestParentParentR
+
+    interface TestParentR :
+        TestParentParentL,
+        TestParentParentR
 
     object TestObject : TestParentL, TestParentR {
         override fun toString(): String = "TestObject"
     }
 
     object TestFormatter : Formatter<TestObject> {
-        override fun format(value: TestObject, messageBundle: MessageBundle): String = value.toString()
+        override fun format(
+            value: TestObject,
+            messageBundle: MessageBundle,
+        ): String = value.toString()
     }
 
     object TestParentLFormatter : Formatter<TestParentL> {
-        override fun format(value: TestParentL, messageBundle: MessageBundle): String = value.toString()
+        override fun format(
+            value: TestParentL,
+            messageBundle: MessageBundle,
+        ): String = value.toString()
     }
 
     object TestParentRFormatter : Formatter<TestParentR> {
-        override fun format(value: TestParentR, messageBundle: MessageBundle): String = value.toString()
+        override fun format(
+            value: TestParentR,
+            messageBundle: MessageBundle,
+        ): String = value.toString()
     }
 
     object TestParentParentLFormatter : Formatter<TestParentParentL> {
-        override fun format(value: TestParentParentL, messageBundle: MessageBundle): String = value.toString()
+        override fun format(
+            value: TestParentParentL,
+            messageBundle: MessageBundle,
+        ): String = value.toString()
     }
 
     object TestParentParentRFormatter : Formatter<TestParentParentR> {
-        override fun format(value: TestParentParentR, messageBundle: MessageBundle): String = value.toString()
+        override fun format(
+            value: TestParentParentR,
+            messageBundle: MessageBundle,
+        ): String = value.toString()
     }
 
     object TestParentParentParentFormatter : Formatter<TestParentParentParent> {
-        override fun format(value: TestParentParentParent, messageBundle: MessageBundle): String = value.toString()
+        override fun format(
+            value: TestParentParentParent,
+            messageBundle: MessageBundle,
+        ): String = value.toString()
     }
 }
 
 class FormattersTest {
-
     @BeforeTest
     fun `remove formatters`() {
         Formatters -= TestObject::class

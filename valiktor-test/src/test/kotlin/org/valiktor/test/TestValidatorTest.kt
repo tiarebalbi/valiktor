@@ -18,7 +18,7 @@ package org.valiktor.test
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.opentest4j.AssertionFailedError
 import org.valiktor.constraints.Between
 import org.valiktor.constraints.Email
@@ -41,7 +41,6 @@ import kotlin.test.assertFailsWith
 
 @ExperimentalCoroutinesApi
 class TestValidatorTest {
-
     @Test
     fun `should not fail validation`() {
         assertFailsWith<AssertionFailedError> {
@@ -58,7 +57,7 @@ class TestValidatorTest {
             return TestValidatorTestFixture.validEmployee()
         }
 
-        runBlockingTest {
+        runTest {
             assertFailsWith<AssertionFailedError> {
                 shouldFailValidation<Employee> {
                     validEmployee()
@@ -81,7 +80,7 @@ class TestValidatorTest {
             return TestValidatorTestFixture.invalidEmployee()
         }
 
-        runBlockingTest {
+        runTest {
             shouldFailValidation<Employee> {
                 invalidEmployee()
             }
@@ -154,68 +153,69 @@ class TestValidatorTest {
 
     @Test
     fun `should fail validation and verify incorrect constraint violations`() {
-        val ex = assertFailsWith<AssertionFailedError> {
-            shouldFailValidation<Employee> {
-                TestValidatorTestFixture.invalidEmployee()
-            }.verify {
-                expect(Employee::id, 1, Greater(1))
-                expect(Employee::name, "", NotEmpty)
-                expect(Employee::email, "john", Email)
-                expect(Employee::company) {
-                    expect(Company::name, "C", Size(min = 2, max = 100))
-                }
-                expect(Employee::address) {
-                    expect(Address::street, " ", NotBlank)
-                    expect(Address::number, "foo", Matches(Regex("^[0-9]*\$")))
-                    expect(Address::neighborhood, " ", Size(min = 2, max = 50))
-                    expect(Address::city) {
-                        expect(City::name, "C", Size(min = 2, max = 60))
-                        expect(City::state) {
-                            expect(State::name, "SP", Size(min = 3, max = 3))
-                            expect(State::country) {
-                                expect(Country::name, "BRA", Size(min = 2, max = 2))
+        val ex =
+            assertFailsWith<AssertionFailedError> {
+                shouldFailValidation<Employee> {
+                    TestValidatorTestFixture.invalidEmployee()
+                }.verify {
+                    expect(Employee::id, 1, Greater(1))
+                    expect(Employee::name, "", NotEmpty)
+                    expect(Employee::email, "john", Email)
+                    expect(Employee::company) {
+                        expect(Company::name, "C", Size(min = 2, max = 100))
+                    }
+                    expect(Employee::address) {
+                        expect(Address::street, " ", NotBlank)
+                        expect(Address::number, "foo", Matches(Regex("^[0-9]*\$")))
+                        expect(Address::neighborhood, " ", Size(min = 2, max = 50))
+                        expect(Address::city) {
+                            expect(City::name, "C", Size(min = 2, max = 60))
+                            expect(City::state) {
+                                expect(State::name, "SP", Size(min = 3, max = 3))
+                                expect(State::country) {
+                                    expect(Country::name, "BRA", Size(min = 2, max = 2))
+                                }
                             }
                         }
                     }
-                }
-                expectAll(Employee::dependentsList) {
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, -1, Between(0, 15))
+                    expectAll(Employee::dependentsList) {
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, -1, Between(0, 15))
+                        }
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, 16, Between(0, 15))
+                        }
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, 17, Between(0, 15))
+                        }
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, 18, Between(0, 15))
+                        }
                     }
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, 16, Between(0, 15))
-                    }
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, 17, Between(0, 15))
-                    }
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, 18, Between(0, 15))
-                    }
-                }
-                expectAll(Employee::dependentsArray) {
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, -1, Between(0, 17))
-                    }
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, 18, Between(0, 17))
-                    }
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, 19, Between(0, 17))
-                    }
-                    expectElement {
-                        expect(Dependent::name, "", NotEmpty)
-                        expect(Dependent::age, 20, Between(0, 17))
+                    expectAll(Employee::dependentsArray) {
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, -1, Between(0, 17))
+                        }
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, 18, Between(0, 17))
+                        }
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, 19, Between(0, 17))
+                        }
+                        expectElement {
+                            expect(Dependent::name, "", NotEmpty)
+                            expect(Dependent::age, 20, Between(0, 17))
+                        }
                     }
                 }
             }
-        }
 
         assertEquals(
             ex.message,
@@ -272,7 +272,7 @@ class TestValidatorTest {
                 "dependentsArray[2].name         |      | NotBlank${lineSeparator()}" +
                 "dependentsArray[2].age          | 20   | Between(end = 18, start = 1)${lineSeparator()}" +
                 "dependentsArray[3].name         |      | NotBlank${lineSeparator()}" +
-                "dependentsArray[3].age          | 21   | Between(end = 18, start = 1)${lineSeparator()}"
+                "dependentsArray[3].age          | 21   | Between(end = 18, start = 1)${lineSeparator()}",
         )
     }
 }

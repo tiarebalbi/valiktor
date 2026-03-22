@@ -34,16 +34,16 @@ import org.valiktor.springframework.http.webflux.ReactiveMissingKotlinParameterE
 import kotlin.test.Test
 
 class ValiktorWebFluxAutoConfigurationTest {
-
-    private val contextRunner = ApplicationContextRunner()
-        .withConfiguration(
-            AutoConfigurations.of(
-                ValiktorAutoConfiguration::class.java,
-                ValiktorExceptionHandlerAutoConfiguration::class.java,
-                ValiktorWebFluxAutoConfiguration::class.java,
-                CodecsCustomConfiguration::class.java
+    private val contextRunner =
+        ApplicationContextRunner()
+            .withConfiguration(
+                AutoConfigurations.of(
+                    ValiktorAutoConfiguration::class.java,
+                    ValiktorExceptionHandlerAutoConfiguration::class.java,
+                    ValiktorWebFluxAutoConfiguration::class.java,
+                    CodecsCustomConfiguration::class.java,
+                ),
             )
-        )
 
     @Test
     fun `should not create ReactiveConstraintViolationExceptionHandler without ValiktorExceptionHandler`() {
@@ -104,16 +104,16 @@ class ValiktorWebFluxAutoConfigurationTest {
     fun `should create ReactiveConstraintViolationExceptionHandler with custom bean`() {
         this.contextRunner
             .withUserConfiguration(
-                ValiktorWebFluxCustomConfiguration::class.java
-            )
-            .run { context ->
+                ValiktorWebFluxCustomConfiguration::class.java,
+            ).run { context ->
                 assertThat(context).hasSingleBean(ReactiveConstraintViolationExceptionHandler::class.java)
                 assertThat(context.getBean(ReactiveConstraintViolationExceptionHandler::class.java)).isSameAs(
-                    context.getBean(ValiktorWebFluxCustomConfiguration::class.java)
+                    context
+                        .getBean(ValiktorWebFluxCustomConfiguration::class.java)
                         .reactiveConstraintViolationExceptionHandler(
                             handler = context.getBean(ValiktorExceptionHandler::class.java),
-                            codecConfigurer = context.getBean(CodecConfigurer::class.java)
-                        )
+                            codecConfigurer = context.getBean(CodecConfigurer::class.java),
+                        ),
                 )
             }
     }
@@ -130,13 +130,13 @@ class ValiktorWebFluxAutoConfigurationTest {
     fun `should create ReactiveInvalidFormatExceptionHandler with custom bean`() {
         this.contextRunner
             .withUserConfiguration(
-                ValiktorWebFluxCustomConfiguration::class.java
-            )
-            .run { context ->
+                ValiktorWebFluxCustomConfiguration::class.java,
+            ).run { context ->
                 assertThat(context).hasSingleBean(ReactiveInvalidFormatExceptionHandler::class.java)
                 assertThat(context.getBean(ReactiveInvalidFormatExceptionHandler::class.java)).isSameAs(
-                    context.getBean(ValiktorWebFluxCustomConfiguration::class.java)
-                        .reactiveInvalidFormatExceptionHandler()
+                    context
+                        .getBean(ValiktorWebFluxCustomConfiguration::class.java)
+                        .reactiveInvalidFormatExceptionHandler(),
                 )
             }
     }
@@ -153,32 +153,30 @@ class ValiktorWebFluxAutoConfigurationTest {
     fun `should create ReactiveMissingKotlinParameterExceptionHandler with custom bean`() {
         this.contextRunner
             .withUserConfiguration(
-                ValiktorWebFluxCustomConfiguration::class.java
-            )
-            .run { context ->
+                ValiktorWebFluxCustomConfiguration::class.java,
+            ).run { context ->
                 assertThat(context).hasSingleBean(ReactiveMissingKotlinParameterExceptionHandler::class.java)
                 assertThat(context.getBean(ReactiveMissingKotlinParameterExceptionHandler::class.java)).isSameAs(
-                    context.getBean(ValiktorWebFluxCustomConfiguration::class.java)
-                        .reactiveMissingKotlinParameterExceptionHandler()
+                    context
+                        .getBean(ValiktorWebFluxCustomConfiguration::class.java)
+                        .reactiveMissingKotlinParameterExceptionHandler(),
                 )
             }
     }
 }
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 private class CodecsCustomConfiguration {
-
     @Bean
     fun codecConfigurer(): CodecConfigurer = DefaultServerCodecConfigurer()
 }
 
 @Configuration
 private class ValiktorWebFluxCustomConfiguration {
-
     @Bean
     fun reactiveConstraintViolationExceptionHandler(
         handler: ValiktorExceptionHandler<*>,
-        codecConfigurer: CodecConfigurer
+        codecConfigurer: CodecConfigurer,
     ) = ReactiveConstraintViolationExceptionHandler(handler, codecConfigurer)
 
     @Bean

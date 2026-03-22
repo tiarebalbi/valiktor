@@ -24,14 +24,13 @@ import org.valiktor.test.shouldFailValidation
 import kotlin.test.Test
 
 class SampleApplicationTest {
-
     @Test
     fun `should validate employee`() {
         shouldFailValidation<Employee> {
             Employee(
                 dateOfBirth = LocalDate.now(),
                 workStartTime = LocalTime(7, 0, 0),
-                workEndTime = LocalTime(21, 0, 0)
+                workEndTime = LocalTime(21, 0, 0),
             )
         }.verify {
             expect(Employee::dateOfBirth, LocalDate.now(), LessOrEqual(LocalDate.now().minusYears(18)))

@@ -26,7 +26,6 @@ import java.util.Date
 import kotlin.test.Test
 
 class DateFormatterTest {
-
     @Test
     fun `should format date`() {
         val calendar = Calendar.getInstance()
@@ -36,7 +35,7 @@ class DateFormatterTest {
             entry(SupportedLocales.DEFAULT, "Dec 31, 2018"),
             entry(SupportedLocales.DE, "31.12.2018"),
             entry(SupportedLocales.EN, "Dec 31, 2018"),
-            entry(SupportedLocales.PT_BR, "31/12/2018")
+            entry(SupportedLocales.PT_BR, "31/12/2018"),
         )
     }
 
@@ -49,7 +48,7 @@ class DateFormatterTest {
             entry(SupportedLocales.DEFAULT, "Dec 31, 2018 11:58:59 PM"),
             entry(SupportedLocales.DE, "31.12.2018 23:58:59"),
             entry(SupportedLocales.EN, "Dec 31, 2018 11:58:59 PM"),
-            entry(SupportedLocales.PT_BR, "31/12/2018 23:58:59")
+            entry(SupportedLocales.PT_BR, "31/12/2018 23:58:59"),
         )
     }
 }

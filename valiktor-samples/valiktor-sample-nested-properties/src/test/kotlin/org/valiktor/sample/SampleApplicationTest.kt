@@ -21,18 +21,20 @@ import org.valiktor.test.shouldFailValidation
 import kotlin.test.Test
 
 class SampleApplicationTest {
-
     @Test
     fun `should validate employee`() {
         shouldFailValidation<Employee> {
             Employee(
-                company = Company(
-                    address = Address(
-                        city = City(
-                            name = "   "
-                        )
-                    )
-                )
+                company =
+                    Company(
+                        address =
+                            Address(
+                                city =
+                                    City(
+                                        name = "   ",
+                                    ),
+                            ),
+                    ),
             )
         }.verify {
             expect(Employee::company) {

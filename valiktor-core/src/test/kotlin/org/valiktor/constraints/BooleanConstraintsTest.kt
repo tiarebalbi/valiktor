@@ -23,7 +23,6 @@ import org.valiktor.i18n.interpolatedMessages
 import kotlin.test.Test
 
 class TrueTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(True.interpolatedMessages()).containsExactly(
@@ -33,13 +32,12 @@ class TrueTest {
             entry(SupportedLocales.EN, "Must be true"),
             entry(SupportedLocales.ES, "Tiene que ser verdadero"),
             entry(SupportedLocales.JA, "true である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser verdadeiro")
+            entry(SupportedLocales.PT_BR, "Deve ser verdadeiro"),
         )
     }
 }
 
 class FalseTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(False.interpolatedMessages()).containsExactly(
@@ -49,7 +47,7 @@ class FalseTest {
             entry(SupportedLocales.EN, "Must be false"),
             entry(SupportedLocales.ES, "Tiene que ser falso"),
             entry(SupportedLocales.JA, "false である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser falso")
+            entry(SupportedLocales.PT_BR, "Deve ser falso"),
         )
     }
 }

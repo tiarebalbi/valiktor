@@ -24,7 +24,6 @@ import org.valiktor.test.shouldFailValidation
 import kotlin.test.Test
 
 class SampleApplicationTest {
-
     @Test
     fun `should validate employee`() {
         shouldFailValidation<Employee> {
@@ -32,7 +31,7 @@ class SampleApplicationTest {
                 id = -1,
                 name = "aa",
                 email = "aaa",
-                salary = 9999.999
+                salary = 9999.999,
             )
         }.verify {
             expect(Employee::id, -1, Greater(0))

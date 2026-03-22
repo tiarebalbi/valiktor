@@ -28,8 +28,10 @@ import java.text.NumberFormat
  * @since 0.1.0
  */
 object NumberFormatter : Formatter<Number> {
-
-    override fun format(value: Number, messageBundle: MessageBundle): String {
+    override fun format(
+        value: Number,
+        messageBundle: MessageBundle,
+    ): String {
         val bigNum = value as? BigDecimal ?: BigDecimal(value.toString()).stripTrailingZeros()
         val integerDigits = (bigNum.precision() - bigNum.scale()).let { if (it <= 0) 1 else it }
         val fractionDigits = bigNum.scale().let { if (it < 0) 0 else it }

@@ -33,13 +33,14 @@ import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 private object EnumFunctionsFixture {
+    data class Employee(
+        val gender: Gender? = null,
+    )
 
-    data class Employee(val gender: Gender? = null)
     enum class Gender { MALE, FEMALE }
 }
 
 class EnumFunctionsTest {
-
     @Test
     fun `isNull with null value should be valid`() {
         validate(Employee()) {
@@ -49,13 +50,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isNull with not null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = Null)
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = Null),
         )
     }
 
@@ -68,13 +70,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isNotNull with null value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee()) {
-                validate(Employee::gender).isNotNull()
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee()) {
+                    validate(Employee::gender).isNotNull()
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", constraint = NotNull)
+            DefaultConstraintViolation(property = "gender", constraint = NotNull),
         )
     }
 
@@ -94,13 +97,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isEqualTo with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isEqualTo(FEMALE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isEqualTo(FEMALE)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = Equals(FEMALE))
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = Equals(FEMALE)),
         )
     }
 
@@ -120,13 +124,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isNotEqualTo with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isNotEqualTo(MALE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isNotEqualTo(MALE)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = NotEquals(MALE))
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = NotEquals(MALE)),
         )
     }
 
@@ -146,13 +151,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isIn vararg with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isIn(FEMALE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isIn(FEMALE)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = In(setOf(FEMALE)))
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = In(setOf(FEMALE))),
         )
     }
 
@@ -172,13 +178,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isIn iterable with different value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isIn(listOf(FEMALE))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isIn(listOf(FEMALE))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = In(listOf(FEMALE)))
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = In(listOf(FEMALE))),
         )
     }
 
@@ -198,13 +205,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isNotIn vararg with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isNotIn(MALE, FEMALE)
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isNotIn(MALE, FEMALE)
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = NotIn(setOf(MALE, FEMALE)))
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = NotIn(setOf(MALE, FEMALE))),
         )
     }
 
@@ -224,13 +232,14 @@ class EnumFunctionsTest {
 
     @Test
     fun `isNotIn iterable with same value should be invalid`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            validate(Employee(gender = MALE)) {
-                validate(Employee::gender).isNotIn(listOf(MALE, FEMALE))
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                validate(Employee(gender = MALE)) {
+                    validate(Employee::gender).isNotIn(listOf(MALE, FEMALE))
+                }
             }
-        }
         assertThat(exception.constraintViolations).containsExactly(
-            DefaultConstraintViolation(property = "gender", value = MALE, constraint = NotIn(listOf(MALE, FEMALE)))
+            DefaultConstraintViolation(property = "gender", value = MALE, constraint = NotIn(listOf(MALE, FEMALE))),
         )
     }
 }

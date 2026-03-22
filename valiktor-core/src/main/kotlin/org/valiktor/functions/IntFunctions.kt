@@ -31,8 +31,7 @@ import org.valiktor.constraints.NotEquals
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.isZero(): Validator<E>.Property<Int?> =
-    this.validate(Equals(0)) { it == null || it == 0 }
+fun <E> Validator<E>.Property<Int?>.isZero(): Validator<E>.Property<Int?> = this.validate(Equals(0)) { it == null || it == 0 }
 
 /**
  * Validates if the [Int] property is not equal to zero
@@ -40,8 +39,7 @@ fun <E> Validator<E>.Property<Int?>.isZero(): Validator<E>.Property<Int?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.isNotZero(): Validator<E>.Property<Int?> =
-    this.validate(NotEquals(0)) { it == null || it != 0 }
+fun <E> Validator<E>.Property<Int?>.isNotZero(): Validator<E>.Property<Int?> = this.validate(NotEquals(0)) { it == null || it != 0 }
 
 /**
  * Validates if the [Int] property is equal to one
@@ -49,8 +47,7 @@ fun <E> Validator<E>.Property<Int?>.isNotZero(): Validator<E>.Property<Int?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.isOne(): Validator<E>.Property<Int?> =
-    this.validate(Equals(1)) { it == null || it == 1 }
+fun <E> Validator<E>.Property<Int?>.isOne(): Validator<E>.Property<Int?> = this.validate(Equals(1)) { it == null || it == 1 }
 
 /**
  * Validates if the [Int] property is not equal to one
@@ -58,8 +55,7 @@ fun <E> Validator<E>.Property<Int?>.isOne(): Validator<E>.Property<Int?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.isNotOne(): Validator<E>.Property<Int?> =
-    this.validate(NotEquals(1)) { it == null || it != 1 }
+fun <E> Validator<E>.Property<Int?>.isNotOne(): Validator<E>.Property<Int?> = this.validate(NotEquals(1)) { it == null || it != 1 }
 
 /**
  * Validates if the [Int] property is positive
@@ -67,8 +63,7 @@ fun <E> Validator<E>.Property<Int?>.isNotOne(): Validator<E>.Property<Int?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.isPositive(): Validator<E>.Property<Int?> =
-    this.validate(Greater(0)) { it == null || it > 0 }
+fun <E> Validator<E>.Property<Int?>.isPositive(): Validator<E>.Property<Int?> = this.validate(Greater(0)) { it == null || it > 0 }
 
 /**
  * Validates if the [Int] property isn't negative
@@ -85,8 +80,7 @@ fun <E> Validator<E>.Property<Int?>.isPositiveOrZero(): Validator<E>.Property<In
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.isNegative(): Validator<E>.Property<Int?> =
-    this.validate(Less(0)) { it == null || it < 0 }
+fun <E> Validator<E>.Property<Int?>.isNegative(): Validator<E>.Property<Int?> = this.validate(Less(0)) { it == null || it < 0 }
 
 /**
  * Validates if the [Int] property isn't positive
@@ -106,5 +100,8 @@ fun <E> Validator<E>.Property<Int?>.isNegativeOrZero(): Validator<E>.Property<In
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Int?>.hasDigits(min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Validator<E>.Property<Int?> =
+fun <E> Validator<E>.Property<Int?>.hasDigits(
+    min: Int = Int.MIN_VALUE,
+    max: Int = Int.MAX_VALUE,
+): Validator<E>.Property<Int?> =
     this.validate(IntegerDigits(min, max)) { it == null || it.toString().removePrefix("-").length in min.rangeTo(max) }

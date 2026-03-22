@@ -1,11 +1,11 @@
 val jodaTimeVersion = "2.10.6"
 
 dependencies {
-    compile(kotlin("stdlib"))
-    compile(kotlin("reflect"))
-    compile(project(":valiktor-core"))
-    compile(project(":valiktor-jodatime"))
-    compile("joda-time:joda-time:$jodaTimeVersion")
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
+    implementation(project(":valiktor-core"))
+    implementation(project(":valiktor-jodatime"))
+    implementation("joda-time:joda-time:$jodaTimeVersion")
 
-    testCompile(project(":valiktor-test"))
+    testImplementation(project(":valiktor-test"))
 }

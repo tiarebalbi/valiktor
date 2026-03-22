@@ -28,7 +28,8 @@ import org.valiktor.i18n.MessageBundle
  * @since 0.6.0
  */
 object LocalDateFormatter : Formatter<LocalDate> {
-
-    override fun format(value: LocalDate, messageBundle: MessageBundle): String =
-        value.toString(DateTimeFormat.mediumDate().withLocale(messageBundle.locale))
+    override fun format(
+        value: LocalDate,
+        messageBundle: MessageBundle,
+    ): String = value.toString(DateTimeFormat.mediumDate().withLocale(messageBundle.locale))
 }

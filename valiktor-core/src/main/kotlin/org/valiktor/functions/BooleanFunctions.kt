@@ -26,8 +26,7 @@ import org.valiktor.constraints.True
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Boolean?>.isTrue(): Validator<E>.Property<Boolean?> =
-    this.validate(True) { it == null || it }
+fun <E> Validator<E>.Property<Boolean?>.isTrue(): Validator<E>.Property<Boolean?> = this.validate(True) { it == null || it }
 
 /**
  * Validates if the [Boolean] property is false
@@ -35,5 +34,4 @@ fun <E> Validator<E>.Property<Boolean?>.isTrue(): Validator<E>.Property<Boolean?
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Boolean?>.isFalse(): Validator<E>.Property<Boolean?> =
-    this.validate(False) { it == null || !it }
+fun <E> Validator<E>.Property<Boolean?>.isFalse(): Validator<E>.Property<Boolean?> = this.validate(False) { it == null || !it }

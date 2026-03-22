@@ -28,10 +28,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromC
 
 @RestController
 @RequestMapping("/employees")
-class EmployeeController(val service: EmployeeService) {
-
+class EmployeeController(
+    val service: EmployeeService,
+) {
     @PostMapping(consumes = [APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE])
-    fun create(@RequestBody employee: Employee): ResponseEntity<Void> {
+    fun create(
+        @RequestBody employee: Employee,
+    ): ResponseEntity<Void> {
         service.create(employee)
         return created(fromCurrentRequestUri().path("/{id}").buildAndExpand(employee.documentNumber).toUri()).build()
     }

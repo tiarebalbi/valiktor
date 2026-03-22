@@ -23,7 +23,6 @@ import org.valiktor.i18n.interpolatedMessages
 import kotlin.test.Test
 
 class BlankTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Blank.interpolatedMessages()).containsExactly(
@@ -33,13 +32,12 @@ class BlankTest {
             entry(SupportedLocales.EN, "Must be blank"),
             entry(SupportedLocales.ES, "Tiene que estar vacío"),
             entry(SupportedLocales.JA, "空文字である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve estar em branco")
+            entry(SupportedLocales.PT_BR, "Deve estar em branco"),
         )
     }
 }
 
 class NotBlankTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotBlank.interpolatedMessages()).containsExactly(
@@ -49,13 +47,12 @@ class NotBlankTest {
             entry(SupportedLocales.EN, "Must not be blank"),
             entry(SupportedLocales.ES, "No puede estar vacío"),
             entry(SupportedLocales.JA, "空文字以外である必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve estar em branco")
+            entry(SupportedLocales.PT_BR, "Não deve estar em branco"),
         )
     }
 }
 
 class LetterTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Letter.interpolatedMessages()).containsExactly(
@@ -65,13 +62,12 @@ class LetterTest {
             entry(SupportedLocales.EN, "Must be letter"),
             entry(SupportedLocales.ES, "Tiene que ser letra"),
             entry(SupportedLocales.JA, "文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser letra")
+            entry(SupportedLocales.PT_BR, "Deve ser letra"),
         )
     }
 }
 
 class NotLetterTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotLetter.interpolatedMessages()).containsExactly(
@@ -81,13 +77,12 @@ class NotLetterTest {
             entry(SupportedLocales.EN, "Must not be letter"),
             entry(SupportedLocales.ES, "No puede ser letra"),
             entry(SupportedLocales.JA, "文字以外を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser letra")
+            entry(SupportedLocales.PT_BR, "Não deve ser letra"),
         )
     }
 }
 
 class DigitTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Digit.interpolatedMessages()).containsExactly(
@@ -97,13 +92,12 @@ class DigitTest {
             entry(SupportedLocales.EN, "Must be digit"),
             entry(SupportedLocales.ES, "Tiene que ser número"),
             entry(SupportedLocales.JA, "数字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser número")
+            entry(SupportedLocales.PT_BR, "Deve ser número"),
         )
     }
 }
 
 class NotDigitTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotDigit.interpolatedMessages()).containsExactly(
@@ -113,13 +107,12 @@ class NotDigitTest {
             entry(SupportedLocales.EN, "Must not be digit"),
             entry(SupportedLocales.ES, "No puede ser número"),
             entry(SupportedLocales.JA, "数字以外を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser número")
+            entry(SupportedLocales.PT_BR, "Não deve ser número"),
         )
     }
 }
 
 class LetterOrDigitTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(LetterOrDigit.interpolatedMessages()).containsExactly(
@@ -129,13 +122,12 @@ class LetterOrDigitTest {
             entry(SupportedLocales.EN, "Must be letter or digit"),
             entry(SupportedLocales.ES, "Tiene que ser letra o número"),
             entry(SupportedLocales.JA, "文字や数字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser letra ou número")
+            entry(SupportedLocales.PT_BR, "Deve ser letra ou número"),
         )
     }
 }
 
 class NotLetterOrDigitTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotLetterOrDigit.interpolatedMessages()).containsExactly(
@@ -145,13 +137,12 @@ class NotLetterOrDigitTest {
             entry(SupportedLocales.EN, "Must not be letter or digit"),
             entry(SupportedLocales.ES, "No puede ser letra o número"),
             entry(SupportedLocales.JA, "文字や数字以外を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser letra ou número")
+            entry(SupportedLocales.PT_BR, "Não deve ser letra ou número"),
         )
     }
 }
 
 class UpperCaseTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(UpperCase.interpolatedMessages()).containsExactly(
@@ -161,13 +152,12 @@ class UpperCaseTest {
             entry(SupportedLocales.EN, "Must be upper case"),
             entry(SupportedLocales.ES, "Tiene que ser mayúsculo"),
             entry(SupportedLocales.JA, "大文字で指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser maiúsculo")
+            entry(SupportedLocales.PT_BR, "Deve ser maiúsculo"),
         )
     }
 }
 
 class LowerCaseTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(LowerCase.interpolatedMessages()).containsExactly(
@@ -177,13 +167,12 @@ class LowerCaseTest {
             entry(SupportedLocales.EN, "Must be lower case"),
             entry(SupportedLocales.ES, "No puede ser minúsculo"),
             entry(SupportedLocales.JA, "小文字で指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser minúsculo")
+            entry(SupportedLocales.PT_BR, "Deve ser minúsculo"),
         )
     }
 }
 
 class MatchesTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Matches(Regex("^[0-9]*\$")).interpolatedMessages()).containsExactly(
@@ -193,13 +182,12 @@ class MatchesTest {
             entry(SupportedLocales.EN, "Must match ^[0-9]*\$"),
             entry(SupportedLocales.ES, "Tiene que corresponder a la expresión regular ^[0-9]*\$"),
             entry(SupportedLocales.JA, "^[0-9]*\$ と一致する文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve corresponder ao padrão ^[0-9]*\$")
+            entry(SupportedLocales.PT_BR, "Deve corresponder ao padrão ^[0-9]*\$"),
         )
     }
 }
 
 class NotMatchTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotMatch(Regex("^[0-9]*\$")).interpolatedMessages()).containsExactly(
@@ -209,13 +197,12 @@ class NotMatchTest {
             entry(SupportedLocales.EN, "Must not match ^[0-9]*\$"),
             entry(SupportedLocales.ES, "No puede corresponder la expresión regular ^[0-9]*\$"),
             entry(SupportedLocales.JA, "^[0-9]*\$ と一致しない文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve corresponder ao padrão ^[0-9]*\$")
+            entry(SupportedLocales.PT_BR, "Não deve corresponder ao padrão ^[0-9]*\$"),
         )
     }
 }
 
 class ContainsRegexTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(ContainsRegex(Regex("^[0-9]*\$")).interpolatedMessages()).containsExactly(
@@ -225,13 +212,12 @@ class ContainsRegexTest {
             entry(SupportedLocales.EN, "Must contain the pattern ^[0-9]*\$"),
             entry(SupportedLocales.ES, "Tiene que contener la expresión regular ^[0-9]*\$"),
             entry(SupportedLocales.JA, "^[0-9]*\$ を含む文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve conter o padrão ^[0-9]*\$")
+            entry(SupportedLocales.PT_BR, "Deve conter o padrão ^[0-9]*\$"),
         )
     }
 }
 
 class NotContainRegexTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotContainRegex(Regex("^[0-9]*\$")).interpolatedMessages()).containsExactly(
@@ -241,13 +227,12 @@ class NotContainRegexTest {
             entry(SupportedLocales.EN, "Must not contain the pattern ^[0-9]*\$"),
             entry(SupportedLocales.ES, "No puede contener la expresión regular ^[0-9]*\$"),
             entry(SupportedLocales.JA, "^[0-9]*\$ を含まない文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve conter o padrão ^[0-9]*\$")
+            entry(SupportedLocales.PT_BR, "Não deve conter o padrão ^[0-9]*\$"),
         )
     }
 }
 
 class StartsWithTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(StartsWith("test").interpolatedMessages()).containsExactly(
@@ -257,13 +242,12 @@ class StartsWithTest {
             entry(SupportedLocales.EN, "Must start with test"),
             entry(SupportedLocales.ES, "Tiene que comenzar con test"),
             entry(SupportedLocales.JA, "test から始まる文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve começar com test")
+            entry(SupportedLocales.PT_BR, "Deve começar com test"),
         )
     }
 }
 
 class NotStartWithTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotStartWith("test").interpolatedMessages()).containsExactly(
@@ -273,13 +257,12 @@ class NotStartWithTest {
             entry(SupportedLocales.EN, "Must not start with test"),
             entry(SupportedLocales.ES, "No puede comenzar con test"),
             entry(SupportedLocales.JA, "test 以外から始まる文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve começar com test")
+            entry(SupportedLocales.PT_BR, "Não deve começar com test"),
         )
     }
 }
 
 class EndsWithTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(EndsWith("test").interpolatedMessages()).containsExactly(
@@ -289,13 +272,12 @@ class EndsWithTest {
             entry(SupportedLocales.EN, "Must end with test"),
             entry(SupportedLocales.ES, "Tiene que terminar con test"),
             entry(SupportedLocales.JA, "test で終わる文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve terminar com test")
+            entry(SupportedLocales.PT_BR, "Deve terminar com test"),
         )
     }
 }
 
 class NotEndWithTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotEndWith("test").interpolatedMessages()).containsExactly(
@@ -305,13 +287,12 @@ class NotEndWithTest {
             entry(SupportedLocales.EN, "Must not end with test"),
             entry(SupportedLocales.ES, "No puede terminar con test"),
             entry(SupportedLocales.JA, "test 以外で終わる文字を指定する必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve terminar com test")
+            entry(SupportedLocales.PT_BR, "Não deve terminar com test"),
         )
     }
 }
 
 class EmailTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Email.interpolatedMessages()).containsExactly(
@@ -321,13 +302,12 @@ class EmailTest {
             entry(SupportedLocales.EN, "Must be a valid email address"),
             entry(SupportedLocales.ES, "Tiene que ser una dirección de e-mail válida"),
             entry(SupportedLocales.JA, "有効なメールアドレス形式である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser um endereço de e-mail válido")
+            entry(SupportedLocales.PT_BR, "Deve ser um endereço de e-mail válido"),
         )
     }
 }
 
 class WebsiteTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Website.interpolatedMessages()).containsExactly(
@@ -337,7 +317,7 @@ class WebsiteTest {
             entry(SupportedLocales.EN, "Must be a valid website"),
             entry(SupportedLocales.ES, "Tiene que ser un sitio web válido"),
             entry(SupportedLocales.JA, "有効なウェブサイト形式である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser um website válido")
+            entry(SupportedLocales.PT_BR, "Deve ser um website válido"),
         )
     }
 }

@@ -29,15 +29,17 @@ import java.util.Date
  * @since 0.1.0
  */
 object DateFormatter : Formatter<Date> {
-
-    override fun format(value: Date, messageBundle: MessageBundle): String =
+    override fun format(
+        value: Date,
+        messageBundle: MessageBundle,
+    ): String =
         (
-            if (value.hasTime())
+            if (value.hasTime()) {
                 DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, messageBundle.locale)
-            else
+            } else {
                 DateFormat.getDateInstance(DateFormat.MEDIUM, messageBundle.locale)
-            )
-            .format(value)
+            }
+        ).format(value)
 
     private fun Date.hasTime(): Boolean {
         val calendar = Calendar.getInstance()

@@ -30,7 +30,7 @@ data class Employee(
     val id: Int,
     val name: String,
     val email: String,
-    val salary: Double
+    val salary: Double,
 ) {
     init {
         validate(this) {
@@ -48,7 +48,7 @@ fun main() {
             id = -1,
             name = "aa",
             email = "aaa",
-            salary = 9999.999
+            salary = 9999.999,
         )
     } catch (ex: ConstraintViolationException) {
         ex.constraintViolations

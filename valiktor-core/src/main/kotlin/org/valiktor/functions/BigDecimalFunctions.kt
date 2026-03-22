@@ -170,7 +170,10 @@ fun <E> Validator<E>.Property<BigDecimal?>.isNegativeOrZero(): Validator<E>.Prop
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<BigDecimal?>.hasIntegerDigits(min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Validator<E>.Property<BigDecimal?> =
+fun <E> Validator<E>.Property<BigDecimal?>.hasIntegerDigits(
+    min: Int = Int.MIN_VALUE,
+    max: Int = Int.MAX_VALUE,
+): Validator<E>.Property<BigDecimal?> =
     this.validate(IntegerDigits(min, max)) { it == null || it.precision() - it.scale() in min.rangeTo(max) }
 
 /**
@@ -182,5 +185,8 @@ fun <E> Validator<E>.Property<BigDecimal?>.hasIntegerDigits(min: Int = Int.MIN_V
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<BigDecimal?>.hasDecimalDigits(min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Validator<E>.Property<BigDecimal?> =
+fun <E> Validator<E>.Property<BigDecimal?>.hasDecimalDigits(
+    min: Int = Int.MIN_VALUE,
+    max: Int = Int.MAX_VALUE,
+): Validator<E>.Property<BigDecimal?> =
     this.validate(DecimalDigits(min, max)) { it == null || (if (it.scale() < 0) 0 else it.scale()) in min.rangeTo(max) }

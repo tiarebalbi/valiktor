@@ -38,9 +38,8 @@ import java.util.Locale
  */
 @RestControllerAdvice
 class MissingKotlinParameterExceptionHandler(
-    private val constraintViolationExceptionHandler: ConstraintViolationExceptionHandler
+    private val constraintViolationExceptionHandler: ConstraintViolationExceptionHandler,
 ) {
-
     /**
      * Handles [MissingKotlinParameterException] and delegates the response to [constraintViolationExceptionHandler].
      *
@@ -49,18 +48,24 @@ class MissingKotlinParameterExceptionHandler(
      * @return the ResponseEntity with status code, headers and body
      */
     @ExceptionHandler(MissingKotlinParameterException::class)
-    fun handleMissingKotlinParameterException(ex: MissingKotlinParameterException, locale: Locale?): ResponseEntity<*> =
+    fun handleMissingKotlinParameterException(
+        ex: MissingKotlinParameterException,
+        locale: Locale?,
+    ): ResponseEntity<*> =
         constraintViolationExceptionHandler.handleConstraintViolationException(
-            ex = ConstraintViolationException(
-                constraintViolations = setOf(
-                    DefaultConstraintViolation(
-                        property = ex.path.fold("") { path, it ->
-                            (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
-                        },
-                        constraint = NotNull
-                    )
-                )
-            ),
-            locale = locale
+            ex =
+                ConstraintViolationException(
+                    constraintViolations =
+                        setOf(
+                            DefaultConstraintViolation(
+                                property =
+                                    ex.path.fold("") { path, it ->
+                                        (path + if (it.index > -1) "[${it.index}]" else ".${it.fieldName}").removePrefix(".")
+                                    },
+                                constraint = NotNull,
+                            ),
+                        ),
+                ),
+            locale = locale,
         )
 }

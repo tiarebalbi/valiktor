@@ -24,24 +24,24 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 private object ConstraintViolationFixture {
-
     object EmptyConstraint : Constraint
 
-    data class TestConstraint(val value1: String, val value2: String) : Constraint {
-
+    data class TestConstraint(
+        val value1: String,
+        val value2: String,
+    ) : Constraint {
         override val messageParams: Map<String, *> = mapOf("value1" to value1, "value2" to value2)
     }
 }
 
 class ConstraintViolationTest {
-
     @Test
     fun `should create ConstraintViolation`() {
         val constraintViolation: ConstraintViolation =
             DefaultConstraintViolation(
                 property = "name",
                 value = "Test",
-                constraint = EmptyConstraint
+                constraint = EmptyConstraint,
             )
 
         assertEquals(constraintViolation.property, "name")
@@ -53,38 +53,38 @@ class ConstraintViolationTest {
 }
 
 class ConstraintViolationExceptionTest {
-
     @Test
     fun `should throws ConstraintViolationException`() {
-        val exception = assertFailsWith<ConstraintViolationException> {
-            throw ConstraintViolationException(
-                setOf(
-                    DefaultConstraintViolation(
-                        property = "name",
-                        value = "Test",
-                        constraint = EmptyConstraint
+        val exception =
+            assertFailsWith<ConstraintViolationException> {
+                throw ConstraintViolationException(
+                    setOf(
+                        DefaultConstraintViolation(
+                            property = "name",
+                            value = "Test",
+                            constraint = EmptyConstraint,
+                        ),
+                        DefaultConstraintViolation(
+                            property = "name",
+                            value = "Test2",
+                            constraint = TestConstraint("test value 1", "test value 2"),
+                        ),
                     ),
-                    DefaultConstraintViolation(
-                        property = "name",
-                        value = "Test2",
-                        constraint = TestConstraint("test value 1", "test value 2")
-                    )
                 )
-            )
-        }
+            }
 
         assertThat(exception.constraintViolations)
             .containsExactly(
                 DefaultConstraintViolation(
                     property = "name",
                     value = "Test",
-                    constraint = EmptyConstraint
+                    constraint = EmptyConstraint,
                 ),
                 DefaultConstraintViolation(
                     property = "name",
                     value = "Test2",
-                    constraint = TestConstraint("test value 1", "test value 2")
-                )
+                    constraint = TestConstraint("test value 1", "test value 2"),
+                ),
             )
     }
 }

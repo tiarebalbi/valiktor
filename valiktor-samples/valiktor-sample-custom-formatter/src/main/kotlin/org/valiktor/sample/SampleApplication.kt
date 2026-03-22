@@ -25,11 +25,15 @@ import org.valiktor.i18n.toMessage
 import org.valiktor.validate
 import java.util.Locale
 
-data class Document(val number: Int) : Comparable<Document> {
+data class Document(
+    val number: Int,
+) : Comparable<Document> {
     override fun compareTo(other: Document) = number.compareTo(other.number)
 }
 
-data class Employee(val document: Document) {
+data class Employee(
+    val document: Document,
+) {
     init {
         validate(this) {
             validate(Employee::document).isGreaterThan(Document(0))
@@ -38,7 +42,10 @@ data class Employee(val document: Document) {
 }
 
 object DocumentFormatter : Formatter<Document> {
-    override fun format(value: Document, messageBundle: MessageBundle) = value.number.toString()
+    override fun format(
+        value: Document,
+        messageBundle: MessageBundle,
+    ) = value.number.toString()
 }
 
 fun main() {

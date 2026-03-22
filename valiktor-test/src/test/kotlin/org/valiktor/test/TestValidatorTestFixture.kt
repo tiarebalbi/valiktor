@@ -28,13 +28,36 @@ import org.valiktor.functions.validateForEach
 import org.valiktor.validate
 
 object TestValidatorTestFixture {
+    data class Company(
+        val name: String,
+    )
 
-    data class Company(val name: String)
-    data class Address(val street: String, val number: String, val neighborhood: String, val city: City)
-    data class City(val name: String, val state: State)
-    data class State(val name: String, val country: Country)
-    data class Country(val name: String)
-    data class Dependent(val name: String, val age: Int)
+    data class Address(
+        val street: String,
+        val number: String,
+        val neighborhood: String,
+        val city: City,
+    )
+
+    data class City(
+        val name: String,
+        val state: State,
+    )
+
+    data class State(
+        val name: String,
+        val country: Country,
+    )
+
+    data class Country(
+        val name: String,
+    )
+
+    data class Dependent(
+        val name: String,
+        val age: Int,
+    )
+
     data class Employee(
         val id: Int,
         val name: String,
@@ -42,7 +65,7 @@ object TestValidatorTestFixture {
         val company: Company,
         val address: Address,
         val dependentsList: List<Dependent> = emptyList(),
-        val dependentsArray: Array<Dependent> = emptyArray()
+        val dependentsArray: Array<Dependent> = emptyArray(),
     ) {
         init {
             validate(this) {
@@ -78,73 +101,89 @@ object TestValidatorTestFixture {
         }
     }
 
-    fun validEmployee() = Employee(
-        id = 1,
-        name = "John",
-        email = "john@company.com",
-        company = Company(
-            name = "Company"
-        ),
-        address = Address(
-            street = "Street",
-            number = "111",
-            neighborhood = "Neighborhood",
-            city = City(
-                name = "City",
-                state = State(
-                    name = "SP",
-                    country = Country(
-                        name = "BRA"
-                    )
-                )
-            )
-        ),
-        dependentsList = listOf(
-            Dependent(name = "D1", age = 1),
-            Dependent(name = "D2", age = 5),
-            Dependent(name = "D3", age = 10),
-            Dependent(name = "D4", age = 15)
-        ),
-        dependentsArray = arrayOf(
-            Dependent(name = "D1", age = 1),
-            Dependent(name = "D2", age = 5),
-            Dependent(name = "D3", age = 10),
-            Dependent(name = "D4", age = 15)
+    fun validEmployee() =
+        Employee(
+            id = 1,
+            name = "John",
+            email = "john@company.com",
+            company =
+                Company(
+                    name = "Company",
+                ),
+            address =
+                Address(
+                    street = "Street",
+                    number = "111",
+                    neighborhood = "Neighborhood",
+                    city =
+                        City(
+                            name = "City",
+                            state =
+                                State(
+                                    name = "SP",
+                                    country =
+                                        Country(
+                                            name = "BRA",
+                                        ),
+                                ),
+                        ),
+                ),
+            dependentsList =
+                listOf(
+                    Dependent(name = "D1", age = 1),
+                    Dependent(name = "D2", age = 5),
+                    Dependent(name = "D3", age = 10),
+                    Dependent(name = "D4", age = 15),
+                ),
+            dependentsArray =
+                arrayOf(
+                    Dependent(name = "D1", age = 1),
+                    Dependent(name = "D2", age = 5),
+                    Dependent(name = "D3", age = 10),
+                    Dependent(name = "D4", age = 15),
+                ),
         )
-    )
 
-    fun invalidEmployee() = Employee(
-        id = 0,
-        name = " ",
-        email = "john",
-        company = Company(
-            name = "Co"
-        ),
-        address = Address(
-            street = "",
-            number = "abc",
-            neighborhood = "",
-            city = City(
-                name = "Ci",
-                state = State(
-                    name = "S",
-                    country = Country(
-                        name = "BR"
-                    )
-                )
-            )
-        ),
-        dependentsList = listOf(
-            Dependent(name = " ", age = 0),
-            Dependent(name = " ", age = 17),
-            Dependent(name = " ", age = 18),
-            Dependent(name = " ", age = 19)
-        ),
-        dependentsArray = arrayOf(
-            Dependent(name = " ", age = 0),
-            Dependent(name = " ", age = 19),
-            Dependent(name = " ", age = 20),
-            Dependent(name = " ", age = 21)
+    fun invalidEmployee() =
+        Employee(
+            id = 0,
+            name = " ",
+            email = "john",
+            company =
+                Company(
+                    name = "Co",
+                ),
+            address =
+                Address(
+                    street = "",
+                    number = "abc",
+                    neighborhood = "",
+                    city =
+                        City(
+                            name = "Ci",
+                            state =
+                                State(
+                                    name = "S",
+                                    country =
+                                        Country(
+                                            name = "BR",
+                                        ),
+                                ),
+                        ),
+                ),
+            dependentsList =
+                listOf(
+                    Dependent(name = " ", age = 0),
+                    Dependent(name = " ", age = 17),
+                    Dependent(name = " ", age = 18),
+                    Dependent(name = " ", age = 19),
+                ),
+            dependentsArray =
+                arrayOf(
+                    Dependent(name = " ", age = 0),
+                    Dependent(name = " ", age = 19),
+                    Dependent(name = " ", age = 20),
+                    Dependent(name = " ", age = 21),
+                ),
         )
-    )
 }

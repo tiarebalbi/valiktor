@@ -29,7 +29,6 @@ package org.valiktor
  * @since 0.1.0
  */
 interface ConstraintViolation {
-
     val property: String
     val value: Any?
     val constraint: Constraint
@@ -38,7 +37,7 @@ interface ConstraintViolation {
 data class DefaultConstraintViolation(
     override val property: String,
     override val value: Any? = null,
-    override val constraint: Constraint
+    override val constraint: Constraint,
 ) : ConstraintViolation
 
 /**
@@ -51,4 +50,6 @@ data class DefaultConstraintViolation(
  * @see ConstraintViolation
  * @since 0.1.0
  */
-class ConstraintViolationException(val constraintViolations: Set<ConstraintViolation>) : RuntimeException()
+class ConstraintViolationException(
+    val constraintViolations: Set<ConstraintViolation>,
+) : RuntimeException()

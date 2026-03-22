@@ -30,7 +30,7 @@ private data class CacheKey(
     val baseName: String,
     val locale: Locale,
     val fallbackBaseName: String,
-    val fallbackLocale: Locale
+    val fallbackLocale: Locale,
 )
 
 private val cachedMessages: ConcurrentMap<CacheKey, Map<String, String>> = ConcurrentHashMap(INITIAL_CACHE_SIZE)
@@ -53,47 +53,61 @@ class MessageBundle(
     val baseName: String,
     val locale: Locale,
     fallbackBaseName: String,
-    fallbackLocale: Locale
+    fallbackLocale: Locale,
 ) {
+    private val messages: Map<String, String> =
+        cachedMessages.getOrPut(
+            CacheKey(baseName, locale, fallbackBaseName, fallbackLocale),
+        ) {
+            val control = ResourceBundle.Control.getControl(FORMAT_PROPERTIES)
 
-    private val messages: Map<String, String> = cachedMessages.getOrPut(
-        CacheKey(baseName, locale, fallbackBaseName, fallbackLocale)
-    ) {
-        val control = ResourceBundle.Control.getControl(FORMAT_PROPERTIES)
+            if (locale == Locale("")) {
+                getMessages(DEFAULT_BASE_NAME, locale)
+                    .plus(getMessages(fallbackBaseName, locale))
+                    .plus(getMessages(baseName, locale))
+                    .toMap()
+            } else {
+                control
+                    .getCandidateLocales(baseName, locale)
+                    .asSequence()
+                    .filter { it != Locale("") }
+                    .plus(control.getCandidateLocales(baseName, fallbackLocale))
+                    .asIterable()
+                    .reversed()
+                    .asSequence()
+                    .flatMap {
+                        getMessages(DEFAULT_BASE_NAME, locale)
+                            .plus(getMessages(fallbackBaseName, it))
+                            .plus(getMessages(baseName, it))
+                    }.toMap()
+            }
+        }
 
-        if (locale == Locale(""))
-            getMessages(DEFAULT_BASE_NAME, locale)
-                .plus(getMessages(fallbackBaseName, locale))
-                .plus(getMessages(baseName, locale))
-                .toMap()
-        else
-            control.getCandidateLocales(baseName, locale)
-                .asSequence()
-                .filter { it != Locale("") }
-                .plus(control.getCandidateLocales(baseName, fallbackLocale))
-                .asIterable()
-                .reversed()
-                .asSequence()
-                .flatMap {
-                    getMessages(DEFAULT_BASE_NAME, locale)
-                        .plus(getMessages(fallbackBaseName, it))
-                        .plus(getMessages(baseName, it))
-                }
-                .toMap()
-    }
-
-    private fun getMessages(baseName: String, locale: Locale): Sequence<Pair<String, String>> =
+    private fun getMessages(
+        baseName: String,
+        locale: Locale,
+    ): Sequence<Pair<String, String>> =
         try {
-            ResourceBundle.getBundle(
-                baseName, locale,
-                object : ResourceBundle.Control() {
-                    override fun getFormats(baseName: String?): List<String> = FORMAT_PROPERTIES
-                    override fun getFallbackLocale(baseName: String?, locale: Locale?): Locale? = null
-                    override fun getCandidateLocales(baseName: String, locale: Locale): List<Locale> = listOf(locale)
-                }
-            )
-                .let { bundle ->
-                    bundle.keySet()
+            ResourceBundle
+                .getBundle(
+                    baseName,
+                    locale,
+                    object : ResourceBundle.Control() {
+                        override fun getFormats(baseName: String?): List<String> = FORMAT_PROPERTIES
+
+                        override fun getFallbackLocale(
+                            baseName: String?,
+                            locale: Locale?,
+                        ): Locale? = null
+
+                        override fun getCandidateLocales(
+                            baseName: String,
+                            locale: Locale,
+                        ): List<Locale> = listOf(locale)
+                    },
+                ).let { bundle ->
+                    bundle
+                        .keySet()
                         .asSequence()
                         .map { it to bundle.getString(it) }
                         .filter { it.second.isNotBlank() }

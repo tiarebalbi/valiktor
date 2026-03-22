@@ -27,14 +27,15 @@ import org.valiktor.i18n.toMessage
 import org.valiktor.validate
 import java.util.Locale
 
-val SUPPORTED_CURRENCIES = setOf(
-    CurrencyUnit.of("USD"),
-    CurrencyUnit.of("BRL")
-)
+val SUPPORTED_CURRENCIES =
+    setOf(
+        CurrencyUnit.of("USD"),
+        CurrencyUnit.of("BRL"),
+    )
 
 data class Employee(
     val grossSalary: Money,
-    val netSalary: BigMoney
+    val netSalary: BigMoney,
 ) {
     init {
         validate(this) { employee ->
@@ -48,7 +49,7 @@ fun main() {
     try {
         Employee(
             grossSalary = Money.of(CurrencyUnit.of("EUR"), 1000.0),
-            netSalary = BigMoney.of(CurrencyUnit.of("EUR"), 999.999)
+            netSalary = BigMoney.of(CurrencyUnit.of("EUR"), 999.999),
         )
     } catch (ex: ConstraintViolationException) {
         ex.constraintViolations

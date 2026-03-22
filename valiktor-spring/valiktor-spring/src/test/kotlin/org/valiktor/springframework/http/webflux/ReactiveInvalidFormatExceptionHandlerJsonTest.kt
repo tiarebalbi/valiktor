@@ -25,7 +25,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class ReactiveInvalidFormatExceptionHandlerJsonTest {
-
     private val json = ReactiveExceptionHandlerFixture.JSON
     private val webClient = ReactiveExceptionHandlerFixture.webClient
 
@@ -43,9 +42,12 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeValid())
             .exchange()
-            .expectStatus().isCreated
-            .expectHeader().valueEquals(LOCATION, "/employees/1")
-            .expectBody().isEmpty
+            .expectStatus()
+            .isCreated
+            .expectHeader()
+            .valueEquals(LOCATION, "/employees/1")
+            .expectBody()
+            .isEmpty
     }
 
     @Test
@@ -57,9 +59,12 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeInvalidStatus())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422InvalidStatus(Locale.ENGLISH))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422InvalidStatus(Locale.ENGLISH))
     }
 
     @Test
@@ -72,9 +77,12 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeInvalidStatus())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422InvalidStatus(Locale.ENGLISH))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422InvalidStatus(Locale.ENGLISH))
     }
 
     @Test
@@ -87,9 +95,12 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeInvalidStatus())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422InvalidStatus(Locale("pt", "BR")))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422InvalidStatus(Locale("pt", "BR")))
     }
 
     @Test
@@ -101,9 +112,12 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeInvalidSalary())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422InvalidSalary(Locale.ENGLISH))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422InvalidSalary(Locale.ENGLISH))
     }
 
     @Test
@@ -116,9 +130,12 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeInvalidSalary())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422InvalidSalary(Locale.ENGLISH))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422InvalidSalary(Locale.ENGLISH))
     }
 
     @Test
@@ -131,8 +148,11 @@ class ReactiveInvalidFormatExceptionHandlerJsonTest {
             .contentType(APPLICATION_JSON)
             .bodyValue(json.payloadEmployeeInvalidSalary())
             .exchange()
-            .expectStatus().isEqualTo(UNPROCESSABLE_ENTITY)
-            .expectHeader().contentTypeCompatibleWith(APPLICATION_JSON)
-            .expectBody().json(json.payload422InvalidSalary(Locale("pt", "BR")))
+            .expectStatus()
+            .isEqualTo(UNPROCESSABLE_ENTITY)
+            .expectHeader()
+            .contentTypeCompatibleWith(APPLICATION_JSON)
+            .expectBody()
+            .json(json.payload422InvalidSalary(Locale("pt", "BR")))
     }
 }

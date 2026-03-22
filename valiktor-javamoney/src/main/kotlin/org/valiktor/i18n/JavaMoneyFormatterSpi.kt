@@ -28,8 +28,8 @@ import javax.money.MonetaryAmount
  * @since 0.1.0
  */
 class JavaMoneyFormatterSpi : FormatterSpi {
-
-    override val formatters = setOf(
-        MonetaryAmount::class to MonetaryAmountFormatter
-    )
+    override val formatters =
+        setOf(
+            MonetaryAmount::class to MonetaryAmountFormatter,
+        )
 }

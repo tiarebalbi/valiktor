@@ -40,9 +40,8 @@ import java.util.Locale
 @Order(-10)
 class ReactiveConstraintViolationExceptionHandler(
     private val handler: ValiktorExceptionHandler<*>,
-    private val codecConfigurer: CodecConfigurer
+    private val codecConfigurer: CodecConfigurer,
 ) : WebExceptionHandler {
-
     /**
      * Handles [ConstraintViolationException] and returns and delegates the response to [handler].
      *
@@ -50,16 +49,19 @@ class ReactiveConstraintViolationExceptionHandler(
      * @param ex specifies the [ConstraintViolationException]
      * @return the ResponseEntity with status code, headers and body
      */
-    override fun handle(exchange: ServerWebExchange, ex: Throwable): Mono<Void> =
-        ex.handle(exchange) ?: Mono.error(ex)
+    override fun handle(
+        exchange: ServerWebExchange,
+        ex: Throwable,
+    ): Mono<Void> = ex.handle(exchange) ?: Mono.error(ex)
 
     private fun Throwable.handle(exchange: ServerWebExchange): Mono<Void>? =
         when (this) {
             is ConstraintViolationException -> {
-                val (statusCode, headers, body) = handler.handle(
-                    exception = this,
-                    locale = exchange.localeContext.locale ?: Locale.getDefault()
-                )
+                val (statusCode, headers, body) =
+                    handler.handle(
+                        exception = this,
+                        locale = exchange.localeContext.locale ?: Locale.getDefault(),
+                    )
 
                 ServerResponse
                     .status(statusCode)
@@ -67,21 +69,23 @@ class ReactiveConstraintViolationExceptionHandler(
                         headers?.toList()?.fold(it) { response, header ->
                             response.header(header.first, *header.second.toTypedArray())
                         } ?: it
-                    }
-                    .bodyValue(body)
+                    }.bodyValue(body)
                     .flatMap {
                         it.writeTo(
                             exchange,
                             object : ServerResponse.Context {
                                 override fun messageWriters() = codecConfigurer.writers
+
                                 override fun viewResolvers() = emptyList<ViewResolver>()
-                            }
+                            },
                         )
-                    }
-                    .flatMap {
+                    }.flatMap {
                         Mono.empty<Void>()
                     }
             }
-            else -> this.cause?.handle(exchange)
+
+            else -> {
+                this.cause?.handle(exchange)
+            }
         }
 }

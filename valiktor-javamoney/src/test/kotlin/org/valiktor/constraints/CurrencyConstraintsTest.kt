@@ -27,7 +27,6 @@ private val BRL = Monetary.getCurrency("BRL")
 private val USD = Monetary.getCurrency("USD")
 
 class CurrencyEqualsTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(CurrencyEquals(BRL).interpolatedMessages()).containsExactly(
@@ -37,13 +36,12 @@ class CurrencyEqualsTest {
             entry(SupportedLocales.EN, "Currency unit must be equal to BRL"),
             entry(SupportedLocales.ES, "La unidad monetaria tiene que ser igual a BRL"),
             entry(SupportedLocales.JA, "BRL 通貨単位と同じである必要があります"),
-            entry(SupportedLocales.PT_BR, "A unidade monetária deve ser igual a BRL")
+            entry(SupportedLocales.PT_BR, "A unidade monetária deve ser igual a BRL"),
         )
     }
 }
 
 class CurrencyNotEqualsTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(CurrencyNotEquals(BRL).interpolatedMessages()).containsExactly(
@@ -53,13 +51,12 @@ class CurrencyNotEqualsTest {
             entry(SupportedLocales.EN, "Currency unit must not be equal to BRL"),
             entry(SupportedLocales.ES, "La unidad monetaria no pueder ser igual a BRL"),
             entry(SupportedLocales.JA, "BRL 通貨単位以外である必要があります"),
-            entry(SupportedLocales.PT_BR, "A unidade monetária não deve ser igual a BRL")
+            entry(SupportedLocales.PT_BR, "A unidade monetária não deve ser igual a BRL"),
         )
     }
 }
 
 class CurrencyInTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(CurrencyIn(setOf(BRL, USD)).interpolatedMessages()).containsExactly(
@@ -69,13 +66,12 @@ class CurrencyInTest {
             entry(SupportedLocales.EN, "Currency unit must be in BRL, USD"),
             entry(SupportedLocales.ES, "La unidad monetaria tiene que ser una de esas: BRL, USD"),
             entry(SupportedLocales.JA, "BRL, USD 通貨単位が含まれている必要があります"),
-            entry(SupportedLocales.PT_BR, "A unidade monetária deve ser uma dessas: BRL, USD")
+            entry(SupportedLocales.PT_BR, "A unidade monetária deve ser uma dessas: BRL, USD"),
         )
     }
 }
 
 class CurrencyNotInTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(CurrencyNotIn(setOf(BRL, USD)).interpolatedMessages()).containsExactly(
@@ -85,7 +81,7 @@ class CurrencyNotInTest {
             entry(SupportedLocales.EN, "Currency unit must not be in BRL, USD"),
             entry(SupportedLocales.ES, "La unidad monetaria no pueder ser una de esas: BRL, USD"),
             entry(SupportedLocales.JA, "BRL, USD 通貨単位以外が含まれている必要があります"),
-            entry(SupportedLocales.PT_BR, "A unidade monetária não deve ser uma dessas: BRL, USD")
+            entry(SupportedLocales.PT_BR, "A unidade monetária não deve ser uma dessas: BRL, USD"),
         )
     }
 }

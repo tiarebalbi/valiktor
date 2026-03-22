@@ -106,5 +106,8 @@ fun <E> Validator<E>.Property<Short?>.isNegativeOrZero(): Validator<E>.Property<
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<Short?>.hasDigits(min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Validator<E>.Property<Short?> =
+fun <E> Validator<E>.Property<Short?>.hasDigits(
+    min: Int = Int.MIN_VALUE,
+    max: Int = Int.MAX_VALUE,
+): Validator<E>.Property<Short?> =
     this.validate(IntegerDigits(min, max)) { it == null || it.toString().removePrefix("-").length in min.rangeTo(max) }

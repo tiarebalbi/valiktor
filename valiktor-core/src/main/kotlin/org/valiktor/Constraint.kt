@@ -30,7 +30,6 @@ import kotlin.reflect.full.declaredMemberProperties
  * @since 0.1.0
  */
 interface Constraint {
-
     val name: String
         get() = this.javaClass.simpleName
 
@@ -41,12 +40,13 @@ interface Constraint {
         get() = "${this.javaClass.name}.message"
 
     val messageParams: Map<String, *>
-        get() = this.javaClass.kotlin.declaredMemberProperties
-            .asSequence()
-            .filter {
-                Constraint::class.declaredMemberProperties
-                    .none { p -> p.name == it.name }
-            }
-            .map { it.name to it.get(this) }
-            .toMap()
+        get() =
+            this.javaClass.kotlin.declaredMemberProperties
+                .asSequence()
+                .filter {
+                    Constraint::class
+                        .declaredMemberProperties
+                        .none { p -> p.name == it.name }
+                }.map { it.name to it.get(this) }
+                .toMap()
 }

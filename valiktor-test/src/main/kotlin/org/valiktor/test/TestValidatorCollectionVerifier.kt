@@ -29,7 +29,6 @@ import org.valiktor.ConstraintViolation
  * @since 0.8.0
  */
 class TestValidatorCollectionVerifier<E> {
-
     val expectedConstraintViolations = mutableMapOf<Int, Set<ConstraintViolation>>()
 
     /**
@@ -38,6 +37,7 @@ class TestValidatorCollectionVerifier<E> {
      * @param block specifies the DSL to verify expected constraint violations
      */
     inline fun expectElement(block: TestValidatorVerifier<E>.() -> Unit) {
-        expectedConstraintViolations += expectedConstraintViolations.size to TestValidatorVerifier<E>().apply(block).expectedConstraintViolations
+        expectedConstraintViolations +=
+            expectedConstraintViolations.size to TestValidatorVerifier<E>().apply(block).expectedConstraintViolations
     }
 }

@@ -23,13 +23,21 @@ import org.valiktor.i18n.toMessage
 import org.valiktor.validate
 import java.util.Locale
 
-data class City(val name: String)
+data class City(
+    val name: String,
+)
 
-data class Address(val city: City)
+data class Address(
+    val city: City,
+)
 
-data class Company(val address: Address)
+data class Company(
+    val address: Address,
+)
 
-data class Employee(val company: Company) {
+data class Employee(
+    val company: Company,
+) {
     init {
         validate(this) {
             validate(Employee::company).validate {
@@ -46,13 +54,16 @@ data class Employee(val company: Company) {
 fun main() {
     try {
         Employee(
-            company = Company(
-                address = Address(
-                    city = City(
-                        name = "   "
-                    )
-                )
-            )
+            company =
+                Company(
+                    address =
+                        Address(
+                            city =
+                                City(
+                                    name = "   ",
+                                ),
+                        ),
+                ),
         )
     } catch (ex: ConstraintViolationException) {
         ex.constraintViolations

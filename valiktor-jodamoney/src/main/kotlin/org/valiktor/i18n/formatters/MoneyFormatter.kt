@@ -29,13 +29,17 @@ import java.util.Currency
  * @since 0.6.0
  */
 object MoneyFormatter : Formatter<Money> {
-
-    override fun format(value: Money, messageBundle: MessageBundle): String {
+    override fun format(
+        value: Money,
+        messageBundle: MessageBundle,
+    ): String {
         val bigNum = value.amount.stripTrailingZeros()
         val integerDigits = (bigNum.precision() - bigNum.scale()).let { if (it <= 0) 1 else it }
-        val fractionDigits = bigNum.scale()
-            .let { if (it < 0) 0 else it }
-            .let { if (it < value.currencyUnit.decimalPlaces) value.currencyUnit.decimalPlaces else it }
+        val fractionDigits =
+            bigNum
+                .scale()
+                .let { if (it < 0) 0 else it }
+                .let { if (it < value.currencyUnit.decimalPlaces) value.currencyUnit.decimalPlaces else it }
 
         val numberFormat = NumberFormat.getCurrencyInstance(messageBundle.locale)
         numberFormat.currency = Currency.getInstance(value.currencyUnit.code)

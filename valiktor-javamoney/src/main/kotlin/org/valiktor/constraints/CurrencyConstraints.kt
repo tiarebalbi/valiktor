@@ -30,7 +30,9 @@ private const val BASE_BUNDLE_NAME = "org.valiktor/javaMoneyMessages"
  * @see Constraint
  * @since 0.1.0
  */
-data class CurrencyEquals(val currency: CurrencyUnit) : Constraint {
+data class CurrencyEquals(
+    val currency: CurrencyUnit,
+) : Constraint {
     override val messageBundle: String = BASE_BUNDLE_NAME
 }
 
@@ -43,7 +45,9 @@ data class CurrencyEquals(val currency: CurrencyUnit) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class CurrencyNotEquals(val currency: CurrencyUnit) : Constraint {
+data class CurrencyNotEquals(
+    val currency: CurrencyUnit,
+) : Constraint {
     override val messageBundle: String = BASE_BUNDLE_NAME
 }
 
@@ -56,7 +60,9 @@ data class CurrencyNotEquals(val currency: CurrencyUnit) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class CurrencyIn(val currencies: Iterable<CurrencyUnit>) : Constraint {
+data class CurrencyIn(
+    val currencies: Iterable<CurrencyUnit>,
+) : Constraint {
     override val messageBundle: String = BASE_BUNDLE_NAME
 }
 
@@ -69,6 +75,8 @@ data class CurrencyIn(val currencies: Iterable<CurrencyUnit>) : Constraint {
  * @see Constraint
  * @since 0.1.0
  */
-data class CurrencyNotIn(val currencies: Iterable<CurrencyUnit>) : Constraint {
+data class CurrencyNotIn(
+    val currencies: Iterable<CurrencyUnit>,
+) : Constraint {
     override val messageBundle: String = BASE_BUNDLE_NAME
 }

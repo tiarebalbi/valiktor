@@ -1,19 +1,19 @@
 plugins {
-    kotlin("plugin.spring") version "1.4.10"
+    kotlin("plugin.spring") version "2.2.21"
 }
 
-val springBootVersion = "2.3.4.RELEASE"
-val jacksonVersion = "2.11.2"
+val springBootVersion = "3.4.3"
+val jacksonVersion = "2.19.4"
 
 dependencies {
     compileOnly(project(":valiktor-spring:valiktor-spring"))
     compileOnly("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    compile("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion")
 
-    testCompile(project(":valiktor-spring:valiktor-spring"))
-    testCompile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    testCompile("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
-    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-    testCompile("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    testImplementation(project(":valiktor-spring:valiktor-spring"))
+    testImplementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux:$springBootVersion")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 }

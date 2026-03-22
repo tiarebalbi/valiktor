@@ -34,5 +34,5 @@ import org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
 data class ValiktorResponse<T : Any>(
     val statusCode: HttpStatus = UNPROCESSABLE_ENTITY,
     val headers: HttpHeaders? = null,
-    val body: T
+    val body: T,
 )

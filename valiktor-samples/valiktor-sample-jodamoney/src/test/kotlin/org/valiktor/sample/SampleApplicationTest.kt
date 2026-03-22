@@ -25,13 +25,12 @@ import org.valiktor.test.shouldFailValidation
 import kotlin.test.Test
 
 class SampleApplicationTest {
-
     @Test
     fun `should validate employee`() {
         shouldFailValidation<Employee> {
             Employee(
                 grossSalary = Money.of(CurrencyUnit.of("EUR"), 1000.0),
-                netSalary = BigMoney.of(CurrencyUnit.of("EUR"), 999.999)
+                netSalary = BigMoney.of(CurrencyUnit.of("EUR"), 999.999),
             )
         }.verify {
             expect(Employee::grossSalary, Money.of(CurrencyUnit.of("EUR"), 1000.0), CurrencyIn(SUPPORTED_CURRENCIES))

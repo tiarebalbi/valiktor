@@ -28,7 +28,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class JodaTimeFormatterSpiTest {
-
     @Test
     fun `should get JodaTimeFormatterSpi`() {
         assertEquals(Formatters[DateTime::class], DateTimeFormatter)

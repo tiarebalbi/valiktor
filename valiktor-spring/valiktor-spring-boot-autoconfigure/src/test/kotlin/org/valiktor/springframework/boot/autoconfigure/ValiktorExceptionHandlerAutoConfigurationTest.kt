@@ -32,14 +32,14 @@ import java.util.Locale
 import kotlin.test.Test
 
 class ValiktorExceptionHandlerAutoConfigurationTest {
-
-    private val contextRunner = ApplicationContextRunner()
-        .withConfiguration(
-            AutoConfigurations.of(
-                ValiktorAutoConfiguration::class.java,
-                ValiktorExceptionHandlerAutoConfiguration::class.java
+    private val contextRunner =
+        ApplicationContextRunner()
+            .withConfiguration(
+                AutoConfigurations.of(
+                    ValiktorAutoConfiguration::class.java,
+                    ValiktorExceptionHandlerAutoConfiguration::class.java,
+                ),
             )
-        )
 
     @Test
     fun `should not create ValiktorExceptionHandler without ValiktorConfiguration`() {
@@ -82,28 +82,30 @@ class ValiktorExceptionHandlerAutoConfigurationTest {
 }
 
 private data class CustomBody(
-    val errors: Map<String, String>
+    val errors: Map<String, String>,
 )
 
 private class CustomValiktorExceptionHandler(
-    private val config: ValiktorConfiguration
+    private val config: ValiktorConfiguration,
 ) : ValiktorExceptionHandler<CustomBody> {
-
-    override fun handle(exception: ConstraintViolationException, locale: Locale): ValiktorResponse<CustomBody> =
+    override fun handle(
+        exception: ConstraintViolationException,
+        locale: Locale,
+    ): ValiktorResponse<CustomBody> =
         ValiktorResponse(
-            body = CustomBody(
-                errors = exception.constraintViolations
-                    .mapToMessage(baseName = config.baseBundleName, locale = locale)
-                    .map { constraintViolation -> constraintViolation.property to constraintViolation.message }
-                    .toMap()
-            )
+            body =
+                CustomBody(
+                    errors =
+                        exception.constraintViolations
+                            .toList()
+                            .mapToMessage(baseName = config.baseBundleName, locale = locale)
+                            .associate { it.property to it.message },
+                ),
         )
 }
 
 @Configuration
 private class CustomValiktorExceptionHandlerConfiguration {
-
     @Bean
-    fun valiktorExceptionHandler(config: ValiktorConfiguration): ValiktorExceptionHandler<*> =
-        CustomValiktorExceptionHandler(config)
+    fun valiktorExceptionHandler(config: ValiktorConfiguration): ValiktorExceptionHandler<*> = CustomValiktorExceptionHandler(config)
 }

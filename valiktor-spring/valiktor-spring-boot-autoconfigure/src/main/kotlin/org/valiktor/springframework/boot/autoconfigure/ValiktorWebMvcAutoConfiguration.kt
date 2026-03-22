@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.valiktor.springframework.http.ValiktorExceptionHandler
 import org.valiktor.springframework.http.webmvc.ConstraintViolationExceptionHandler
 import org.valiktor.springframework.http.webmvc.InvalidFormatExceptionHandler
@@ -32,11 +32,10 @@ import org.valiktor.springframework.http.webmvc.MissingKotlinParameterExceptionH
  * @author Rodolpho S. Couto
  * @since 0.3.0
  */
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = ["org.springframework.web.servlet.DispatcherServlet"])
 @ConditionalOnBean(type = ["org.valiktor.springframework.http.ValiktorExceptionHandler"])
 class ValiktorWebMvcAutoConfiguration {
-
     /**
      * Creates a [ConstraintViolationExceptionHandler]
      *
@@ -44,8 +43,7 @@ class ValiktorWebMvcAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    fun constraintViolationExceptionHandler(handler: ValiktorExceptionHandler<*>) =
-        ConstraintViolationExceptionHandler(handler)
+    fun constraintViolationExceptionHandler(handler: ValiktorExceptionHandler<*>) = ConstraintViolationExceptionHandler(handler)
 
     /**
      * Creates a [InvalidFormatExceptionHandler]

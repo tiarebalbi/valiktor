@@ -28,9 +28,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class ValiktorAutoConfigurationTest {
-
-    private val contextRunner = ApplicationContextRunner()
-        .withConfiguration(AutoConfigurations.of(ValiktorAutoConfiguration::class.java))
+    private val contextRunner =
+        ApplicationContextRunner()
+            .withConfiguration(AutoConfigurations.of(ValiktorAutoConfiguration::class.java))
 
     @Test
     fun `should not create ValiktorConfiguration without ValiktorConfiguration`() {
@@ -73,8 +73,6 @@ class ValiktorAutoConfigurationTest {
 
 @Configuration
 private class ValiktorCustomConfiguration {
-
     @Bean
-    fun valiktorConfiguration(): ValiktorConfiguration =
-        ValiktorConfiguration(baseBundleName = "testMessages")
+    fun valiktorConfiguration(): ValiktorConfiguration = ValiktorConfiguration(baseBundleName = "testMessages")
 }

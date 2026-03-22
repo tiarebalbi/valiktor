@@ -45,7 +45,9 @@ object NotNull : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class Equals<T>(val value: T) : Constraint
+data class Equals<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value isn't equal to another value
@@ -56,7 +58,9 @@ data class Equals<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotEquals<T>(val value: T) : Constraint
+data class NotEquals<T>(
+    val value: T,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is equal to one of the values
@@ -67,7 +71,9 @@ data class NotEquals<T>(val value: T) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class In<T>(val values: Iterable<T>) : Constraint
+data class In<T>(
+    val values: Iterable<T>,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value isn't equal to any value
@@ -78,7 +84,9 @@ data class In<T>(val values: Iterable<T>) : Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class NotIn<T>(val values: Iterable<T>) : Constraint
+data class NotIn<T>(
+    val values: Iterable<T>,
+) : Constraint
 
 /**
  * Represents a constraint that validate if the value is valid by passing a custom function

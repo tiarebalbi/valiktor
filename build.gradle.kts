@@ -1,21 +1,22 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "2.2.21"
     id("jacoco")
     id("signing")
     id("maven-publish")
-    id("org.jetbrains.dokka") version "0.10.1"
-    id("org.jmailen.kotlinter") version "3.2.0"
-    id("com.adarshr.test-logger") version "2.1.1"
+    id("org.jetbrains.dokka") version "1.9.20"
+    id("org.jmailen.kotlinter") version "5.4.2"
+    id("com.adarshr.test-logger") version "4.0.0"
 }
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 subprojects {
-    val junitVersion = "5.7.0"
-    val assertjVersion = "3.17.2"
+    val junitVersion = "5.11.4"
+    val assertjVersion = "3.27.7"
 
     apply {
         plugin("kotlin")
@@ -31,35 +32,30 @@ subprojects {
 
     repositories {
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
-        compile(kotlin("stdlib"))
+        implementation(kotlin("stdlib"))
 
-        testCompile(kotlin("test-junit5"))
-        testCompile("org.assertj:assertj-core:$assertjVersion")
-        testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+        testImplementation(kotlin("test-junit5"))
+        testImplementation("org.assertj:assertj-core:$assertjVersion")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     }
 
     testlogger {
         setTheme("mocha")
     }
 
-    kotlinter {
-        disabledRules = arrayOf("import-ordering")
-    }
-
     tasks {
         compileKotlin {
-            kotlinOptions {
-                jvmTarget = "1.6"
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_17)
             }
         }
 
         compileTestKotlin {
-            kotlinOptions {
-                jvmTarget = "1.6"
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_17)
             }
         }
 
@@ -84,15 +80,14 @@ subprojects {
             }
         }
 
-        dokka {
-            outputFormat = "javadoc"
-            outputDirectory = "$buildDir/javadoc"
+        named<org.jetbrains.dokka.gradle.DokkaTask>("dokkaJavadoc") {
+            outputDirectory.set(layout.buildDirectory.dir("javadoc").get().asFile)
         }
 
         jacocoTestReport {
             reports {
-                xml.isEnabled = true
-                html.isEnabled = true
+                xml.required.set(true)
+                html.required.set(true)
             }
         }
 
@@ -125,14 +120,15 @@ subprojects {
             create<MavenPublication>("mavenJava") {
                 val binaryJar = components["java"]
 
-                val sourcesJar by tasks.creating(Jar::class) {
+                val sourcesJar by tasks.registering(Jar::class) {
                     archiveClassifier.set("sources")
                     from(sourceSets["main"].allSource)
                 }
 
-                val javadocJar by tasks.creating(Jar::class) {
+                val javadocJar by tasks.registering(Jar::class) {
                     archiveClassifier.set("javadoc")
-                    from("$buildDir/javadoc")
+                    dependsOn(tasks.named("dokkaJavadoc"))
+                    from(layout.buildDirectory.dir("javadoc"))
                 }
 
                 from(binaryJar)

@@ -21,16 +21,16 @@ import org.valiktor.test.shouldFailValidation
 import kotlin.test.Test
 
 class SampleApplicationTest {
-
     @Test
     fun `should validate employee`() {
         shouldFailValidation<Employee> {
             Employee(
-                dependents = listOf(
-                    Dependent(name = ""),
-                    Dependent(name = " "),
-                    Dependent(name = "  ")
-                )
+                dependents =
+                    listOf(
+                        Dependent(name = ""),
+                        Dependent(name = " "),
+                        Dependent(name = "  "),
+                    ),
             )
         }.verify {
             expectAll(Employee::dependents) {

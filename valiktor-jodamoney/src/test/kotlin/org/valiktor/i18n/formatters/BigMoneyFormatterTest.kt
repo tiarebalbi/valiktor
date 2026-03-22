@@ -30,17 +30,19 @@ import kotlin.test.Test
 private val BRL = CurrencyUnit.of("BRL")
 private val USD = CurrencyUnit.of("USD")
 
-private fun <T : Number> moneyOf(currency: CurrencyUnit, number: T) = BigMoney.of(currency, number.asBigDecimal())
+private fun <T : Number> moneyOf(
+    currency: CurrencyUnit,
+    number: T,
+) = BigMoney.of(currency, number.asBigDecimal())
 
 class BigMoneyFormatterTest {
-
     @Test
     fun `should format Byte value`() {
         assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, 1.toByte()))).contains(
             entry(SupportedLocales.DEFAULT, "BRL 1.00"),
             entry(SupportedLocales.DE, "BRL 1,00"),
             entry(SupportedLocales.EN, "BRL1.00"),
-            entry(SupportedLocales.PT_BR, "R$ 1,00")
+            entry(SupportedLocales.PT_BR, "R$ 1,00"),
         )
     }
 
@@ -50,7 +52,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 98.00"),
             entry(SupportedLocales.DE, "-USD 98,00"),
             entry(SupportedLocales.EN, "-USD98.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 98,00")
+            entry(SupportedLocales.PT_BR, "-US$ 98,00"),
         )
     }
 
@@ -60,7 +62,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 987.00"),
             entry(SupportedLocales.DE, "BRL 987,00"),
             entry(SupportedLocales.EN, "BRL987.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987,00")
+            entry(SupportedLocales.PT_BR, "R$ 987,00"),
         )
     }
 
@@ -70,7 +72,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 987.00"),
             entry(SupportedLocales.DE, "-USD 987,00"),
             entry(SupportedLocales.EN, "-USD987.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987,00"),
         )
     }
 
@@ -80,7 +82,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 9,876.00"),
             entry(SupportedLocales.DE, "BRL 9.876,00"),
             entry(SupportedLocales.EN, "BRL9,876.00"),
-            entry(SupportedLocales.PT_BR, "R$ 9.876,00")
+            entry(SupportedLocales.PT_BR, "R$ 9.876,00"),
         )
     }
 
@@ -90,7 +92,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 9,876.00"),
             entry(SupportedLocales.DE, "-USD 9.876,00"),
             entry(SupportedLocales.EN, "-USD9,876.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 9.876,00")
+            entry(SupportedLocales.PT_BR, "-US$ 9.876,00"),
         )
     }
 
@@ -100,7 +102,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 987.00"),
             entry(SupportedLocales.DE, "BRL 987,00"),
             entry(SupportedLocales.EN, "BRL987.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987,00")
+            entry(SupportedLocales.PT_BR, "R$ 987,00"),
         )
     }
 
@@ -110,7 +112,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 987.00"),
             entry(SupportedLocales.DE, "-USD 987,00"),
             entry(SupportedLocales.EN, "-USD987.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987,00"),
         )
     }
 
@@ -120,7 +122,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 987,654,321.00"),
             entry(SupportedLocales.DE, "BRL 987.654.321,00"),
             entry(SupportedLocales.EN, "BRL987,654,321.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987.654.321,00")
+            entry(SupportedLocales.PT_BR, "R$ 987.654.321,00"),
         )
     }
 
@@ -130,7 +132,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 987,654,321.00"),
             entry(SupportedLocales.DE, "-USD 987.654.321,00"),
             entry(SupportedLocales.EN, "-USD987,654,321.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987.654.321,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987.654.321,00"),
         )
     }
 
@@ -140,7 +142,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 987.00"),
             entry(SupportedLocales.DE, "BRL 987,00"),
             entry(SupportedLocales.EN, "BRL987.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987,00")
+            entry(SupportedLocales.PT_BR, "R$ 987,00"),
         )
     }
 
@@ -150,7 +152,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 987.00"),
             entry(SupportedLocales.DE, "-USD 987,00"),
             entry(SupportedLocales.EN, "-USD987.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987,00"),
         )
     }
 
@@ -160,7 +162,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 98,765,432,109,876,543.00"),
             entry(SupportedLocales.DE, "BRL 98.765.432.109.876.543,00"),
             entry(SupportedLocales.EN, "BRL98,765,432,109,876,543.00"),
-            entry(SupportedLocales.PT_BR, "R$ 98.765.432.109.876.543,00")
+            entry(SupportedLocales.PT_BR, "R$ 98.765.432.109.876.543,00"),
         )
     }
 
@@ -170,7 +172,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 98,765,432,109,876,543.00"),
             entry(SupportedLocales.DE, "-USD 98.765.432.109.876.543,00"),
             entry(SupportedLocales.EN, "-USD98,765,432,109,876,543.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 98.765.432.109.876.543,00")
+            entry(SupportedLocales.PT_BR, "-US$ 98.765.432.109.876.543,00"),
         )
     }
 
@@ -180,7 +182,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 123.00"),
             entry(SupportedLocales.DE, "BRL 123,00"),
             entry(SupportedLocales.EN, "BRL123.00"),
-            entry(SupportedLocales.PT_BR, "R$ 123,00")
+            entry(SupportedLocales.PT_BR, "R$ 123,00"),
         )
     }
 
@@ -190,27 +192,31 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 123.00"),
             entry(SupportedLocales.DE, "-USD 123,00"),
             entry(SupportedLocales.EN, "-USD123.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 123,00")
+            entry(SupportedLocales.PT_BR, "-US$ 123,00"),
         )
     }
 
     @Test
     fun `should format BigInteger value with grouping`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "987654321012345678910111231451659990".toBigInteger()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "987654321012345678910111231451659990".toBigInteger())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "BRL 987,654,321,012,345,678,910,111,231,451,659,990.00"),
             entry(SupportedLocales.DE, "BRL 987.654.321.012.345.678.910.111.231.451.659.990,00"),
             entry(SupportedLocales.EN, "BRL987,654,321,012,345,678,910,111,231,451,659,990.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987.654.321.012.345.678.910.111.231.451.659.990,00")
+            entry(SupportedLocales.PT_BR, "R$ 987.654.321.012.345.678.910.111.231.451.659.990,00"),
         )
     }
 
     @Test
     fun `should format BigInteger negative value with grouping`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-987654321012345678910111231451659990".toBigInteger()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-987654321012345678910111231451659990".toBigInteger())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "-USD 987,654,321,012,345,678,910,111,231,451,659,990.00"),
             entry(SupportedLocales.DE, "-USD 987.654.321.012.345.678.910.111.231.451.659.990,00"),
             entry(SupportedLocales.EN, "-USD987,654,321,012,345,678,910,111,231,451,659,990.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987.654.321.012.345.678.910.111.231.451.659.990,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987.654.321.012.345.678.910.111.231.451.659.990,00"),
         )
     }
 
@@ -220,7 +226,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 987.00"),
             entry(SupportedLocales.DE, "BRL 987,00"),
             entry(SupportedLocales.EN, "BRL987.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987,00")
+            entry(SupportedLocales.PT_BR, "R$ 987,00"),
         )
     }
 
@@ -230,7 +236,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 987.00"),
             entry(SupportedLocales.DE, "-USD 987,00"),
             entry(SupportedLocales.EN, "-USD987.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987,00"),
         )
     }
 
@@ -240,7 +246,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 9,210,123.00"),
             entry(SupportedLocales.DE, "BRL 9.210.123,00"),
             entry(SupportedLocales.EN, "BRL9,210,123.00"),
-            entry(SupportedLocales.PT_BR, "R$ 9.210.123,00")
+            entry(SupportedLocales.PT_BR, "R$ 9.210.123,00"),
         )
     }
 
@@ -250,7 +256,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 9,210,123.00"),
             entry(SupportedLocales.DE, "-USD 9.210.123,00"),
             entry(SupportedLocales.EN, "-USD9,210,123.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 9.210.123,00")
+            entry(SupportedLocales.PT_BR, "-US$ 9.210.123,00"),
         )
     }
 
@@ -260,7 +266,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.9876543"),
             entry(SupportedLocales.DE, "BRL 0,9876543"),
             entry(SupportedLocales.EN, "BRL0.9876543"),
-            entry(SupportedLocales.PT_BR, "R$ 0,9876543")
+            entry(SupportedLocales.PT_BR, "R$ 0,9876543"),
         )
     }
 
@@ -270,7 +276,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 0.9876543"),
             entry(SupportedLocales.DE, "USD 0,9876543"),
             entry(SupportedLocales.EN, "USD0.9876543"),
-            entry(SupportedLocales.PT_BR, "US$ 0,9876543")
+            entry(SupportedLocales.PT_BR, "US$ 0,9876543"),
         )
     }
 
@@ -280,7 +286,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-BRL 0.9876543"),
             entry(SupportedLocales.DE, "-BRL 0,9876543"),
             entry(SupportedLocales.EN, "-BRL0.9876543"),
-            entry(SupportedLocales.PT_BR, "-R$ 0,9876543")
+            entry(SupportedLocales.PT_BR, "-R$ 0,9876543"),
         )
     }
 
@@ -290,7 +296,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 0.9876543"),
             entry(SupportedLocales.DE, "-USD 0,9876543"),
             entry(SupportedLocales.EN, "-USD0.9876543"),
-            entry(SupportedLocales.PT_BR, "-US$ 0,9876543")
+            entry(SupportedLocales.PT_BR, "-US$ 0,9876543"),
         )
     }
 
@@ -300,7 +306,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 6,543.987"),
             entry(SupportedLocales.DE, "BRL 6.543,987"),
             entry(SupportedLocales.EN, "BRL6,543.987"),
-            entry(SupportedLocales.PT_BR, "R$ 6.543,987")
+            entry(SupportedLocales.PT_BR, "R$ 6.543,987"),
         )
     }
 
@@ -310,7 +316,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 6,543.987"),
             entry(SupportedLocales.DE, "USD 6.543,987"),
             entry(SupportedLocales.EN, "USD6,543.987"),
-            entry(SupportedLocales.PT_BR, "US$ 6.543,987")
+            entry(SupportedLocales.PT_BR, "US$ 6.543,987"),
         )
     }
 
@@ -320,7 +326,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-BRL 6,543.987"),
             entry(SupportedLocales.DE, "-BRL 6.543,987"),
             entry(SupportedLocales.EN, "-BRL6,543.987"),
-            entry(SupportedLocales.PT_BR, "-R$ 6.543,987")
+            entry(SupportedLocales.PT_BR, "-R$ 6.543,987"),
         )
     }
 
@@ -330,7 +336,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 6,543.987"),
             entry(SupportedLocales.DE, "-USD 6.543,987"),
             entry(SupportedLocales.EN, "-USD6,543.987"),
-            entry(SupportedLocales.PT_BR, "-US$ 6.543,987")
+            entry(SupportedLocales.PT_BR, "-US$ 6.543,987"),
         )
     }
 
@@ -340,7 +346,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.00"),
             entry(SupportedLocales.DE, "BRL 0,00"),
             entry(SupportedLocales.EN, "BRL0.00"),
-            entry(SupportedLocales.PT_BR, "R$ 0,00")
+            entry(SupportedLocales.PT_BR, "R$ 0,00"),
         )
     }
 
@@ -350,7 +356,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 0.00"),
             entry(SupportedLocales.DE, "USD 0,00"),
             entry(SupportedLocales.EN, "USD0.00"),
-            entry(SupportedLocales.PT_BR, "US$ 0,00")
+            entry(SupportedLocales.PT_BR, "US$ 0,00"),
         )
     }
 
@@ -360,7 +366,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.00"),
             entry(SupportedLocales.DE, "BRL 0,00"),
             entry(SupportedLocales.EN, "BRL0.00"),
-            entry(SupportedLocales.PT_BR, "R$ 0,00")
+            entry(SupportedLocales.PT_BR, "R$ 0,00"),
         )
     }
 
@@ -370,7 +376,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 987.00"),
             entry(SupportedLocales.DE, "USD 987,00"),
             entry(SupportedLocales.EN, "USD987.00"),
-            entry(SupportedLocales.PT_BR, "US$ 987,00")
+            entry(SupportedLocales.PT_BR, "US$ 987,00"),
         )
     }
 
@@ -380,7 +386,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-BRL 987.00"),
             entry(SupportedLocales.DE, "-BRL 987,00"),
             entry(SupportedLocales.EN, "-BRL987.00"),
-            entry(SupportedLocales.PT_BR, "-R$ 987,00")
+            entry(SupportedLocales.PT_BR, "-R$ 987,00"),
         )
     }
 
@@ -390,7 +396,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 9,876,543,210,123.00"),
             entry(SupportedLocales.DE, "USD 9.876.543.210.123,00"),
             entry(SupportedLocales.EN, "USD9,876,543,210,123.00"),
-            entry(SupportedLocales.PT_BR, "US$ 9.876.543.210.123,00")
+            entry(SupportedLocales.PT_BR, "US$ 9.876.543.210.123,00"),
         )
     }
 
@@ -400,7 +406,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-BRL 9,876,543,210,123.00"),
             entry(SupportedLocales.DE, "-BRL 9.876.543.210.123,00"),
             entry(SupportedLocales.EN, "-BRL9,876,543,210,123.00"),
-            entry(SupportedLocales.PT_BR, "-R$ 9.876.543.210.123,00")
+            entry(SupportedLocales.PT_BR, "-R$ 9.876.543.210.123,00"),
         )
     }
 
@@ -410,7 +416,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 0.987654321"),
             entry(SupportedLocales.DE, "USD 0,987654321"),
             entry(SupportedLocales.EN, "USD0.987654321"),
-            entry(SupportedLocales.PT_BR, "US$ 0,987654321")
+            entry(SupportedLocales.PT_BR, "US$ 0,987654321"),
         )
     }
 
@@ -420,7 +426,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.987654321"),
             entry(SupportedLocales.DE, "BRL 0,987654321"),
             entry(SupportedLocales.EN, "BRL0.987654321"),
-            entry(SupportedLocales.PT_BR, "R$ 0,987654321")
+            entry(SupportedLocales.PT_BR, "R$ 0,987654321"),
         )
     }
 
@@ -430,7 +436,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 0.987654321"),
             entry(SupportedLocales.DE, "-USD 0,987654321"),
             entry(SupportedLocales.EN, "-USD0.987654321"),
-            entry(SupportedLocales.PT_BR, "-US$ 0,987654321")
+            entry(SupportedLocales.PT_BR, "-US$ 0,987654321"),
         )
     }
 
@@ -440,7 +446,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-BRL 0.987654321"),
             entry(SupportedLocales.DE, "-BRL 0,987654321"),
             entry(SupportedLocales.EN, "-BRL0.987654321"),
-            entry(SupportedLocales.PT_BR, "-R$ 0,987654321")
+            entry(SupportedLocales.PT_BR, "-R$ 0,987654321"),
         )
     }
 
@@ -450,7 +456,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 876,543.987654321"),
             entry(SupportedLocales.DE, "USD 876.543,987654321"),
             entry(SupportedLocales.EN, "USD876,543.987654321"),
-            entry(SupportedLocales.PT_BR, "US$ 876.543,987654321")
+            entry(SupportedLocales.PT_BR, "US$ 876.543,987654321"),
         )
     }
 
@@ -460,7 +466,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 876,543.987654321"),
             entry(SupportedLocales.DE, "BRL 876.543,987654321"),
             entry(SupportedLocales.EN, "BRL876,543.987654321"),
-            entry(SupportedLocales.PT_BR, "R$ 876.543,987654321")
+            entry(SupportedLocales.PT_BR, "R$ 876.543,987654321"),
         )
     }
 
@@ -470,7 +476,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 876,543.987654321"),
             entry(SupportedLocales.DE, "-USD 876.543,987654321"),
             entry(SupportedLocales.EN, "-USD876,543.987654321"),
-            entry(SupportedLocales.PT_BR, "-US$ 876.543,987654321")
+            entry(SupportedLocales.PT_BR, "-US$ 876.543,987654321"),
         )
     }
 
@@ -480,7 +486,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-BRL 876,543.987654321"),
             entry(SupportedLocales.DE, "-BRL 876.543,987654321"),
             entry(SupportedLocales.EN, "-BRL876,543.987654321"),
-            entry(SupportedLocales.PT_BR, "-R$ 876.543,987654321")
+            entry(SupportedLocales.PT_BR, "-R$ 876.543,987654321"),
         )
     }
 
@@ -490,7 +496,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 0.00"),
             entry(SupportedLocales.DE, "USD 0,00"),
             entry(SupportedLocales.EN, "USD0.00"),
-            entry(SupportedLocales.PT_BR, "US$ 0,00")
+            entry(SupportedLocales.PT_BR, "US$ 0,00"),
         )
     }
 
@@ -500,7 +506,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.00"),
             entry(SupportedLocales.DE, "BRL 0,00"),
             entry(SupportedLocales.EN, "BRL0.00"),
-            entry(SupportedLocales.PT_BR, "R$ 0,00")
+            entry(SupportedLocales.PT_BR, "R$ 0,00"),
         )
     }
 
@@ -510,7 +516,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 0.00"),
             entry(SupportedLocales.DE, "USD 0,00"),
             entry(SupportedLocales.EN, "USD0.00"),
-            entry(SupportedLocales.PT_BR, "US$ 0,00")
+            entry(SupportedLocales.PT_BR, "US$ 0,00"),
         )
     }
 
@@ -520,7 +526,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 987.00"),
             entry(SupportedLocales.DE, "BRL 987,00"),
             entry(SupportedLocales.EN, "BRL987.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987,00")
+            entry(SupportedLocales.PT_BR, "R$ 987,00"),
         )
     }
 
@@ -530,107 +536,135 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "-USD 987.00"),
             entry(SupportedLocales.DE, "-USD 987,00"),
             entry(SupportedLocales.EN, "-USD987.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987,00"),
         )
     }
 
     @Test
     fun `should format BigDecimal value with grouping`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "987654321012345678910111231451659990".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "987654321012345678910111231451659990".toBigDecimal())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "BRL 987,654,321,012,345,678,910,111,231,451,659,990.00"),
             entry(SupportedLocales.DE, "BRL 987.654.321.012.345.678.910.111.231.451.659.990,00"),
             entry(SupportedLocales.EN, "BRL987,654,321,012,345,678,910,111,231,451,659,990.00"),
-            entry(SupportedLocales.PT_BR, "R$ 987.654.321.012.345.678.910.111.231.451.659.990,00")
+            entry(SupportedLocales.PT_BR, "R$ 987.654.321.012.345.678.910.111.231.451.659.990,00"),
         )
     }
 
     @Test
     fun `should format BigDecimal negative value with grouping`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-987654321012345678910111231451659990".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-987654321012345678910111231451659990".toBigDecimal())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "-USD 987,654,321,012,345,678,910,111,231,451,659,990.00"),
             entry(SupportedLocales.DE, "-USD 987.654.321.012.345.678.910.111.231.451.659.990,00"),
             entry(SupportedLocales.EN, "-USD987,654,321,012,345,678,910,111,231,451,659,990.00"),
-            entry(SupportedLocales.PT_BR, "-US$ 987.654.321.012.345.678.910.111.231.451.659.990,00")
+            entry(SupportedLocales.PT_BR, "-US$ 987.654.321.012.345.678.910.111.231.451.659.990,00"),
         )
     }
 
     @Test
     fun `should format BigDecimal value with decimal digits`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "0.987654321234567891011121314151699786".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "0.987654321234567891011121314151699786".toBigDecimal())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "BRL 0.987654321234567891011121314151699786"),
             entry(SupportedLocales.DE, "BRL 0,987654321234567891011121314151699786"),
             entry(SupportedLocales.EN, "BRL0.987654321234567891011121314151699786"),
-            entry(SupportedLocales.PT_BR, "R$ 0,987654321234567891011121314151699786")
+            entry(SupportedLocales.PT_BR, "R$ 0,987654321234567891011121314151699786"),
         )
     }
 
     @Test
     fun `should format BigDecimal value with decimal digits without preserving zeros`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "0.987654321234567891011121314151699786000".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "0.987654321234567891011121314151699786000".toBigDecimal())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "USD 0.987654321234567891011121314151699786"),
             entry(SupportedLocales.DE, "USD 0,987654321234567891011121314151699786"),
             entry(SupportedLocales.EN, "USD0.987654321234567891011121314151699786"),
-            entry(SupportedLocales.PT_BR, "US$ 0,987654321234567891011121314151699786")
+            entry(SupportedLocales.PT_BR, "US$ 0,987654321234567891011121314151699786"),
         )
     }
 
     @Test
     fun `should format BigDecimal negative value with decimal digits`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "-0.987654321234567891011121314151699786".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "-0.987654321234567891011121314151699786".toBigDecimal())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "-BRL 0.987654321234567891011121314151699786"),
             entry(SupportedLocales.DE, "-BRL 0,987654321234567891011121314151699786"),
             entry(SupportedLocales.EN, "-BRL0.987654321234567891011121314151699786"),
-            entry(SupportedLocales.PT_BR, "-R$ 0,987654321234567891011121314151699786")
+            entry(SupportedLocales.PT_BR, "-R$ 0,987654321234567891011121314151699786"),
         )
     }
 
     @Test
     fun `should format BigDecimal negative value with decimal digits without preserving zeros`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-0.98765432123456789101112131415169978600".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-0.98765432123456789101112131415169978600".toBigDecimal())),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "-USD 0.987654321234567891011121314151699786"),
             entry(SupportedLocales.DE, "-USD 0,987654321234567891011121314151699786"),
             entry(SupportedLocales.EN, "-USD0.987654321234567891011121314151699786"),
-            entry(SupportedLocales.PT_BR, "-US$ 0,987654321234567891011121314151699786")
+            entry(SupportedLocales.PT_BR, "-US$ 0,987654321234567891011121314151699786"),
         )
     }
 
     @Test
     fun `should format BigDecimal value with grouping and decimal digits`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "987654321987654321987654321.12345678910111213141516178".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(
+                moneyOf(BRL, "987654321987654321987654321.12345678910111213141516178".toBigDecimal()),
+            ),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "BRL 987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
             entry(SupportedLocales.DE, "BRL 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
             entry(SupportedLocales.EN, "BRL987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
-            entry(SupportedLocales.PT_BR, "R$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178")
+            entry(SupportedLocales.PT_BR, "R$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
         )
     }
 
     @Test
     fun `should format BigDecimal value with grouping and decimal digits without preserving zeros`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "987654321987654321987654321.1234567891011121314151617800".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(
+                moneyOf(USD, "987654321987654321987654321.1234567891011121314151617800".toBigDecimal()),
+            ),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "USD 987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
             entry(SupportedLocales.DE, "USD 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
             entry(SupportedLocales.EN, "USD987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
-            entry(SupportedLocales.PT_BR, "US$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178")
+            entry(SupportedLocales.PT_BR, "US$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
         )
     }
 
     @Test
     fun `should format BigDecimal negative value with grouping and decimal digits`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(BRL, "-987654321987654321987654321.12345678910111213141516178".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(
+                moneyOf(BRL, "-987654321987654321987654321.12345678910111213141516178".toBigDecimal()),
+            ),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "-BRL 987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
             entry(SupportedLocales.DE, "-BRL 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
             entry(SupportedLocales.EN, "-BRL987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
-            entry(SupportedLocales.PT_BR, "-R$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178")
+            entry(SupportedLocales.PT_BR, "-R$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
         )
     }
 
     @Test
     fun `should format BigDecimal negative value with grouping and decimal digits without preserving zeros`() {
-        assertThat(Formatters[BigMoney::class].formatAllSupportedLocales(moneyOf(USD, "-987654321987654321987654321.123456789101112131415161780".toBigDecimal()))).contains(
+        assertThat(
+            Formatters[BigMoney::class].formatAllSupportedLocales(
+                moneyOf(USD, "-987654321987654321987654321.123456789101112131415161780".toBigDecimal()),
+            ),
+        ).contains(
             entry(SupportedLocales.DEFAULT, "-USD 987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
             entry(SupportedLocales.DE, "-USD 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
             entry(SupportedLocales.EN, "-USD987,654,321,987,654,321,987,654,321.12345678910111213141516178"),
-            entry(SupportedLocales.PT_BR, "-US$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178")
+            entry(SupportedLocales.PT_BR, "-US$ 987.654.321.987.654.321.987.654.321,12345678910111213141516178"),
         )
     }
 
@@ -640,7 +674,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.00"),
             entry(SupportedLocales.DE, "BRL 0,00"),
             entry(SupportedLocales.EN, "BRL0.00"),
-            entry(SupportedLocales.PT_BR, "R$ 0,00")
+            entry(SupportedLocales.PT_BR, "R$ 0,00"),
         )
     }
 
@@ -650,7 +684,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "USD 0.00"),
             entry(SupportedLocales.DE, "USD 0,00"),
             entry(SupportedLocales.EN, "USD0.00"),
-            entry(SupportedLocales.PT_BR, "US$ 0,00")
+            entry(SupportedLocales.PT_BR, "US$ 0,00"),
         )
     }
 
@@ -660,7 +694,7 @@ class BigMoneyFormatterTest {
             entry(SupportedLocales.DEFAULT, "BRL 0.00"),
             entry(SupportedLocales.DE, "BRL 0,00"),
             entry(SupportedLocales.EN, "BRL0.00"),
-            entry(SupportedLocales.PT_BR, "R$ 0,00")
+            entry(SupportedLocales.PT_BR, "R$ 0,00"),
         )
     }
 }

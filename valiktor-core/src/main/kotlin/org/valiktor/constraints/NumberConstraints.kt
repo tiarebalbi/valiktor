@@ -28,22 +28,32 @@ import org.valiktor.Constraint
  * @see Constraint
  * @since 0.1.0
  */
-data class IntegerDigits(val min: Int = Int.MIN_VALUE, val max: Int = Int.MAX_VALUE) : Constraint {
+data class IntegerDigits(
+    val min: Int = Int.MIN_VALUE,
+    val max: Int = Int.MAX_VALUE,
+) : Constraint {
     override val messageKey: String =
-        if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) super.messageKey
-        else if (min != Int.MIN_VALUE) "${this.javaClass.name}.min.message"
-        else if (max != Int.MAX_VALUE) "${this.javaClass.name}.max.message"
-        else super.messageKey
+        if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) {
+            super.messageKey
+        } else if (min != Int.MIN_VALUE) {
+            "${this.javaClass.name}.min.message"
+        } else if (max != Int.MAX_VALUE) {
+            "${this.javaClass.name}.max.message"
+        } else {
+            super.messageKey
+        }
 
     override val messageParams: Map<String, *>
-        get() = if (min != Int.MIN_VALUE && max != Int.MAX_VALUE)
-            mapOf(this::min.name to this.min, this::max.name to this.max)
-        else if (min != Int.MIN_VALUE)
-            mapOf(this::min.name to this.min)
-        else if (max != Int.MAX_VALUE)
-            mapOf(this::max.name to this.max)
-        else
-            mapOf(this::min.name to this.min, this::max.name to this.max)
+        get() =
+            if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) {
+                mapOf(this::min.name to this.min, this::max.name to this.max)
+            } else if (min != Int.MIN_VALUE) {
+                mapOf(this::min.name to this.min)
+            } else if (max != Int.MAX_VALUE) {
+                mapOf(this::max.name to this.max)
+            } else {
+                mapOf(this::min.name to this.min, this::max.name to this.max)
+            }
 }
 
 /**
@@ -56,20 +66,30 @@ data class IntegerDigits(val min: Int = Int.MIN_VALUE, val max: Int = Int.MAX_VA
  * @see Constraint
  * @since 0.1.0
  */
-data class DecimalDigits(val min: Int = Int.MIN_VALUE, val max: Int = Int.MAX_VALUE) : Constraint {
+data class DecimalDigits(
+    val min: Int = Int.MIN_VALUE,
+    val max: Int = Int.MAX_VALUE,
+) : Constraint {
     override val messageKey: String =
-        if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) super.messageKey
-        else if (min != Int.MIN_VALUE) "${this.javaClass.name}.min.message"
-        else if (max != Int.MAX_VALUE) "${this.javaClass.name}.max.message"
-        else super.messageKey
+        if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) {
+            super.messageKey
+        } else if (min != Int.MIN_VALUE) {
+            "${this.javaClass.name}.min.message"
+        } else if (max != Int.MAX_VALUE) {
+            "${this.javaClass.name}.max.message"
+        } else {
+            super.messageKey
+        }
 
     override val messageParams: Map<String, *>
-        get() = if (min != Int.MIN_VALUE && max != Int.MAX_VALUE)
-            mapOf(this::min.name to this.min, this::max.name to this.max)
-        else if (min != Int.MIN_VALUE)
-            mapOf(this::min.name to this.min)
-        else if (max != Int.MAX_VALUE)
-            mapOf(this::max.name to this.max)
-        else
-            mapOf(this::min.name to this.min, this::max.name to this.max)
+        get() =
+            if (min != Int.MIN_VALUE && max != Int.MAX_VALUE) {
+                mapOf(this::min.name to this.min, this::max.name to this.max)
+            } else if (min != Int.MIN_VALUE) {
+                mapOf(this::min.name to this.min)
+            } else if (max != Int.MAX_VALUE) {
+                mapOf(this::max.name to this.max)
+            } else {
+                mapOf(this::min.name to this.min, this::max.name to this.max)
+            }
 }

@@ -22,7 +22,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class JavaMoneyFormatterSpiTest {
-
     @Test
     fun `should get MonetaryAmountFormatter`() {
         assertEquals(Formatters[MonetaryAmount::class], MonetaryAmountFormatter)

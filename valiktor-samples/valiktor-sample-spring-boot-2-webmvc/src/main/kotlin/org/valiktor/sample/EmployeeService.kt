@@ -36,7 +36,6 @@ import javax.money.Monetary
 
 @Service
 class EmployeeService {
-
     fun create(employee: Employee) {
         validate(employee) {
             validate(Employee::documentNumber).isDocumentNumber()

@@ -49,8 +49,7 @@ import org.valiktor.constraints.Website
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<String?>.isEmpty(): Validator<E>.Property<String?> =
-    this.validate(Empty) { it == null || it.isEmpty() }
+fun <E> Validator<E>.Property<String?>.isEmpty(): Validator<E>.Property<String?> = this.validate(Empty) { it == null || it.isEmpty() }
 
 /**
  * Validates if the [String] property is not empty
@@ -67,8 +66,7 @@ fun <E> Validator<E>.Property<String?>.isNotEmpty(): Validator<E>.Property<Strin
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<String?>.isBlank(): Validator<E>.Property<String?> =
-    this.validate(Blank) { it == null || it.isBlank() }
+fun <E> Validator<E>.Property<String?>.isBlank(): Validator<E>.Property<String?> = this.validate(Blank) { it == null || it.isBlank() }
 
 /**
  * Validates if the [String] property is not blank
@@ -147,8 +145,10 @@ fun <E> Validator<E>.Property<String?>.isNotInIgnoringCase(values: Iterable<Stri
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E> Validator<E>.Property<String?>.hasSize(min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Validator<E>.Property<String?> =
-    this.validate(Size(min, max)) { it == null || it.length in min.rangeTo(max) }
+fun <E> Validator<E>.Property<String?>.hasSize(
+    min: Int = Int.MIN_VALUE,
+    max: Int = Int.MAX_VALUE,
+): Validator<E>.Property<String?> = this.validate(Size(min, max)) { it == null || it.length in min.rangeTo(max) }
 
 /**
  * Validates if the [String] property contains the value
@@ -478,9 +478,10 @@ fun <E> Validator<E>.Property<String?>.doesNotEndWithIgnoringCase(suffix: String
  */
 fun <E> Validator<E>.Property<String?>.isEmail(): Validator<E>.Property<String?> =
     this.validate(Email) {
-        it == null || it.matches(
-            Regex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-        )
+        it == null ||
+            it.matches(
+                Regex("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"),
+            )
     }
 
 /**
@@ -491,7 +492,8 @@ fun <E> Validator<E>.Property<String?>.isEmail(): Validator<E>.Property<String?>
  */
 fun <E> Validator<E>.Property<String?>.isWebsite(): Validator<E>.Property<String?> =
     this.validate(Website) {
-        it == null || it.matches(
-            Regex("^(https?:\\/\\/)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?\$")
-        )
+        it == null ||
+            it.matches(
+                Regex("^(https?:\\/\\/)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\\.)+[\\w]{2,}(\\/\\S*)?\$"),
+            )
     }

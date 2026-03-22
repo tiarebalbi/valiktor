@@ -23,7 +23,6 @@ import org.valiktor.i18n.interpolatedMessages
 import kotlin.test.Test
 
 class EmptyTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Empty.interpolatedMessages()).containsExactly(
@@ -33,13 +32,12 @@ class EmptyTest {
             entry(SupportedLocales.EN, "Must be empty"),
             entry(SupportedLocales.ES, "Tiene que estar vacío"),
             entry(SupportedLocales.JA, "空配列である必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve ser vazio")
+            entry(SupportedLocales.PT_BR, "Deve ser vazio"),
         )
     }
 }
 
 class NotEmptyTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotEmpty.interpolatedMessages()).containsExactly(
@@ -49,13 +47,12 @@ class NotEmptyTest {
             entry(SupportedLocales.EN, "Must not be empty"),
             entry(SupportedLocales.ES, "No puede estar vacío"),
             entry(SupportedLocales.JA, "空配列以外である必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve ser vazio")
+            entry(SupportedLocales.PT_BR, "Não deve ser vazio"),
         )
     }
 }
 
 class ContainsTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(Contains("test").interpolatedMessages()).containsExactly(
@@ -65,13 +62,12 @@ class ContainsTest {
             entry(SupportedLocales.EN, "Must contain test"),
             entry(SupportedLocales.ES, "Tiene que contener test"),
             entry(SupportedLocales.JA, "test が含まれている必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve conter test")
+            entry(SupportedLocales.PT_BR, "Deve conter test"),
         )
     }
 }
 
 class ContainsAllTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(ContainsAll(setOf(1, 2, 3)).interpolatedMessages()).containsExactly(
@@ -81,13 +77,12 @@ class ContainsAllTest {
             entry(SupportedLocales.EN, "Must contain 1, 2, 3"),
             entry(SupportedLocales.ES, "Tiene que contener 1, 2, 3"),
             entry(SupportedLocales.JA, "1, 2, 3 が含まれている必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve conter 1, 2, 3")
+            entry(SupportedLocales.PT_BR, "Deve conter 1, 2, 3"),
         )
     }
 }
 
 class ContainsAnyTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(ContainsAny(setOf(1, 2, 3)).interpolatedMessages()).containsExactly(
@@ -97,13 +92,12 @@ class ContainsAnyTest {
             entry(SupportedLocales.EN, "Must contain 1, 2, 3"),
             entry(SupportedLocales.ES, "Tiene que contener 1, 2, 3"),
             entry(SupportedLocales.JA, "1, 2, 3 のいずれかが含まれている必要があります"),
-            entry(SupportedLocales.PT_BR, "Deve conter 1, 2, 3")
+            entry(SupportedLocales.PT_BR, "Deve conter 1, 2, 3"),
         )
     }
 }
 
 class NotContainTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotContain("test").interpolatedMessages()).containsExactly(
@@ -113,13 +107,12 @@ class NotContainTest {
             entry(SupportedLocales.EN, "Must not contain test"),
             entry(SupportedLocales.ES, "No puede contener test"),
             entry(SupportedLocales.JA, "test が含まれていない必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve conter test")
+            entry(SupportedLocales.PT_BR, "Não deve conter test"),
         )
     }
 }
 
 class NotContainAllTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotContainAll(setOf(1, 2, 3)).interpolatedMessages()).containsExactly(
@@ -129,13 +122,12 @@ class NotContainAllTest {
             entry(SupportedLocales.EN, "Must not contain 1, 2, 3"),
             entry(SupportedLocales.ES, "No puede contener 1, 2, 3"),
             entry(SupportedLocales.JA, "1, 2, 3 がすべて含まれていない必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve conter 1, 2, 3")
+            entry(SupportedLocales.PT_BR, "Não deve conter 1, 2, 3"),
         )
     }
 }
 
 class NotContainAnyTest {
-
     @Test
     fun `should validate messages`() {
         assertThat(NotContainAny(setOf(1, 2, 3)).interpolatedMessages()).containsExactly(
@@ -145,13 +137,12 @@ class NotContainAnyTest {
             entry(SupportedLocales.EN, "Must not contain 1, 2, 3"),
             entry(SupportedLocales.ES, "No puede contener 1, 2, 3"),
             entry(SupportedLocales.JA, "1, 2, 3 のいずれかが含まれていない必要があります"),
-            entry(SupportedLocales.PT_BR, "Não deve conter 1, 2, 3")
+            entry(SupportedLocales.PT_BR, "Não deve conter 1, 2, 3"),
         )
     }
 }
 
 class SizeTest {
-
     @Test
     fun `should validate messages with min`() {
         assertThat(Size(min = 5).interpolatedMessages()).containsExactly(
@@ -161,7 +152,7 @@ class SizeTest {
             entry(SupportedLocales.EN, "Size must be greater than or equal to 5"),
             entry(SupportedLocales.ES, "El tamaño tiene que ser mayor o igual que 5"),
             entry(SupportedLocales.JA, "5 以上である必要があります"),
-            entry(SupportedLocales.PT_BR, "O tamanho deve ser maior ou igual a 5")
+            entry(SupportedLocales.PT_BR, "O tamanho deve ser maior ou igual a 5"),
         )
     }
 
@@ -174,7 +165,7 @@ class SizeTest {
             entry(SupportedLocales.EN, "Size must be less than or equal to 10"),
             entry(SupportedLocales.ES, "El tamaño tiene que ser menor o igual que 10"),
             entry(SupportedLocales.JA, "10 以下である必要があります"),
-            entry(SupportedLocales.PT_BR, "O tamanho deve ser menor ou igual a 10")
+            entry(SupportedLocales.PT_BR, "O tamanho deve ser menor ou igual a 10"),
         )
     }
 
@@ -187,7 +178,7 @@ class SizeTest {
             entry(SupportedLocales.EN, "Size must be between 5 and 10"),
             entry(SupportedLocales.ES, "El tamaño tiene que estar entre 5 y 10"),
             entry(SupportedLocales.JA, "5 以上から 10 以下である必要があります"),
-            entry(SupportedLocales.PT_BR, "O tamanho deve estar entre 5 e 10")
+            entry(SupportedLocales.PT_BR, "O tamanho deve estar entre 5 e 10"),
         )
     }
 }

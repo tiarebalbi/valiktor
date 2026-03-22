@@ -26,294 +26,343 @@ import java.util.Locale
 import javax.money.Monetary
 
 object EmployeeHandlerTestFixture {
-
-    val validEmployee = Employee(
-        documentNumber = "111.111.111-11",
-        name = "John",
-        email = "john@john.com",
-        dateOfBirth = LocalDate.of(1980, Month.JANUARY, 1),
-        salary = Monetary.getDefaultAmountFactory().setNumber(1000).setCurrency(Monetary.getCurrency("USD")).create(),
-        company = Company(
-            name = "Valiktor",
-            foundationDate = LocalDate.of(2000, 1, 1)
-        ),
-        dependents = listOf(
-            Dependent(
-                name = "Little John",
-                age = 5
-            )
-        )
-    )
-
-    val invalidEmployee = Employee(
-        documentNumber = "1",
-        name = "J",
-        email = "john",
-        dateOfBirth = LocalDate.of(1900, Month.JANUARY, 1),
-        salary = Monetary.getDefaultAmountFactory().setNumber(1000).setCurrency(Monetary.getCurrency("BRL")).create(),
-        company = Company(
-            name = "C",
-            foundationDate = LocalDate.of(2000, 1, 1)
-        ),
-        dependents = listOf(
-            Dependent(
-                name = "Li",
-                age = 20
-            )
-        )
-    )
-
-    val unprocessableEntity = mapOf(
-        Locale.ENGLISH to UnprocessableEntity(
-            errors = listOf(
-                ValidationError(
-                    property = "documentNumber",
-                    value = "1",
-                    message = "Must be a valid document",
-                    constraint = ValidationConstraint(
-                        name = "Document",
-                        params = emptyList()
-                    )
+    val validEmployee =
+        Employee(
+            documentNumber = "111.111.111-11",
+            name = "John",
+            email = "john@john.com",
+            dateOfBirth = LocalDate.of(1980, Month.JANUARY, 1),
+            salary =
+                Monetary
+                    .getDefaultAmountFactory()
+                    .setNumber(1000)
+                    .setCurrency(Monetary.getCurrency("USD"))
+                    .create(),
+            company =
+                Company(
+                    name = "Valiktor",
+                    foundationDate = LocalDate.of(2000, 1, 1),
                 ),
-                ValidationError(
-                    property = "name",
-                    value = "J",
-                    message = "Size must be between 3 and 100",
-                    constraint = ValidationConstraint(
-                        name = "Size",
-                        params = listOf(
-                            ValidationParam(
-                                name = "min",
-                                value = 3
-                            ),
-                            ValidationParam(
-                                name = "max",
-                                value = 100
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "email",
-                    value = "john",
-                    message = "Must be a valid email address",
-                    constraint = ValidationConstraint(
-                        name = "Email",
-                        params = emptyList()
-                    )
-                ),
-                ValidationError(
-                    property = "dateOfBirth",
-                    value = "1900-01-01",
-                    message = "Must be greater than Jan 1, 1950",
-                    constraint = ValidationConstraint(
-                        name = "Greater",
-                        params = listOf(
-                            ValidationParam(
-                                name = "value",
-                                value = "1950-01-01"
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "salary",
-                    value = mapOf(
-                        "amount" to 1000.0,
-                        "currency" to "BRL"
+            dependents =
+                listOf(
+                    Dependent(
+                        name = "Little John",
+                        age = 5,
                     ),
-                    message = "Currency unit must be equal to USD",
-                    constraint = ValidationConstraint(
-                        name = "CurrencyEquals",
-                        params = listOf(
-                            ValidationParam(
-                                name = "currency",
-                                value = "USD"
-                            )
-                        )
-                    )
                 ),
-                ValidationError(
-                    property = "company.name",
-                    value = "C",
-                    message = "Size must be between 3 and 50",
-                    constraint = ValidationConstraint(
-                        name = "Size",
-                        params = listOf(
-                            ValidationParam(
-                                name = "min",
-                                value = 3
-                            ),
-                            ValidationParam(
-                                name = "max",
-                                value = 50
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "dependents[0].name",
-                    value = "Li",
-                    message = "Size must be between 3 and 50",
-                    constraint = ValidationConstraint(
-                        name = "Size",
-                        params = listOf(
-                            ValidationParam(
-                                name = "min",
-                                value = 3
-                            ),
-                            ValidationParam(
-                                name = "max",
-                                value = 50
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "dependents[0].age",
-                    value = 20,
-                    message = "Must be between 1 and 18",
-                    constraint = ValidationConstraint(
-                        name = "Between",
-                        params = listOf(
-                            ValidationParam(
-                                name = "end",
-                                value = 18
-                            ),
-                            ValidationParam(
-                                name = "start",
-                                value = 1
-                            )
-                        )
-                    )
-                )
-            )
-        ),
-
-        Locale("pt", "BR") to UnprocessableEntity(
-            errors = listOf(
-                ValidationError(
-                    property = "documentNumber",
-                    value = "1",
-                    message = "Deve ser um documento válido",
-                    constraint = ValidationConstraint(
-                        name = "Document",
-                        params = emptyList()
-                    )
-                ),
-                ValidationError(
-                    property = "name",
-                    value = "J",
-                    message = "O tamanho deve estar entre 3 e 100",
-                    constraint = ValidationConstraint(
-                        name = "Size",
-                        params = listOf(
-                            ValidationParam(
-                                name = "min",
-                                value = 3
-                            ),
-                            ValidationParam(
-                                name = "max",
-                                value = 100
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "email",
-                    value = "john",
-                    message = "Deve ser um endereço de e-mail válido",
-                    constraint = ValidationConstraint(
-                        name = "Email",
-                        params = emptyList()
-                    )
-                ),
-                ValidationError(
-                    property = "dateOfBirth",
-                    value = "1900-01-01",
-                    message = "Deve ser maior que 01/01/1950",
-                    constraint = ValidationConstraint(
-                        name = "Greater",
-                        params = listOf(
-                            ValidationParam(
-                                name = "value",
-                                value = "1950-01-01"
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "salary",
-                    value = mapOf(
-                        "amount" to 1000.0,
-                        "currency" to "BRL"
-                    ),
-                    message = "A unidade monetária deve ser igual a USD",
-                    constraint = ValidationConstraint(
-                        name = "CurrencyEquals",
-                        params = listOf(
-                            ValidationParam(
-                                name = "currency",
-                                value = "USD"
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "company.name",
-                    value = "C",
-                    message = "O tamanho deve estar entre 3 e 50",
-                    constraint = ValidationConstraint(
-                        name = "Size",
-                        params = listOf(
-                            ValidationParam(
-                                name = "min",
-                                value = 3
-                            ),
-                            ValidationParam(
-                                name = "max",
-                                value = 50
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "dependents[0].name",
-                    value = "Li",
-                    message = "O tamanho deve estar entre 3 e 50",
-                    constraint = ValidationConstraint(
-                        name = "Size",
-                        params = listOf(
-                            ValidationParam(
-                                name = "min",
-                                value = 3
-                            ),
-                            ValidationParam(
-                                name = "max",
-                                value = 50
-                            )
-                        )
-                    )
-                ),
-                ValidationError(
-                    property = "dependents[0].age",
-                    value = 20,
-                    message = "Deve estar entre 1 e 18",
-                    constraint = ValidationConstraint(
-                        name = "Between",
-                        params = listOf(
-                            ValidationParam(
-                                name = "end",
-                                value = 18
-                            ),
-                            ValidationParam(
-                                name = "start",
-                                value = 1
-                            )
-                        )
-                    )
-                )
-            )
         )
-    )
+
+    val invalidEmployee =
+        Employee(
+            documentNumber = "1",
+            name = "J",
+            email = "john",
+            dateOfBirth = LocalDate.of(1900, Month.JANUARY, 1),
+            salary =
+                Monetary
+                    .getDefaultAmountFactory()
+                    .setNumber(1000)
+                    .setCurrency(Monetary.getCurrency("BRL"))
+                    .create(),
+            company =
+                Company(
+                    name = "C",
+                    foundationDate = LocalDate.of(2000, 1, 1),
+                ),
+            dependents =
+                listOf(
+                    Dependent(
+                        name = "Li",
+                        age = 20,
+                    ),
+                ),
+        )
+
+    val unprocessableEntity =
+        mapOf(
+            Locale.ENGLISH to
+                UnprocessableEntity(
+                    errors =
+                        listOf(
+                            ValidationError(
+                                property = "documentNumber",
+                                value = "1",
+                                message = "Must be a valid document",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Document",
+                                        params = emptyList(),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "name",
+                                value = "J",
+                                message = "Size must be between 3 and 100",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Size",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "min",
+                                                    value = 3,
+                                                ),
+                                                ValidationParam(
+                                                    name = "max",
+                                                    value = 100,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "email",
+                                value = "john",
+                                message = "Must be a valid email address",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Email",
+                                        params = emptyList(),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "dateOfBirth",
+                                value = "1900-01-01",
+                                message = "Must be greater than Jan 1, 1950",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Greater",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "value",
+                                                    value = "1950-01-01",
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "salary",
+                                value =
+                                    mapOf(
+                                        "amount" to 1000.0,
+                                        "currency" to "BRL",
+                                    ),
+                                message = "Currency unit must be equal to USD",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "CurrencyEquals",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "currency",
+                                                    value = "USD",
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "company.name",
+                                value = "C",
+                                message = "Size must be between 3 and 50",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Size",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "min",
+                                                    value = 3,
+                                                ),
+                                                ValidationParam(
+                                                    name = "max",
+                                                    value = 50,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "dependents[0].name",
+                                value = "Li",
+                                message = "Size must be between 3 and 50",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Size",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "min",
+                                                    value = 3,
+                                                ),
+                                                ValidationParam(
+                                                    name = "max",
+                                                    value = 50,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "dependents[0].age",
+                                value = 20,
+                                message = "Must be between 1 and 18",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Between",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "end",
+                                                    value = 18,
+                                                ),
+                                                ValidationParam(
+                                                    name = "start",
+                                                    value = 1,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                        ),
+                ),
+            Locale("pt", "BR") to
+                UnprocessableEntity(
+                    errors =
+                        listOf(
+                            ValidationError(
+                                property = "documentNumber",
+                                value = "1",
+                                message = "Deve ser um documento válido",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Document",
+                                        params = emptyList(),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "name",
+                                value = "J",
+                                message = "O tamanho deve estar entre 3 e 100",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Size",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "min",
+                                                    value = 3,
+                                                ),
+                                                ValidationParam(
+                                                    name = "max",
+                                                    value = 100,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "email",
+                                value = "john",
+                                message = "Deve ser um endereço de e-mail válido",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Email",
+                                        params = emptyList(),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "dateOfBirth",
+                                value = "1900-01-01",
+                                message = "Deve ser maior que 01/01/1950",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Greater",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "value",
+                                                    value = "1950-01-01",
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "salary",
+                                value =
+                                    mapOf(
+                                        "amount" to 1000.0,
+                                        "currency" to "BRL",
+                                    ),
+                                message = "A unidade monetária deve ser igual a USD",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "CurrencyEquals",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "currency",
+                                                    value = "USD",
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "company.name",
+                                value = "C",
+                                message = "O tamanho deve estar entre 3 e 50",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Size",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "min",
+                                                    value = 3,
+                                                ),
+                                                ValidationParam(
+                                                    name = "max",
+                                                    value = 50,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "dependents[0].name",
+                                value = "Li",
+                                message = "O tamanho deve estar entre 3 e 50",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Size",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "min",
+                                                    value = 3,
+                                                ),
+                                                ValidationParam(
+                                                    name = "max",
+                                                    value = 50,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                            ValidationError(
+                                property = "dependents[0].age",
+                                value = 20,
+                                message = "Deve estar entre 1 e 18",
+                                constraint =
+                                    ValidationConstraint(
+                                        name = "Between",
+                                        params =
+                                            listOf(
+                                                ValidationParam(
+                                                    name = "end",
+                                                    value = 18,
+                                                ),
+                                                ValidationParam(
+                                                    name = "start",
+                                                    value = 1,
+                                                ),
+                                            ),
+                                    ),
+                            ),
+                        ),
+                ),
+        )
 }

@@ -30,13 +30,17 @@ import javax.money.MonetaryAmount
  * @since 0.1.0
  */
 object MonetaryAmountFormatter : Formatter<MonetaryAmount> {
-
-    override fun format(value: MonetaryAmount, messageBundle: MessageBundle): String {
+    override fun format(
+        value: MonetaryAmount,
+        messageBundle: MessageBundle,
+    ): String {
         val bigNum = value.number.numberValueExact(BigDecimal::class.java).stripTrailingZeros()
         val integerDigits = (bigNum.precision() - bigNum.scale()).let { if (it <= 0) 1 else it }
-        val fractionDigits = bigNum.scale()
-            .let { if (it < 0) 0 else it }
-            .let { if (it < value.currency.defaultFractionDigits) value.currency.defaultFractionDigits else it }
+        val fractionDigits =
+            bigNum
+                .scale()
+                .let { if (it < 0) 0 else it }
+                .let { if (it < value.currency.defaultFractionDigits) value.currency.defaultFractionDigits else it }
 
         val numberFormat = NumberFormat.getCurrencyInstance(messageBundle.locale)
         numberFormat.currency = Currency.getInstance(value.currency.currencyCode)

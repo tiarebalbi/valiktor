@@ -36,7 +36,6 @@ import kotlin.test.Test
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class CustomEmployeeHandlerTest {
-
     @Autowired
     private lateinit var env: Environment
 
@@ -56,13 +55,14 @@ class CustomEmployeeHandlerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(CustomEmployeeHandlerTestFixture.validEmployee)
             .exchange()
-            .expectStatus().isCreated
+            .expectStatus()
+            .isCreated
             .expectHeader()
             .valueEquals(
                 HttpHeaders.LOCATION,
-                "http://localhost:${env.getProperty("local.server.port")}/employees/111.111.111-11"
-            )
-            .expectBody().isEmpty
+                "http://localhost:${env.getProperty("local.server.port")}/employees/111.111.111-11",
+            ).expectBody()
+            .isEmpty
     }
 
     @Test
@@ -76,8 +76,10 @@ class CustomEmployeeHandlerTest {
             .exchange()
             .expectStatus()
             .isEqualTo(HttpStatus.BAD_REQUEST)
-            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
-            .expectHeader().valueEquals("X-Custom-Header", "OK")
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+            .expectHeader()
+            .valueEquals("X-Custom-Header", "OK")
             .expectBody<ValidationError>()
             .isEqualTo(CustomEmployeeHandlerTestFixture.validationErrors.getValue(Locale.ENGLISH))
     }
@@ -94,8 +96,10 @@ class CustomEmployeeHandlerTest {
             .exchange()
             .expectStatus()
             .isEqualTo(HttpStatus.BAD_REQUEST)
-            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
-            .expectHeader().valueEquals("X-Custom-Header", "OK")
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+            .expectHeader()
+            .valueEquals("X-Custom-Header", "OK")
             .expectBody<ValidationError>()
             .isEqualTo(CustomEmployeeHandlerTestFixture.validationErrors.getValue(Locale.ENGLISH))
     }
@@ -112,8 +116,10 @@ class CustomEmployeeHandlerTest {
             .exchange()
             .expectStatus()
             .isEqualTo(HttpStatus.BAD_REQUEST)
-            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
-            .expectHeader().valueEquals("X-Custom-Header", "OK")
+            .expectHeader()
+            .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+            .expectHeader()
+            .valueEquals("X-Custom-Header", "OK")
             .expectBody<ValidationError>()
             .isEqualTo(CustomEmployeeHandlerTestFixture.validationErrors.getValue(Locale("pt", "BR")))
     }

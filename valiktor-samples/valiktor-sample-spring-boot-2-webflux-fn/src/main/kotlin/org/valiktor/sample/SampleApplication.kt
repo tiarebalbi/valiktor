@@ -25,18 +25,16 @@ import org.zalando.jackson.datatype.money.MoneyModule
 
 @SpringBootApplication
 class SampleApplication {
-
     @Bean
     fun moneyModule() = MoneyModule()
 
     @Bean
-    fun router(handler: EmployeeHandler) = coRouter {
-        accept(APPLICATION_JSON).nest {
-            "/employees".nest {
-                POST("/", handler::create)
+    fun router(handler: EmployeeHandler) =
+        coRouter {
+            accept(APPLICATION_JSON).nest {
+                POST("/employees", handler::create)
             }
         }
-    }
 }
 
 fun main(args: Array<String>) {

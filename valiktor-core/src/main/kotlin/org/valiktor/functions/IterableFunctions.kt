@@ -39,7 +39,7 @@ import org.valiktor.constraints.Size
  */
 @JvmName("validateForEachIterable")
 inline fun <E, T> Validator<E>.Property<Iterable<T>?>.validateForEach(
-    block: Validator<T>.(T) -> Unit
+    block: Validator<T>.(T) -> Unit,
 ): Validator<E>.Property<Iterable<T>?> {
     this.property.get(this.obj)?.forEachIndexed { index, value ->
         this.addConstraintViolations(
@@ -47,9 +47,9 @@ inline fun <E, T> Validator<E>.Property<Iterable<T>?>.validateForEach(
                 DefaultConstraintViolation(
                     property = "${this.property.name}[$index].${it.property}",
                     value = it.value,
-                    constraint = it.constraint
+                    constraint = it.constraint,
                 )
-            }
+            },
         )
     }
     return this
@@ -64,7 +64,7 @@ inline fun <E, T> Validator<E>.Property<Iterable<T>?>.validateForEach(
  */
 @JvmName("validateForEachIndexedIterable")
 inline fun <E, T> Validator<E>.Property<Iterable<T>?>.validateForEachIndexed(
-    block: Validator<T>.(Int, T) -> Unit
+    block: Validator<T>.(Int, T) -> Unit,
 ): Validator<E>.Property<Iterable<T>?> {
     this.property.get(this.obj)?.forEachIndexed { index, value ->
         this.addConstraintViolations(
@@ -72,9 +72,9 @@ inline fun <E, T> Validator<E>.Property<Iterable<T>?>.validateForEachIndexed(
                 DefaultConstraintViolation(
                     property = "${this.property.name}[$index].${it.property}",
                     value = it.value,
-                    constraint = it.constraint
+                    constraint = it.constraint,
                 )
-            }
+            },
         )
     }
     return this
@@ -148,7 +148,7 @@ fun <E, T> Validator<E>.Property<Iterable<T>?>.isNotEmpty(): Validator<E>.Proper
  */
 fun <E, T> Validator<E>.Property<Iterable<T>?>.hasSize(
     min: Int = Int.MIN_VALUE,
-    max: Int = Int.MAX_VALUE
+    max: Int = Int.MAX_VALUE,
 ): Validator<E>.Property<Iterable<T>?> = this.validate(Size(min, max)) { it == null || it.count() in min.rangeTo(max) }
 
 /**

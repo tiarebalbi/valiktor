@@ -41,9 +41,9 @@ inline fun <E, T : Any> Validator<E>.Property<T?>.validate(block: Validator<T>.(
                 DefaultConstraintViolation(
                     property = "${this.property.name}.${it.property}",
                     value = it.value,
-                    constraint = it.constraint
+                    constraint = it.constraint,
                 )
-            }
+            },
         )
     }
     return this
@@ -55,8 +55,7 @@ inline fun <E, T : Any> Validator<E>.Property<T?>.validate(block: Validator<T>.(
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E, T> Validator<E>.Property<T?>.isNull(): Validator<E>.Property<T?> =
-    this.validate(Null) { it == null }
+fun <E, T> Validator<E>.Property<T?>.isNull(): Validator<E>.Property<T?> = this.validate(Null) { it == null }
 
 /**
  * Validates if the property value is not null
@@ -64,8 +63,7 @@ fun <E, T> Validator<E>.Property<T?>.isNull(): Validator<E>.Property<T?> =
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E, T> Validator<E>.Property<T?>.isNotNull(): Validator<E>.Property<T?> =
-    this.validate(NotNull) { it != null }
+fun <E, T> Validator<E>.Property<T?>.isNotNull(): Validator<E>.Property<T?> = this.validate(NotNull) { it != null }
 
 /**
  * Validates if the property value is equal to another value

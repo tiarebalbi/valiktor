@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.http.codec.CodecConfigurer
 import org.valiktor.springframework.http.ValiktorExceptionHandler
 import org.valiktor.springframework.http.webflux.ReactiveConstraintViolationExceptionHandler
@@ -33,16 +33,15 @@ import org.valiktor.springframework.http.webflux.ReactiveMissingKotlinParameterE
  * @author Rodolpho S. Couto
  * @since 0.3.0
  */
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = ["org.springframework.web.reactive.DispatcherHandler"])
 @ConditionalOnBean(
     type = [
         "org.valiktor.springframework.http.ValiktorExceptionHandler",
-        "org.springframework.http.codec.CodecConfigurer"
-    ]
+        "org.springframework.http.codec.CodecConfigurer",
+    ],
 )
 class ValiktorWebFluxAutoConfiguration {
-
     /**
      * Creates a [ReactiveConstraintViolationExceptionHandler]
      *
@@ -52,7 +51,7 @@ class ValiktorWebFluxAutoConfiguration {
     @ConditionalOnMissingBean
     fun reactiveConstraintViolationExceptionHandler(
         handler: ValiktorExceptionHandler<*>,
-        codecConfigurer: CodecConfigurer
+        codecConfigurer: CodecConfigurer,
     ) = ReactiveConstraintViolationExceptionHandler(handler, codecConfigurer)
 
     /**

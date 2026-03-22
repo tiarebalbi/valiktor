@@ -32,7 +32,10 @@ import kotlin.reflect.KProperty1
  * @author Rodolpho S. Couto
  * @since 0.1.0
  */
-inline fun <E> validate(obj: E, block: Validator<E>.(E) -> Unit): E {
+inline fun <E> validate(
+    obj: E,
+    block: Validator<E>.(E) -> Unit,
+): E {
     val validator = Validator(obj).apply { block(obj) }
     if (validator.constraintViolations.isNotEmpty()) {
         throw ConstraintViolationException(validator.constraintViolations)
@@ -52,8 +55,9 @@ inline fun <E> validate(obj: E, block: Validator<E>.(E) -> Unit): E {
  * @see ConstraintViolation
  * @since 0.1.0
  */
-open class Validator<E>(private val obj: E) {
-
+open class Validator<E>(
+    private val obj: E,
+) {
     /**
      * Specifies the violated constraints
      */
@@ -97,8 +101,10 @@ open class Validator<E>(private val obj: E) {
      * @see KProperty1
      * @since 0.1.0
      */
-    open inner class Property<T>(val obj: E, val property: KProperty1<E, T?>) {
-
+    open inner class Property<T>(
+        val obj: E,
+        val property: KProperty1<E, T?>,
+    ) {
         /**
          * Validates the property by passing the constraint and the validation function
          *
@@ -108,14 +114,18 @@ open class Validator<E>(private val obj: E) {
          * @param isValid specifies the validation function
          * @return the property validator
          */
-        fun validate(constraint: (T?) -> Constraint, isValid: (T?) -> Boolean): Property<T> {
+        fun validate(
+            constraint: (T?) -> Constraint,
+            isValid: (T?) -> Boolean,
+        ): Property<T> {
             val value = this.property.get(this.obj)
             if (!isValid(value)) {
-                this@Validator.constraintViolations += DefaultConstraintViolation(
-                    property = this.property.name,
-                    value = value,
-                    constraint = constraint(value)
-                )
+                this@Validator.constraintViolations +=
+                    DefaultConstraintViolation(
+                        property = this.property.name,
+                        value = value,
+                        constraint = constraint(value),
+                    )
             }
             return this
         }
@@ -129,8 +139,10 @@ open class Validator<E>(private val obj: E) {
          * @param isValid specifies the validation function
          * @return the property validator
          */
-        fun validate(constraint: Constraint, isValid: (T?) -> Boolean): Property<T> =
-            validate({ constraint }, isValid)
+        fun validate(
+            constraint: Constraint,
+            isValid: (T?) -> Boolean,
+        ): Property<T> = validate({ constraint }, isValid)
 
         /**
          * Validates the property by passing the constraint and the suspending validation function
@@ -141,14 +153,18 @@ open class Validator<E>(private val obj: E) {
          * @param isValid specifies the validation function
          * @return the property validator
          */
-        suspend fun coValidate(constraint: (T?) -> Constraint, isValid: suspend (T?) -> Boolean): Property<T> {
+        suspend fun coValidate(
+            constraint: (T?) -> Constraint,
+            isValid: suspend (T?) -> Boolean,
+        ): Property<T> {
             val value = this.property.get(this.obj)
             if (!isValid(value)) {
-                this@Validator.constraintViolations += DefaultConstraintViolation(
-                    property = this.property.name,
-                    value = value,
-                    constraint = constraint(value)
-                )
+                this@Validator.constraintViolations +=
+                    DefaultConstraintViolation(
+                        property = this.property.name,
+                        value = value,
+                        constraint = constraint(value),
+                    )
             }
             return this
         }
@@ -162,8 +178,10 @@ open class Validator<E>(private val obj: E) {
          * @param isValid specifies the validation function
          * @return the property validator
          */
-        suspend fun coValidate(constraint: Constraint, isValid: suspend (T?) -> Boolean): Property<T> =
-            coValidate({ constraint }, isValid)
+        suspend fun coValidate(
+            constraint: Constraint,
+            isValid: suspend (T?) -> Boolean,
+        ): Property<T> = coValidate({ constraint }, isValid)
 
         /**
          * Adds the constraint violations to property

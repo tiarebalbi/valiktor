@@ -20,7 +20,6 @@ import java.util.Locale
 import kotlin.reflect.full.declaredMemberProperties
 
 object SupportedLocales {
-
     val DEFAULT = Locale("")
     val CA = Locale("ca")
     val DE = Locale("de")
@@ -32,21 +31,24 @@ object SupportedLocales {
 
 private const val DEFAULT_BUNDLE = "org/valiktor/messages"
 
-private val SUPPORTED_LOCALES: List<Locale> = SupportedLocales::class.declaredMemberProperties
-    .map { it.get(SupportedLocales) }
-    .map { it as Locale }
-    .sortedBy { it.toString() }
+private val SUPPORTED_LOCALES: List<Locale> =
+    SupportedLocales::class
+        .declaredMemberProperties
+        .map { it.get(SupportedLocales) }
+        .map { it as Locale }
+        .sortedBy { it.toString() }
 
-fun <T : Any> Formatter<T>.formatAllSupportedLocales(value: T): Map<Locale, String> = SUPPORTED_LOCALES
-    .map {
-        it to this.format(
-            value,
-            MessageBundle(
-                baseName = DEFAULT_BUNDLE,
-                locale = it,
-                fallbackBaseName = DEFAULT_BUNDLE,
-                fallbackLocale = Locale.getDefault()
-            )
-        )
-    }
-    .toMap()
+fun <T : Any> Formatter<T>.formatAllSupportedLocales(value: T): Map<Locale, String> =
+    SUPPORTED_LOCALES
+        .map {
+            it to
+                this.format(
+                    value,
+                    MessageBundle(
+                        baseName = DEFAULT_BUNDLE,
+                        locale = it,
+                        fallbackBaseName = DEFAULT_BUNDLE,
+                        fallbackLocale = Locale.getDefault(),
+                    ),
+                )
+        }.toMap()

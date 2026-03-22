@@ -28,26 +28,31 @@ import org.valiktor.springframework.http.ValiktorResponse
 import java.util.Locale
 
 data class ValidationError(
-    val errors: Map<String, String>
+    val errors: Map<String, String>,
 )
 
 @Component
 @Profile("custom-exception-handler")
 class ValidationExceptionHandler(
-    private val config: ValiktorConfiguration
+    private val config: ValiktorConfiguration,
 ) : ValiktorExceptionHandler<ValidationError> {
-
-    override fun handle(exception: ConstraintViolationException, locale: Locale): ValiktorResponse<ValidationError> =
+    override fun handle(
+        exception: ConstraintViolationException,
+        locale: Locale,
+    ): ValiktorResponse<ValidationError> =
         ValiktorResponse(
             statusCode = HttpStatus.BAD_REQUEST,
-            headers = HttpHeaders().apply {
-                this.set("X-Custom-Header", "OK")
-            },
-            body = ValidationError(
-                errors = exception.constraintViolations
-                    .mapToMessage(baseName = config.baseBundleName, locale = locale)
-                    .map { it.property to it.message }
-                    .toMap()
-            )
+            headers =
+                HttpHeaders().apply {
+                    this.set("X-Custom-Header", "OK")
+                },
+            body =
+                ValidationError(
+                    errors =
+                        exception.constraintViolations
+                            .mapToMessage(baseName = config.baseBundleName, locale = locale)
+                            .map { it.property to it.message }
+                            .toMap(),
+                ),
         )
 }

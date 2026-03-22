@@ -39,7 +39,6 @@ import kotlin.test.assertTrue
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class CustomEmployeeControllerTest {
-
     @Autowired
     private lateinit var restTemplate: TestRestTemplate
 

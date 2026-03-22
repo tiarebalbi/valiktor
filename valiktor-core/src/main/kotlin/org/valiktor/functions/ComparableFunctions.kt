@@ -77,8 +77,10 @@ fun <E, T : Comparable<T>> Validator<E>.Property<T?>.isGreaterThanOrEqualTo(valu
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E, T : Comparable<T>> Validator<E>.Property<T?>.isBetween(start: T, end: T): Validator<E>.Property<T?> =
-    this.validate(Between(start, end)) { it == null || it in start.rangeTo(end) }
+fun <E, T : Comparable<T>> Validator<E>.Property<T?>.isBetween(
+    start: T,
+    end: T,
+): Validator<E>.Property<T?> = this.validate(Between(start, end)) { it == null || it in start.rangeTo(end) }
 
 /**
  * Validates if the [Comparable] property isn't between two values
@@ -89,5 +91,7 @@ fun <E, T : Comparable<T>> Validator<E>.Property<T?>.isBetween(start: T, end: T)
  * @receiver the property to be validated
  * @return the same receiver property
  */
-fun <E, T : Comparable<T>> Validator<E>.Property<T?>.isNotBetween(start: T, end: T): Validator<E>.Property<T?> =
-    this.validate(NotBetween(start, end)) { it == null || it !in start.rangeTo(end) }
+fun <E, T : Comparable<T>> Validator<E>.Property<T?>.isNotBetween(
+    start: T,
+    end: T,
+): Validator<E>.Property<T?> = this.validate(NotBetween(start, end)) { it == null || it !in start.rangeTo(end) }

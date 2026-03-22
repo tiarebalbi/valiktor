@@ -32,7 +32,6 @@ import java.util.Locale
  * @since 0.1.0
  */
 interface ConstraintViolationMessage : ConstraintViolation {
-
     val message: String
 }
 
@@ -40,8 +39,9 @@ data class DefaultConstraintViolationMessage(
     override val property: String,
     override val value: Any? = null,
     override val constraint: Constraint,
-    override val message: String
-) : ConstraintViolation by DefaultConstraintViolation(property, value, constraint), ConstraintViolationMessage
+    override val message: String,
+) : ConstraintViolation by DefaultConstraintViolation(property, value, constraint),
+    ConstraintViolationMessage
 
 /**
  * Converts this object to [ConstraintViolationMessage]
@@ -50,21 +50,25 @@ data class DefaultConstraintViolationMessage(
  * @param locale specifies the [Locale] of the message properties
  * @return a new [ConstraintViolationMessage]
  */
-fun ConstraintViolation.toMessage(baseName: String = constraint.messageBundle, locale: Locale = Locale.getDefault()): ConstraintViolationMessage =
+fun ConstraintViolation.toMessage(
+    baseName: String = constraint.messageBundle,
+    locale: Locale = Locale.getDefault(),
+): ConstraintViolationMessage =
     DefaultConstraintViolationMessage(
         property = this.property,
         value = this.value,
         constraint = this.constraint,
-        message = interpolate(
-            MessageBundle(
-                baseName = baseName,
-                locale = locale,
-                fallbackBaseName = this.constraint.messageBundle,
-                fallbackLocale = Locale.getDefault()
+        message =
+            interpolate(
+                MessageBundle(
+                    baseName = baseName,
+                    locale = locale,
+                    fallbackBaseName = this.constraint.messageBundle,
+                    fallbackLocale = Locale.getDefault(),
+                ),
+                this.constraint.messageKey,
+                this.constraint.messageParams,
             ),
-            this.constraint.messageKey,
-            this.constraint.messageParams
-        )
     )
 
 /**
@@ -80,8 +84,10 @@ fun ConstraintViolation.toMessage(baseName: String = constraint.messageBundle, l
  * @see ConstraintViolationMessage
  * @since 0.1.0
  */
-fun Iterable<ConstraintViolation>.mapToMessage(baseName: String? = null, locale: Locale = Locale.getDefault()): List<ConstraintViolationMessage> =
-    this.map { it.toMessage(baseName ?: it.constraint.messageBundle, locale) }
+fun Iterable<ConstraintViolation>.mapToMessage(
+    baseName: String? = null,
+    locale: Locale = Locale.getDefault(),
+): List<ConstraintViolationMessage> = this.map { it.toMessage(baseName ?: it.constraint.messageBundle, locale) }
 
 /**
  * Converts to Sequence<[ConstraintViolationMessage]>
@@ -96,5 +102,7 @@ fun Iterable<ConstraintViolation>.mapToMessage(baseName: String? = null, locale:
  * @see ConstraintViolationMessage
  * @since 0.1.0
  */
-fun Sequence<ConstraintViolation>.mapToMessage(baseName: String? = null, locale: Locale = Locale.getDefault()): Sequence<ConstraintViolationMessage> =
-    this.map { it.toMessage(baseName ?: it.constraint.messageBundle, locale) }
+fun Sequence<ConstraintViolation>.mapToMessage(
+    baseName: String? = null,
+    locale: Locale = Locale.getDefault(),
+): Sequence<ConstraintViolationMessage> = this.map { it.toMessage(baseName ?: it.constraint.messageBundle, locale) }
